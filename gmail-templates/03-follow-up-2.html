@@ -1,0 +1,70 @@
+<!--
+  EMAIL: Follow-Up #2 (Final)
+  TRIGGER: 5 days after Follow-Up #1 with no reply and no booking
+  SUBJECT: Last check-in — still interested in podcasting, {{lead_name}}?
+  FROM: Your Name <your@email.com>
+  TO: {{lead_email}}
+
+  Make.com variables:
+  - {{lead_name}} = Lead's full name
+  - {{booking_link}} = Google Calendar appointment schedule URL
+
+  NOTE: If no response after this email, lead status changes to "Nurture"
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; }
+    .header { padding: 20px 0; border-bottom: 2px solid #2563eb; }
+    .content { padding: 20px 0; }
+    .cta-button { display: inline-block; background-color: #2563eb; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 20px 0; }
+    .resource-box { background-color: #eff6ff; padding: 16px; border-radius: 8px; margin: 20px 0; }
+    .footer { padding: 20px 0; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <strong>[Your Podcast Company Name]</strong>
+  </div>
+
+  <div class="content">
+    <p>Hi {{lead_name}},</p>
+
+    <p>I don't want to clutter your inbox, so this will be my last follow-up for now.</p>
+
+    <p>I understand timing is everything — if now isn't the right moment, no worries at all. Your inquiry will stay on file, and you can always reach out when you're ready.</p>
+
+    <div class="resource-box">
+      <p><strong>In the meantime, here are some free resources:</strong></p>
+      <ul>
+        <li><a href="#">Our Podcast Launch Checklist (PDF)</a></li>
+        <li><a href="#">5 Mistakes New Podcasters Make (Blog)</a></li>
+        <li><a href="#">Equipment Guide for Beginners (Blog)</a></li>
+      </ul>
+    </div>
+
+    <p>And if you do want to chat, the door is always open:</p>
+
+    <p>
+      <a href="{{booking_link}}" class="cta-button">Book a Call Anytime</a>
+    </p>
+
+    <p>Wishing you all the best with your podcast journey!</p>
+
+    <p>
+      Cheers,<br>
+      [Your Name]<br>
+      [Your Podcast Company]
+    </p>
+  </div>
+
+  <div class="footer">
+    <p>[Your Company Name] | [Your Website URL]</p>
+    <p>You're receiving this because you submitted an inquiry on our website. <a href="#">Unsubscribe</a></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+{
+  "form": {
+    "name": "Podcast Services Inquiry",
+    "page": "/contact or /get-started",
+    "description": "Lead capture form embedded on Squarespace site",
+    "submitButtonText": "Get Your Free Podcast Consultation",
+    "successMessage": "Thanks! We'll be in touch within 24 hours to discuss your podcast."
+  },
+  "fields": [
+    {
+      "label": "Full Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Your full name"
+    },
+    {
+      "label": "Email Address",
+      "type": "email",
+      "required": true,
+      "placeholder": "you@example.com"
+    },
+    {
+      "label": "Phone Number",
+      "type": "phone",
+      "required": false,
+      "placeholder": "(555) 123-4567"
+    },
+    {
+      "label": "Company or Brand Name",
+      "type": "text",
+      "required": false,
+      "placeholder": "Your company or brand"
+    },
+    {
+      "label": "Website URL",
+      "type": "url",
+      "required": false,
+      "placeholder": "https://yourwebsite.com"
+    },
+    {
+      "label": "Do you have an existing podcast?",
+      "type": "radio",
+      "required": true,
+      "options": ["Yes", "No, starting from scratch"]
+    },
+    {
+      "label": "If yes, what is your podcast name?",
+      "type": "text",
+      "required": false,
+      "conditionalOn": "Do you have an existing podcast?",
+      "conditionalValue": "Yes",
+      "placeholder": "Your podcast name"
+    },
+    {
+      "label": "Which services are you interested in?",
+      "type": "checkbox",
+      "required": true,
+      "options": [
+        "Full Podcast Production",
+        "Editing Only",
+        "Show Notes & Content Repurposing",
+        "Podcast Launch Package",
+        "Guest Booking",
+        "Podcast Strategy Consulting"
+      ]
+    },
+    {
+      "label": "How many episodes per month do you need?",
+      "type": "select",
+      "required": true,
+      "options": ["1-2 episodes", "4 episodes (weekly)", "8 episodes (bi-weekly)", "Custom / Not sure"]
+    },
+    {
+      "label": "What is your monthly budget?",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Under $500/month",
+        "$500 - $1,000/month",
+        "$1,000 - $2,500/month",
+        "$2,500 - $5,000/month",
+        "$5,000+/month"
+      ]
+    },
+    {
+      "label": "How did you hear about us?",
+      "type": "select",
+      "required": false,
+      "options": ["Google Search", "Social Media", "Referral", "Podcast", "Other"]
+    },
+    {
+      "label": "Anything else you'd like us to know?",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "Tell us about your podcast goals..."
+    }
+  ],
+  "webhook": {
+    "description": "Configure this webhook URL in Squarespace under: Settings > Advanced > Code Injection or use Squarespace's Zapier/Make integration",
+    "method": "POST",
+    "targetUrl": "https://hook.us1.make.com/YOUR_WEBHOOK_ID_HERE",
+    "notes": [
+      "In Make.com, create a new scenario with 'Webhooks > Custom Webhook' as the trigger",
+      "Copy the generated webhook URL and paste it into Squarespace",
+      "Alternatively, use Make.com's native Squarespace module if available",
+      "Test with a sample submission to map all form fields"
+    ]
+  },
+  "squarespace_setup_steps": [
+    "1. Go to your Squarespace site editor",
+    "2. Navigate to the page where you want the form (e.g., /get-started)",
+    "3. Add a Form Block",
+    "4. Configure all fields as specified above",
+    "5. Under Form Settings > Storage, select 'Google Sheets' or configure webhook",
+    "6. Under Advanced, add the Make.com webhook URL for real-time processing",
+    "7. Style the form to match your brand",
+    "8. Test with a sample submission"
+  ]
+}

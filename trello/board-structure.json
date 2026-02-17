@@ -1,0 +1,174 @@
+{
+  "board": {
+    "name": "Podcast Production Pipeline",
+    "description": "Manages client onboarding, episode production, and delivery",
+    "background": "blue"
+  },
+  "labels": [
+    { "name": "High Priority", "color": "red" },
+    { "name": "New Client", "color": "green" },
+    { "name": "Returning Client", "color": "blue" },
+    { "name": "Full Production", "color": "purple" },
+    { "name": "Editing Only", "color": "yellow" },
+    { "name": "Launch Package", "color": "orange" },
+    { "name": "Blocked", "color": "red" },
+    { "name": "Waiting on Client", "color": "sky" }
+  ],
+  "lists": [
+    {
+      "name": "1. New Client Intake",
+      "description": "Newly signed clients awaiting onboarding",
+      "cardTemplate": {
+        "name": "[Client Name] - Onboarding",
+        "description": "New client onboarding for {client_name}\n\n**Package:** {service_package}\n**Start Date:** {contract_start}\n**Contact:** {email}\n**Drive Folder:** {drive_folder_url}",
+        "checklists": [
+          {
+            "name": "Onboarding Steps",
+            "items": [
+              "Send welcome email",
+              "Create Google Drive client folder",
+              "Share Drive folder with client",
+              "Schedule onboarding call",
+              "Send onboarding questionnaire",
+              "Receive signed contract",
+              "Set up billing / invoice",
+              "Add to podcast hosting platform",
+              "Create episode template in Drive",
+              "Complete onboarding call",
+              "Send post-onboarding summary email"
+            ]
+          }
+        ],
+        "labels": ["New Client"]
+      }
+    },
+    {
+      "name": "2. Onboarding In Progress",
+      "description": "Clients currently going through onboarding steps"
+    },
+    {
+      "name": "3. Onboarding Complete",
+      "description": "Clients who have completed onboarding, ready for production"
+    },
+    {
+      "name": "4. Episode Scheduled",
+      "description": "Episodes that have been scheduled for recording",
+      "cardTemplate": {
+        "name": "[Client] - Ep #{number}: {title}",
+        "description": "**Client:** {client_name}\n**Episode #:** {number}\n**Recording Date:** {recording_date}\n**Due Date:** {due_date}\n**Guest:** {guest_name} ({guest_email})",
+        "checklists": [
+          {
+            "name": "Pre-Production",
+            "items": [
+              "Confirm recording date with client",
+              "Send guest prep sheet (if applicable)",
+              "Prepare episode outline / questions",
+              "Test recording setup"
+            ]
+          },
+          {
+            "name": "Production",
+            "items": [
+              "Record episode",
+              "Upload raw audio to Drive",
+              "Send raw audio to editor"
+            ]
+          },
+          {
+            "name": "Post-Production",
+            "items": [
+              "Edit audio",
+              "Add intro/outro",
+              "Level audio and remove noise",
+              "Create show notes",
+              "Design episode artwork (if applicable)",
+              "Upload edited file to Drive",
+              "Send to client for review"
+            ]
+          },
+          {
+            "name": "Delivery",
+            "items": [
+              "Client approval received",
+              "Upload to podcast host",
+              "Schedule publish date",
+              "Create social media assets",
+              "Send delivery confirmation email",
+              "Archive project files"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "5. Recording Complete",
+      "description": "Episodes that have been recorded, raw audio uploaded"
+    },
+    {
+      "name": "6. In Editing",
+      "description": "Episodes currently being edited"
+    },
+    {
+      "name": "7. Client Review",
+      "description": "Edited episodes sent to client for approval"
+    },
+    {
+      "name": "8. Approved / Ready to Publish",
+      "description": "Client-approved episodes ready for publishing"
+    },
+    {
+      "name": "9. Published",
+      "description": "Episodes that have been published"
+    },
+    {
+      "name": "10. Archived",
+      "description": "Completed and archived episodes"
+    }
+  ],
+  "automations": [
+    {
+      "trigger": "Card moved to 'Onboarding Complete'",
+      "actions": [
+        "Add label 'Returning Client'",
+        "Remove label 'New Client'",
+        "Post comment: 'Onboarding completed! Client is ready for production.'"
+      ]
+    },
+    {
+      "trigger": "Checklist item completed on any card",
+      "actions": [
+        "If all items in 'Onboarding Steps' are complete, move card to 'Onboarding Complete'"
+      ]
+    },
+    {
+      "trigger": "Card due date is approaching (1 day before)",
+      "actions": [
+        "Add label 'High Priority'",
+        "Notify assigned member"
+      ]
+    },
+    {
+      "trigger": "Card moved to 'Published'",
+      "actions": [
+        "Post comment with publish confirmation",
+        "Set due date to 7 days from now for archiving"
+      ]
+    }
+  ],
+  "powerUps": [
+    {
+      "name": "Calendar",
+      "description": "Visualize cards with due dates on a calendar"
+    },
+    {
+      "name": "Custom Fields",
+      "fields": [
+        { "name": "Client Email", "type": "text" },
+        { "name": "Package Type", "type": "dropdown", "options": ["Full Production", "Editing Only", "Show Notes", "Launch Package"] },
+        { "name": "Monthly Rate", "type": "number" },
+        { "name": "Drive Folder URL", "type": "text" },
+        { "name": "Airtable Record ID", "type": "text" }
+      ]
+    }
+  ]
+}

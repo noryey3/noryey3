@@ -1,0 +1,241 @@
+{
+  "base": {
+    "name": "Podcast Business CRM",
+    "description": "Central database for managing podcast leads, clients, episodes, and revenue"
+  },
+  "tables": [
+    {
+      "name": "Leads",
+      "description": "All incoming leads from Squarespace and other sources",
+      "fields": [
+        { "name": "Lead ID", "type": "autonumber", "description": "Auto-generated unique identifier" },
+        { "name": "Full Name", "type": "singleLineText", "required": true },
+        { "name": "Email", "type": "email", "required": true },
+        { "name": "Phone", "type": "phoneNumber" },
+        { "name": "Company / Brand", "type": "singleLineText" },
+        { "name": "Website", "type": "url" },
+        { "name": "Podcast Name", "type": "singleLineText", "description": "Existing podcast name if applicable" },
+        { "name": "Has Existing Podcast", "type": "checkbox" },
+        { "name": "Service Interest", "type": "multipleSelects", "options": [
+          "Full Podcast Production",
+          "Editing Only",
+          "Show Notes & Content",
+          "Launch Package",
+          "Guest Booking",
+          "Consulting"
+        ]},
+        { "name": "Budget Range", "type": "singleSelect", "options": [
+          "Under $500/mo",
+          "$500-$1,000/mo",
+          "$1,000-$2,500/mo",
+          "$2,500-$5,000/mo",
+          "$5,000+/mo"
+        ]},
+        { "name": "Episodes Per Month", "type": "singleSelect", "options": [
+          "1-2",
+          "4 (Weekly)",
+          "8 (Bi-weekly)",
+          "Custom"
+        ]},
+        { "name": "How Did You Hear About Us", "type": "singleSelect", "options": [
+          "Google Search",
+          "Social Media",
+          "Referral",
+          "Podcast",
+          "Other"
+        ]},
+        { "name": "Lead Source", "type": "singleSelect", "options": [
+          "Squarespace Form",
+          "Manual Entry",
+          "Referral",
+          "Social Media DM",
+          "Cold Outreach Response"
+        ]},
+        { "name": "Lead Score", "type": "number", "description": "0-100 score calculated by automation" },
+        { "name": "Lead Status", "type": "singleSelect", "options": [
+          "New",
+          "Contacted",
+          "Qualified",
+          "Discovery Call Scheduled",
+          "Discovery Call Completed",
+          "Proposal Sent",
+          "Won",
+          "Lost",
+          "Nurture"
+        ]},
+        { "name": "Pipeline Stage", "type": "singleSelect", "options": [
+          "Lead",
+          "Prospect",
+          "Opportunity",
+          "Client"
+        ]},
+        { "name": "Notes", "type": "multilineText" },
+        { "name": "Submitted At", "type": "dateTime", "description": "When the lead form was submitted" },
+        { "name": "Last Contacted", "type": "dateTime" },
+        { "name": "Follow Up Date", "type": "date" },
+        { "name": "Outreach Sequence Step", "type": "number", "description": "Current step in email sequence (0=not started)" },
+        { "name": "Discovery Call Date", "type": "dateTime" },
+        { "name": "Assigned To", "type": "singleSelect", "options": [
+          "Team Member 1",
+          "Team Member 2",
+          "Team Member 3"
+        ]},
+        { "name": "Client Record", "type": "linkedRecord", "linkedTable": "Clients" },
+        { "name": "Attachments", "type": "multipleAttachments" }
+      ],
+      "views": [
+        {
+          "name": "All Leads",
+          "type": "grid",
+          "sort": [{ "field": "Submitted At", "direction": "desc" }]
+        },
+        {
+          "name": "New Leads (Action Required)",
+          "type": "grid",
+          "filter": { "field": "Lead Status", "operator": "is", "value": "New" },
+          "sort": [{ "field": "Lead Score", "direction": "desc" }]
+        },
+        {
+          "name": "Pipeline Board",
+          "type": "kanban",
+          "groupBy": "Lead Status"
+        },
+        {
+          "name": "Follow-Up Due",
+          "type": "grid",
+          "filter": { "field": "Follow Up Date", "operator": "isOnOrBefore", "value": "today" }
+        },
+        {
+          "name": "High-Value Leads",
+          "type": "grid",
+          "filter": { "field": "Lead Score", "operator": ">=", "value": 70 }
+        }
+      ]
+    },
+    {
+      "name": "Clients",
+      "description": "Converted leads who are active clients",
+      "fields": [
+        { "name": "Client ID", "type": "autonumber" },
+        { "name": "Client Name", "type": "singleLineText", "required": true },
+        { "name": "Email", "type": "email", "required": true },
+        { "name": "Phone", "type": "phoneNumber" },
+        { "name": "Company / Brand", "type": "singleLineText" },
+        { "name": "Podcast Name", "type": "singleLineText" },
+        { "name": "Service Package", "type": "singleSelect", "options": [
+          "Full Production",
+          "Editing Only",
+          "Show Notes & Content",
+          "Launch Package",
+          "Custom"
+        ]},
+        { "name": "Monthly Rate", "type": "currency", "currencySymbol": "$" },
+        { "name": "Billing Cycle", "type": "singleSelect", "options": ["Monthly", "Quarterly", "Annual"] },
+        { "name": "Contract Start", "type": "date" },
+        { "name": "Contract End", "type": "date" },
+        { "name": "Client Status", "type": "singleSelect", "options": [
+          "Onboarding",
+          "Active",
+          "Paused",
+          "Churned"
+        ]},
+        { "name": "Onboarding Complete", "type": "checkbox" },
+        { "name": "Google Drive Folder", "type": "url", "description": "Link to client folder in Drive" },
+        { "name": "Trello Card", "type": "url", "description": "Link to Trello onboarding card" },
+        { "name": "Lead Record", "type": "linkedRecord", "linkedTable": "Leads" },
+        { "name": "Episodes", "type": "linkedRecord", "linkedTable": "Episodes" },
+        { "name": "Notes", "type": "multilineText" }
+      ],
+      "views": [
+        {
+          "name": "All Clients",
+          "type": "grid",
+          "sort": [{ "field": "Client Name", "direction": "asc" }]
+        },
+        {
+          "name": "Onboarding In Progress",
+          "type": "grid",
+          "filter": { "field": "Client Status", "operator": "is", "value": "Onboarding" }
+        },
+        {
+          "name": "Active Clients",
+          "type": "grid",
+          "filter": { "field": "Client Status", "operator": "is", "value": "Active" }
+        }
+      ]
+    },
+    {
+      "name": "Episodes",
+      "description": "Individual podcast episodes being produced",
+      "fields": [
+        { "name": "Episode ID", "type": "autonumber" },
+        { "name": "Episode Title", "type": "singleLineText" },
+        { "name": "Client", "type": "linkedRecord", "linkedTable": "Clients" },
+        { "name": "Episode Number", "type": "number" },
+        { "name": "Recording Date", "type": "dateTime" },
+        { "name": "Due Date", "type": "date" },
+        { "name": "Publish Date", "type": "date" },
+        { "name": "Production Status", "type": "singleSelect", "options": [
+          "Scheduled",
+          "Recorded",
+          "Editing",
+          "Review",
+          "Approved",
+          "Published"
+        ]},
+        { "name": "Raw Audio Link", "type": "url" },
+        { "name": "Edited Audio Link", "type": "url" },
+        { "name": "Show Notes", "type": "multilineText" },
+        { "name": "Guest Name", "type": "singleLineText" },
+        { "name": "Guest Email", "type": "email" },
+        { "name": "Assigned Editor", "type": "singleSelect", "options": [
+          "Editor 1",
+          "Editor 2",
+          "Editor 3"
+        ]},
+        { "name": "Notes", "type": "multilineText" }
+      ],
+      "views": [
+        {
+          "name": "Production Pipeline",
+          "type": "kanban",
+          "groupBy": "Production Status"
+        },
+        {
+          "name": "Due This Week",
+          "type": "grid",
+          "filter": { "field": "Due Date", "operator": "isWithin", "value": "thisWeek" }
+        },
+        {
+          "name": "By Client",
+          "type": "grid",
+          "groupBy": "Client"
+        }
+      ]
+    },
+    {
+      "name": "Email Log",
+      "description": "Tracks all automated emails sent",
+      "fields": [
+        { "name": "Log ID", "type": "autonumber" },
+        { "name": "Recipient Email", "type": "email" },
+        { "name": "Recipient Name", "type": "singleLineText" },
+        { "name": "Email Type", "type": "singleSelect", "options": [
+          "Initial Outreach",
+          "Follow-Up 1",
+          "Follow-Up 2",
+          "Booking Confirmation",
+          "Welcome / Onboarding",
+          "Onboarding Checklist",
+          "Episode Delivery",
+          "Nurture"
+        ]},
+        { "name": "Subject Line", "type": "singleLineText" },
+        { "name": "Sent At", "type": "dateTime" },
+        { "name": "Lead Record", "type": "linkedRecord", "linkedTable": "Leads" },
+        { "name": "Client Record", "type": "linkedRecord", "linkedTable": "Clients" },
+        { "name": "Status", "type": "singleSelect", "options": ["Sent", "Opened", "Clicked", "Replied", "Bounced"] }
+      ]
+    }
+  ]
+}

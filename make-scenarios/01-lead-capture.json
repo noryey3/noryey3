@@ -1,0 +1,172 @@
+{
+  "scenario": {
+    "name": "01 - Lead Capture: Squarespace → Airtable + Google Sheets",
+    "description": "Captures new leads from Squarespace form submissions and creates records in Airtable and Google Sheets simultaneously. Calculates lead score and assigns initial status.",
+    "scheduling": {
+      "type": "instant",
+      "note": "Triggered instantly by webhook"
+    }
+  },
+  "modules": [
+    {
+      "id": 1,
+      "name": "Webhooks - Custom Webhook",
+      "type": "trigger",
+      "description": "Receives form submission data from Squarespace",
+      "config": {
+        "webhookName": "Squarespace Lead Form",
+        "dataStructure": {
+          "fullName": "string",
+          "email": "string",
+          "phone": "string",
+          "company": "string",
+          "website": "string",
+          "hasExistingPodcast": "string",
+          "podcastName": "string",
+          "servicesInterested": "array",
+          "episodesPerMonth": "string",
+          "budgetRange": "string",
+          "referralSource": "string",
+          "additionalNotes": "string"
+        }
+      },
+      "notes": "After creating this webhook, copy the generated URL and configure it in Squarespace (Settings > Advanced > Webhooks or via form integration)."
+    },
+    {
+      "id": 2,
+      "name": "Tools - Set Variable",
+      "type": "action",
+      "description": "Calculate lead score based on form responses",
+      "config": {
+        "variables": [
+          {
+            "name": "leadScore",
+            "value": "{{calculateLeadScore}}",
+            "formula_explanation": "Sum of: Budget points (5-30) + Existing podcast (5-15) + Service type (5-20) + Volume (5-15) + Has website (0-10) + Has phone (0-5) + Referral bonus (0-5). See google-sheets/templates.md for full breakdown."
+          },
+          {
+            "name": "leadGrade",
+            "value": "{{if(leadScore >= 80, 'A', if(leadScore >= 60, 'B', if(leadScore >= 40, 'C', 'D')))}}"
+          },
+          {
+            "name": "hasExistingPodcast",
+            "value": "{{if(1.hasExistingPodcast == 'Yes', true, false)}}"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Airtable - Create a Record",
+      "type": "action",
+      "description": "Create new lead record in Airtable Leads table",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "fields": {
+          "Full Name": "{{1.fullName}}",
+          "Email": "{{1.email}}",
+          "Phone": "{{1.phone}}",
+          "Company / Brand": "{{1.company}}",
+          "Website": "{{1.website}}",
+          "Has Existing Podcast": "{{2.hasExistingPodcast}}",
+          "Podcast Name": "{{1.podcastName}}",
+          "Service Interest": "{{1.servicesInterested}}",
+          "Episodes Per Month": "{{1.episodesPerMonth}}",
+          "Budget Range": "{{1.budgetRange}}",
+          "How Did You Hear About Us": "{{1.referralSource}}",
+          "Notes": "{{1.additionalNotes}}",
+          "Lead Source": "Squarespace Form",
+          "Lead Status": "New",
+          "Pipeline Stage": "Lead",
+          "Lead Score": "{{2.leadScore}}",
+          "Submitted At": "{{now}}",
+          "Outreach Sequence Step": 0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "Google Sheets - Add a Row",
+      "type": "action",
+      "description": "Add lead data to Google Sheets Lead Tracker for reporting",
+      "config": {
+        "spreadsheet": "Lead Tracker & Scoring Dashboard",
+        "sheet": "Lead Data",
+        "row": {
+          "A": "{{now}}",
+          "B": "{{1.fullName}}",
+          "C": "{{1.email}}",
+          "D": "{{1.phone}}",
+          "E": "{{1.company}}",
+          "F": "{{1.website}}",
+          "G": "{{1.hasExistingPodcast}}",
+          "H": "{{1.podcastName}}",
+          "I": "{{join(1.servicesInterested, ', ')}}",
+          "J": "{{1.episodesPerMonth}}",
+          "K": "{{1.budgetRange}}",
+          "L": "{{1.referralSource}}",
+          "M": "{{1.additionalNotes}}",
+          "P": "New",
+          "Q": "{{3.id}}"
+        },
+        "note": "Columns N (Lead Score) and O (Lead Grade) are calculated by spreadsheet formulas"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Router",
+      "type": "router",
+      "description": "Route based on lead grade for different notification levels",
+      "routes": [
+        {
+          "name": "High-Value Lead (Grade A)",
+          "filter": "{{2.leadGrade == 'A'}}",
+          "targetModule": 6
+        },
+        {
+          "name": "Standard Lead (Grade B-D)",
+          "filter": "{{2.leadGrade != 'A'}}",
+          "targetModule": 7
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Gmail - Send an Email",
+      "type": "action",
+      "description": "Send internal notification for high-value leads (Grade A) for immediate personal attention",
+      "config": {
+        "to": "team@yourcompany.com",
+        "subject": "🔥 HIGH-VALUE LEAD: {{1.fullName}} (Score: {{2.leadScore}})",
+        "body": "A high-value lead just submitted the form!\n\nName: {{1.fullName}}\nEmail: {{1.email}}\nCompany: {{1.company}}\nBudget: {{1.budgetRange}}\nServices: {{join(1.servicesInterested, ', ')}}\nLead Score: {{2.leadScore}} (Grade {{2.leadGrade}})\n\nAction Required: Personal outreach within 1 hour.\n\nAirtable Record: [Link to record {{3.id}}]"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Webhooks - Webhook Response",
+      "type": "action",
+      "description": "Send success response back to Squarespace",
+      "config": {
+        "status": 200,
+        "body": { "success": true, "message": "Lead captured successfully" }
+      }
+    }
+  ],
+  "errorHandling": {
+    "strategy": "Break + Notify",
+    "notifyEmail": "admin@yourcompany.com",
+    "description": "If any module fails, break the scenario and send an error notification email"
+  },
+  "setup_instructions": [
+    "1. Create a new scenario in Make.com",
+    "2. Add 'Webhooks > Custom Webhook' as the trigger module",
+    "3. Copy the webhook URL that Make generates",
+    "4. Configure Squarespace to send form data to this webhook URL",
+    "5. Connect your Airtable account and select the 'Podcast Business CRM' base",
+    "6. Connect your Google account for Sheets and Gmail",
+    "7. Map all fields as specified in the config above",
+    "8. Test with a sample form submission",
+    "9. Turn on the scenario and set error notifications"
+  ]
+}

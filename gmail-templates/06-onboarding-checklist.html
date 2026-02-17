@@ -1,0 +1,88 @@
+<!--
+  EMAIL: Onboarding Checklist Reminder
+  TRIGGER: 3 days after welcome email if onboarding steps are incomplete
+  SUBJECT: Friendly reminder: a few onboarding items still need your attention
+  FROM: Your Name <your@email.com>
+  TO: {{client_email}}
+
+  Make.com variables:
+  - {{client_name}} = Client's full name
+  - {{pending_items}} = List of incomplete onboarding items from Trello
+  - {{questionnaire_link}} = Google Forms URL (if not completed)
+  - {{onboarding_booking_link}} = Calendar link (if not booked)
+  - {{drive_folder_url}} = Google Drive folder URL
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; }
+    .header { padding: 20px 0; border-bottom: 2px solid #2563eb; }
+    .content { padding: 20px 0; }
+    .checklist { background-color: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    .checklist-item { padding: 8px 0; border-bottom: 1px solid #e5e7eb; }
+    .checklist-item:last-child { border-bottom: none; }
+    .done { color: #16a34a; text-decoration: line-through; }
+    .pending { color: #dc2626; font-weight: bold; }
+    .cta-button { display: inline-block; background-color: #2563eb; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 8px 4px; }
+    .footer { padding: 20px 0; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <strong>[Your Podcast Company Name]</strong>
+  </div>
+
+  <div class="content">
+    <p>Hi {{client_name}},</p>
+
+    <p>Just a friendly nudge — we want to make sure your onboarding goes smoothly! Here's where things stand:</p>
+
+    <div class="checklist">
+      <h3>Onboarding Progress</h3>
+
+      <!-- These items should be dynamically shown/hidden based on Trello checklist status -->
+      <div class="checklist-item">
+        <!-- Show as done or pending based on status -->
+        <span class="pending">[ ] Complete onboarding questionnaire</span>
+        <br><small><a href="{{questionnaire_link}}">Click here to complete</a></small>
+      </div>
+
+      <div class="checklist-item">
+        <span class="pending">[ ] Book onboarding call</span>
+        <br><small><a href="{{onboarding_booking_link}}">Click here to book</a></small>
+      </div>
+
+      <div class="checklist-item">
+        <span class="pending">[ ] Upload brand assets to Drive</span>
+        <br><small><a href="{{drive_folder_url}}">Open your Drive folder</a></small>
+      </div>
+
+      <div class="checklist-item">
+        <span class="pending">[ ] Review and sign agreement</span>
+        <br><small>Found in your Drive folder under "Contract & Agreement"</small>
+      </div>
+    </div>
+
+    <p>Completing these items helps us start producing your podcast faster. If you're stuck on any step or have questions, just reply to this email!</p>
+
+    <p>
+      <a href="{{questionnaire_link}}" class="cta-button">Complete Questionnaire</a>
+      <a href="{{onboarding_booking_link}}" class="cta-button">Book Your Call</a>
+    </p>
+
+    <p>
+      Best,<br>
+      [Your Name]<br>
+      [Your Podcast Company]
+    </p>
+  </div>
+
+  <div class="footer">
+    <p>[Your Company Name] | [Your Website URL]</p>
+  </div>
+</body>
+</html>

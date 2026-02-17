@@ -1,0 +1,304 @@
+{
+  "scenario": {
+    "name": "05 - Client Onboarding: Trello + Drive + Gmail",
+    "description": "Triggered when a lead is converted to a client (Lead Status = 'Won'). Creates client record in Airtable, sets up Google Drive folder structure, creates Trello onboarding card, and sends welcome email with all links.",
+    "scheduling": {
+      "type": "scheduled",
+      "interval": "15 minutes",
+      "note": "Watches Airtable for leads with status 'Won' that don't have a linked Client record yet"
+    }
+  },
+  "modules": [
+    {
+      "id": 1,
+      "name": "Airtable - Search Records",
+      "type": "trigger",
+      "description": "Find leads that have been marked as 'Won' but not yet onboarded",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "filterFormula": "AND({Lead Status} = 'Won', {Client Record} = BLANK())",
+        "maxRecords": 5
+      }
+    },
+    {
+      "id": 2,
+      "name": "Iterator",
+      "type": "flow",
+      "description": "Process each new client"
+    },
+    {
+      "id": 3,
+      "name": "Google Drive - Create a Folder",
+      "type": "action",
+      "description": "Create the main client folder",
+      "config": {
+        "parentFolder": "01 - Clients",
+        "folderName": "{{1.Full Name}} - {{1.Podcast Name}}",
+        "note": "Creates root client folder in the Clients directory"
+      }
+    },
+    {
+      "id": "3b",
+      "name": "Google Drive - Create a Folder (Onboarding)",
+      "type": "action",
+      "description": "Create Onboarding subfolder",
+      "config": {
+        "parentFolder": "{{3.id}}",
+        "folderName": "01 - Onboarding"
+      }
+    },
+    {
+      "id": "3c",
+      "name": "Google Drive - Create a Folder (Contract)",
+      "type": "action",
+      "config": {
+        "parentFolder": "{{3b.id}}",
+        "folderName": "Contract & Agreement"
+      }
+    },
+    {
+      "id": "3d",
+      "name": "Google Drive - Create a Folder (Brand Assets)",
+      "type": "action",
+      "config": {
+        "parentFolder": "{{3b.id}}",
+        "folderName": "Brand Assets"
+      }
+    },
+    {
+      "id": "3e",
+      "name": "Google Drive - Create a Folder (Templates)",
+      "type": "action",
+      "config": {
+        "parentFolder": "{{3.id}}",
+        "folderName": "02 - Episode Templates"
+      }
+    },
+    {
+      "id": "3f",
+      "name": "Google Drive - Create a Folder (Episodes)",
+      "type": "action",
+      "config": {
+        "parentFolder": "{{3.id}}",
+        "folderName": "03 - Episodes"
+      }
+    },
+    {
+      "id": "3g",
+      "name": "Google Drive - Create a Folder (Invoices)",
+      "type": "action",
+      "config": {
+        "parentFolder": "{{3.id}}",
+        "folderName": "04 - Invoices & Billing"
+      }
+    },
+    {
+      "id": "3h",
+      "name": "Google Drive - Copy Files",
+      "type": "action",
+      "description": "Copy episode templates from master templates folder",
+      "config": {
+        "sourceFolder": "02 - Templates/Episode Templates",
+        "destinationFolder": "{{3e.id}}",
+        "files": [
+          "Episode Outline Template.gdoc",
+          "Show Notes Template.gdoc",
+          "Guest Prep Sheet.gdoc"
+        ]
+      }
+    },
+    {
+      "id": "3i",
+      "name": "Google Drive - Share Folder",
+      "type": "action",
+      "description": "Share the client folder with the client",
+      "config": {
+        "folderId": "{{3.id}}",
+        "email": "{{1.Email}}",
+        "role": "writer",
+        "sendNotification": false,
+        "note": "Share without notification since the welcome email will include the link"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Airtable - Create Record (Client)",
+      "type": "action",
+      "description": "Create a new client record",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Clients",
+        "fields": {
+          "Client Name": "{{1.Full Name}}",
+          "Email": "{{1.Email}}",
+          "Phone": "{{1.Phone}}",
+          "Company / Brand": "{{1.Company / Brand}}",
+          "Podcast Name": "{{1.Podcast Name}}",
+          "Service Package": "{{mapServicePackage(1.Service Interest)}}",
+          "Client Status": "Onboarding",
+          "Contract Start": "{{now}}",
+          "Google Drive Folder": "https://drive.google.com/drive/folders/{{3.id}}",
+          "Lead Record": ["{{1.id}}"],
+          "Onboarding Complete": false
+        }
+      }
+    },
+    {
+      "id": "4b",
+      "name": "Airtable - Update Record (Lead)",
+      "type": "action",
+      "description": "Link the lead to the new client record",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "recordId": "{{1.id}}",
+        "fields": {
+          "Client Record": ["{{4.id}}"],
+          "Pipeline Stage": "Client"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Trello - Create a Card",
+      "type": "action",
+      "description": "Create onboarding card on Trello board",
+      "config": {
+        "board": "Podcast Production Pipeline",
+        "list": "1. New Client Intake",
+        "name": "{{1.Full Name}} - Onboarding",
+        "description": "New client onboarding for {{1.Full Name}}\n\n**Podcast:** {{1.Podcast Name}}\n**Package:** {{1.Service Interest}}\n**Email:** {{1.Email}}\n**Phone:** {{1.Phone}}\n\n**Drive Folder:** https://drive.google.com/drive/folders/{{3.id}}\n**Airtable Client ID:** {{4.id}}",
+        "labels": ["New Client"],
+        "position": "top"
+      }
+    },
+    {
+      "id": "5b",
+      "name": "Trello - Create a Checklist",
+      "type": "action",
+      "description": "Add onboarding checklist to the card",
+      "config": {
+        "cardId": "{{5.id}}",
+        "checklistName": "Onboarding Steps",
+        "items": [
+          "Send welcome email",
+          "Client completes onboarding questionnaire",
+          "Create Google Drive client folder ✓ (automated)",
+          "Share Drive folder with client ✓ (automated)",
+          "Schedule onboarding call",
+          "Receive signed contract",
+          "Set up billing / invoice",
+          "Add to podcast hosting platform",
+          "Complete onboarding call",
+          "Send post-onboarding summary email",
+          "Mark onboarding as complete"
+        ]
+      }
+    },
+    {
+      "id": "5c",
+      "name": "Trello - Update Checklist Item",
+      "type": "action",
+      "description": "Auto-check items that were completed by automation",
+      "config": {
+        "cardId": "{{5.id}}",
+        "checkItems": [
+          { "name": "Create Google Drive client folder ✓ (automated)", "state": "complete" },
+          { "name": "Share Drive folder with client ✓ (automated)", "state": "complete" }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "name": "Airtable - Update Record (Client - Trello Link)",
+      "type": "action",
+      "description": "Add Trello card URL to client record",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Clients",
+        "recordId": "{{4.id}}",
+        "fields": {
+          "Trello Card": "{{5.url}}"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "Gmail - Send Email (Welcome)",
+      "type": "action",
+      "description": "Send welcome and onboarding email to new client",
+      "config": {
+        "to": "{{1.Email}}",
+        "subject": "Welcome to the family, {{1.Full Name}}! Let's get started",
+        "htmlBody": "Use template: gmail-templates/05-welcome-onboarding.html",
+        "variables": {
+          "client_name": "{{1.Full Name}}",
+          "podcast_name": "{{1.Podcast Name}}",
+          "service_package": "{{1.Service Interest}}",
+          "drive_folder_url": "https://drive.google.com/drive/folders/{{3.id}}",
+          "onboarding_booking_link": "YOUR_ONBOARDING_CALENDAR_URL",
+          "questionnaire_link": "YOUR_GOOGLE_FORMS_QUESTIONNAIRE_URL"
+        }
+      }
+    },
+    {
+      "id": "7b",
+      "name": "Trello - Update Checklist Item",
+      "type": "action",
+      "description": "Check off 'Send welcome email' on Trello card",
+      "config": {
+        "cardId": "{{5.id}}",
+        "checkItems": [
+          { "name": "Send welcome email", "state": "complete" }
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "name": "Airtable - Create Record (Email Log)",
+      "type": "action",
+      "description": "Log the welcome email",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Email Log",
+        "fields": {
+          "Recipient Email": "{{1.Email}}",
+          "Recipient Name": "{{1.Full Name}}",
+          "Email Type": "Welcome / Onboarding",
+          "Subject Line": "Welcome to the family, {{1.Full Name}}!",
+          "Sent At": "{{now}}",
+          "Client Record": ["{{4.id}}"],
+          "Status": "Sent"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "name": "Google Sheets - Add Row",
+      "type": "action",
+      "description": "Add new client to revenue tracker",
+      "config": {
+        "spreadsheet": "Revenue Tracker",
+        "sheet": "Client Revenue",
+        "row": {
+          "A": "{{1.Full Name}}",
+          "B": "{{1.Service Interest}}",
+          "D": "{{formatDate(now, 'YYYY-MM-DD')}}",
+          "G": "Active"
+        }
+      }
+    }
+  ],
+  "setup_instructions": [
+    "1. Create this scenario in Make.com, scheduled every 15 minutes",
+    "2. Connect Airtable, Google Drive, Trello, Gmail, and Google Sheets",
+    "3. Create the '01 - Clients' parent folder in Google Drive",
+    "4. Create the Trello board 'Podcast Production Pipeline' with the lists from trello/board-structure.json",
+    "5. Create the Google Forms onboarding questionnaire",
+    "6. Set up Google Calendar Appointment Schedule for onboarding calls",
+    "7. Replace placeholder URLs: onboarding calendar, questionnaire link",
+    "8. Paste welcome email HTML from gmail-templates/05-welcome-onboarding.html",
+    "9. Test by changing a test lead's status to 'Won' in Airtable"
+  ]
+}

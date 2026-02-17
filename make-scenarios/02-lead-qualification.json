@@ -1,0 +1,188 @@
+{
+  "scenario": {
+    "name": "02 - Lead Qualification: Score & Route Leads",
+    "description": "Watches for new leads in Airtable, verifies lead score, and routes them to the appropriate outreach sequence. Grade A leads get flagged for immediate personal contact. Grade B/C enter automated outreach. Grade D goes to nurture.",
+    "scheduling": {
+      "type": "scheduled",
+      "interval": "15 minutes",
+      "note": "Checks Airtable every 15 minutes for new leads with status 'New'"
+    }
+  },
+  "modules": [
+    {
+      "id": 1,
+      "name": "Airtable - Search Records",
+      "type": "trigger",
+      "description": "Find all leads with status 'New' that haven't been processed",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "filterFormula": "AND({Lead Status} = 'New', {Outreach Sequence Step} = 0)",
+        "sort": [{ "field": "Lead Score", "direction": "desc" }],
+        "maxRecords": 10
+      }
+    },
+    {
+      "id": 2,
+      "name": "Iterator",
+      "type": "flow",
+      "description": "Process each lead individually"
+    },
+    {
+      "id": 3,
+      "name": "Router",
+      "type": "router",
+      "description": "Route leads based on their grade",
+      "routes": [
+        {
+          "name": "Grade A — Immediate Personal Outreach",
+          "filter": "{{1.Lead Score >= 80}}",
+          "description": "High-value leads get personal attention within 1 hour",
+          "targetModule": 4
+        },
+        {
+          "name": "Grade B — Priority Automated Outreach",
+          "filter": "{{AND(1.Lead Score >= 60, 1.Lead Score < 80)}}",
+          "description": "Good leads enter automated email sequence immediately",
+          "targetModule": 5
+        },
+        {
+          "name": "Grade C — Standard Automated Outreach",
+          "filter": "{{AND(1.Lead Score >= 40, 1.Lead Score < 60)}}",
+          "description": "Average leads enter automated sequence with 4-hour delay",
+          "targetModule": 6
+        },
+        {
+          "name": "Grade D — Nurture List",
+          "filter": "{{1.Lead Score < 40}}",
+          "description": "Low-score leads go to nurture, no active outreach",
+          "targetModule": 7
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Airtable - Update Record (Grade A)",
+      "type": "action",
+      "description": "Update lead status and flag for personal outreach",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "recordId": "{{1.id}}",
+        "fields": {
+          "Lead Status": "Qualified",
+          "Pipeline Stage": "Prospect",
+          "Outreach Sequence Step": 1,
+          "Follow Up Date": "{{now}}"
+        }
+      },
+      "note": "Grade A leads should be contacted personally. The scenario 01 already sends an internal notification email."
+    },
+    {
+      "id": 5,
+      "name": "Airtable - Update Record (Grade B)",
+      "type": "action",
+      "description": "Update lead and trigger automated outreach sequence",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "recordId": "{{1.id}}",
+        "fields": {
+          "Lead Status": "Contacted",
+          "Pipeline Stage": "Prospect",
+          "Outreach Sequence Step": 1,
+          "Last Contacted": "{{now}}",
+          "Follow Up Date": "{{addDays(now, 3)}}"
+        }
+      }
+    },
+    {
+      "id": "5b",
+      "name": "Gmail - Send Email (Grade B Initial Outreach)",
+      "type": "action",
+      "description": "Send initial outreach email immediately for Grade B leads",
+      "config": {
+        "to": "{{1.Email}}",
+        "subject": "{{1.Full Name}}, let's bring your podcast vision to life",
+        "htmlBody": "Use template: gmail-templates/01-initial-outreach.html",
+        "variables": {
+          "lead_name": "{{1.Full Name}}",
+          "company": "{{1.Company / Brand}}",
+          "services": "{{1.Service Interest}}",
+          "booking_link": "YOUR_GOOGLE_CALENDAR_APPOINTMENT_URL"
+        }
+      }
+    },
+    {
+      "id": "5c",
+      "name": "Airtable - Create Record (Email Log)",
+      "type": "action",
+      "description": "Log the sent email",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Email Log",
+        "fields": {
+          "Recipient Email": "{{1.Email}}",
+          "Recipient Name": "{{1.Full Name}}",
+          "Email Type": "Initial Outreach",
+          "Subject Line": "{{1.Full Name}}, let's bring your podcast vision to life",
+          "Sent At": "{{now}}",
+          "Lead Record": ["{{1.id}}"],
+          "Status": "Sent"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Tools - Sleep",
+      "type": "action",
+      "description": "Wait 4 hours before sending outreach to Grade C leads",
+      "config": {
+        "delay": 14400,
+        "note": "4 hours in seconds. In practice, use Make.com's scheduling to handle delays rather than Sleep for long periods."
+      },
+      "followedBy": {
+        "description": "Same as Grade B outreach (modules 5, 5b, 5c) but executed after delay",
+        "action": "Send initial outreach email and update Airtable"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Airtable - Update Record (Grade D)",
+      "type": "action",
+      "description": "Move to nurture list, no active outreach",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "recordId": "{{1.id}}",
+        "fields": {
+          "Lead Status": "Nurture",
+          "Pipeline Stage": "Lead"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "name": "Google Sheets - Update Row",
+      "type": "action",
+      "description": "Update the lead's status in Google Sheets",
+      "config": {
+        "spreadsheet": "Lead Tracker & Scoring Dashboard",
+        "sheet": "Lead Data",
+        "lookupColumn": "Q",
+        "lookupValue": "{{1.id}}",
+        "updateColumn": "P",
+        "updateValue": "{{1.Lead Status}}"
+      }
+    }
+  ],
+  "setup_instructions": [
+    "1. Create this as a separate scenario in Make.com",
+    "2. Set the schedule to run every 15 minutes",
+    "3. Connect to the same Airtable base as Scenario 01",
+    "4. Configure the router filters with the lead score thresholds",
+    "5. Replace YOUR_GOOGLE_CALENDAR_APPOINTMENT_URL with your actual booking link",
+    "6. Paste the HTML content from gmail-templates/01-initial-outreach.html into the Gmail module",
+    "7. Test each route by creating test leads with different scores"
+  ]
+}

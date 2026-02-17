@@ -1,0 +1,275 @@
+{
+  "scenario": {
+    "name": "06 - Delivery & Fulfillment: Episode Delivery + Feedback",
+    "description": "Handles episode delivery workflow. When an episode is marked as 'Approved' in Airtable, sends delivery notification email to client with all deliverable links. Also handles onboarding reminder emails and onboarding completion.",
+    "scheduling": {
+      "type": "scheduled",
+      "interval": "30 minutes"
+    }
+  },
+  "modules": [
+    {
+      "id": 0,
+      "name": "Router (Main)",
+      "type": "router",
+      "description": "Three parallel workflows in this scenario",
+      "routes": [
+        {
+          "name": "Route A: Episode Delivery",
+          "targetModule": 1
+        },
+        {
+          "name": "Route B: Onboarding Reminder",
+          "targetModule": 10
+        },
+        {
+          "name": "Route C: Onboarding Completion",
+          "targetModule": 20
+        }
+      ]
+    },
+
+    {
+      "_section": "=== ROUTE A: EPISODE DELIVERY ==="
+    },
+    {
+      "id": 1,
+      "name": "Airtable - Search Records (Episodes)",
+      "type": "trigger",
+      "description": "Find episodes with status 'Approved' that haven't been delivered yet",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Episodes",
+        "filterFormula": "AND({Production Status} = 'Approved', {Edited Audio Link} != BLANK())",
+        "maxRecords": 10
+      }
+    },
+    {
+      "id": 2,
+      "name": "Iterator",
+      "type": "flow"
+    },
+    {
+      "id": 3,
+      "name": "Airtable - Get Record (Client)",
+      "type": "action",
+      "description": "Get the client details for this episode",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Clients",
+        "recordId": "{{1.Client[0]}}"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Gmail - Send Email (Episode Delivery)",
+      "type": "action",
+      "description": "Send episode delivery notification to client",
+      "config": {
+        "to": "{{3.Email}}",
+        "subject": "Your episode is ready: \"{{1.Episode Title}}\" - Episode #{{1.Episode Number}}",
+        "htmlBody": "Use template: gmail-templates/07-episode-delivery.html",
+        "variables": {
+          "client_name": "{{3.Client Name}}",
+          "podcast_name": "{{3.Podcast Name}}",
+          "episode_title": "{{1.Episode Title}}",
+          "episode_number": "{{1.Episode Number}}",
+          "edited_audio_link": "{{1.Edited Audio Link}}",
+          "show_notes_link": "{{1.Show Notes Link}}",
+          "social_assets_link": "Derived from Drive folder",
+          "episode_folder_link": "Derived from Drive folder"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Airtable - Update Record (Episode)",
+      "type": "action",
+      "description": "Update episode status to indicate delivery email was sent",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Episodes",
+        "recordId": "{{1.id}}",
+        "fields": {
+          "Notes": "{{1.Notes}}\n\nDelivery email sent on {{formatDate(now, 'YYYY-MM-DD HH:mm')}}"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Trello - Move Card",
+      "type": "action",
+      "description": "Move episode card to 'Approved / Ready to Publish' list",
+      "config": {
+        "board": "Podcast Production Pipeline",
+        "searchCard": "{{3.Client Name}} - Ep #{{1.Episode Number}}",
+        "moveToList": "8. Approved / Ready to Publish"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Airtable - Create Record (Email Log)",
+      "type": "action",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Email Log",
+        "fields": {
+          "Recipient Email": "{{3.Email}}",
+          "Recipient Name": "{{3.Client Name}}",
+          "Email Type": "Episode Delivery",
+          "Subject Line": "Your episode is ready: \"{{1.Episode Title}}\"",
+          "Sent At": "{{now}}",
+          "Client Record": ["{{3.id}}"],
+          "Status": "Sent"
+        }
+      }
+    },
+
+    {
+      "_section": "=== ROUTE B: ONBOARDING REMINDER ==="
+    },
+    {
+      "id": 10,
+      "name": "Airtable - Search Records (Clients)",
+      "type": "trigger",
+      "description": "Find clients in 'Onboarding' status for 3+ days who haven't completed all steps",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Clients",
+        "filterFormula": "AND({Client Status} = 'Onboarding', {Onboarding Complete} = FALSE(), IS_BEFORE(DATEADD({Contract Start}, 3, 'days'), NOW()))",
+        "maxRecords": 10
+      }
+    },
+    {
+      "id": 11,
+      "name": "Iterator",
+      "type": "flow"
+    },
+    {
+      "id": 12,
+      "name": "Airtable - Search Records (Email Log)",
+      "type": "action",
+      "description": "Check if reminder was already sent",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Email Log",
+        "filterFormula": "AND({Client Record} = '{{10.id}}', {Email Type} = 'Onboarding Checklist')",
+        "maxRecords": 1
+      }
+    },
+    {
+      "id": 13,
+      "name": "Filter",
+      "type": "filter",
+      "description": "Only proceed if no reminder has been sent yet",
+      "config": {
+        "condition": "{{length(12) == 0}}"
+      }
+    },
+    {
+      "id": 14,
+      "name": "Gmail - Send Email (Onboarding Reminder)",
+      "type": "action",
+      "description": "Send onboarding checklist reminder",
+      "config": {
+        "to": "{{10.Email}}",
+        "subject": "Friendly reminder: a few onboarding items still need your attention",
+        "htmlBody": "Use template: gmail-templates/06-onboarding-checklist.html",
+        "variables": {
+          "client_name": "{{10.Client Name}}",
+          "questionnaire_link": "YOUR_GOOGLE_FORMS_QUESTIONNAIRE_URL",
+          "onboarding_booking_link": "YOUR_ONBOARDING_CALENDAR_URL",
+          "drive_folder_url": "{{10.Google Drive Folder}}"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "name": "Airtable - Create Record (Email Log)",
+      "type": "action",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Email Log",
+        "fields": {
+          "Recipient Email": "{{10.Email}}",
+          "Recipient Name": "{{10.Client Name}}",
+          "Email Type": "Onboarding Checklist",
+          "Sent At": "{{now}}",
+          "Client Record": ["{{10.id}}"],
+          "Status": "Sent"
+        }
+      }
+    },
+
+    {
+      "_section": "=== ROUTE C: ONBOARDING COMPLETION ==="
+    },
+    {
+      "id": 20,
+      "name": "Airtable - Search Records",
+      "type": "trigger",
+      "description": "Find clients where Onboarding Complete checkbox was just checked",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Clients",
+        "filterFormula": "AND({Onboarding Complete} = TRUE(), {Client Status} = 'Onboarding')",
+        "maxRecords": 5
+      }
+    },
+    {
+      "id": 21,
+      "name": "Iterator",
+      "type": "flow"
+    },
+    {
+      "id": 22,
+      "name": "Airtable - Update Record",
+      "type": "action",
+      "description": "Update client status to 'Active'",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Clients",
+        "recordId": "{{20.id}}",
+        "fields": {
+          "Client Status": "Active"
+        }
+      }
+    },
+    {
+      "id": 23,
+      "name": "Trello - Move Card",
+      "type": "action",
+      "description": "Move onboarding card to 'Onboarding Complete' list",
+      "config": {
+        "board": "Podcast Production Pipeline",
+        "searchCard": "{{20.Client Name}} - Onboarding",
+        "moveToList": "3. Onboarding Complete"
+      }
+    },
+    {
+      "id": 24,
+      "name": "Google Sheets - Update Row",
+      "type": "action",
+      "description": "Update client status in revenue tracker",
+      "config": {
+        "spreadsheet": "Revenue Tracker",
+        "sheet": "Client Revenue",
+        "lookupColumn": "A",
+        "lookupValue": "{{20.Client Name}}",
+        "updateColumn": "G",
+        "updateValue": "Active"
+      }
+    }
+  ],
+  "setup_instructions": [
+    "1. Create this scenario in Make.com, scheduled every 30 minutes",
+    "2. Connect all services: Airtable, Gmail, Trello, Google Sheets",
+    "3. This scenario handles three workflows via a router at the start",
+    "4. Route A: Episode delivery — watches Episodes table for 'Approved' status",
+    "5. Route B: Onboarding reminders — sends 1 reminder 3 days after onboarding starts",
+    "6. Route C: Onboarding completion — updates status when onboarding is marked complete",
+    "7. Replace placeholder URLs for questionnaire and onboarding calendar",
+    "8. Paste email HTML from gmail-templates/06 and 07",
+    "9. Test each route independently"
+  ]
+}

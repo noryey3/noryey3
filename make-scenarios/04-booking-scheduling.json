@@ -1,0 +1,191 @@
+{
+  "scenario": {
+    "name": "04 - Booking & Scheduling: Calendar → CRM Update",
+    "description": "Watches for new Google Calendar events (discovery calls) and updates the lead's status in Airtable. Sends a custom confirmation email with call prep details. Stops the outreach sequence.",
+    "scheduling": {
+      "type": "scheduled",
+      "interval": "15 minutes",
+      "note": "Watches the Discovery Calls calendar for new events"
+    }
+  },
+  "modules": [
+    {
+      "id": 1,
+      "name": "Google Calendar - Watch Events",
+      "type": "trigger",
+      "description": "Watch for new events on the 'Discovery Calls' calendar",
+      "config": {
+        "calendarId": "YOUR_DISCOVERY_CALLS_CALENDAR_ID",
+        "watchType": "newEvents",
+        "note": "This triggers when a lead books a discovery call via Google Calendar Appointment Schedule"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Tools - Set Variable",
+      "type": "action",
+      "description": "Extract attendee email from calendar event",
+      "config": {
+        "variables": [
+          {
+            "name": "leadEmail",
+            "value": "{{first(filter(1.attendees, 'email', '!=', 'your@email.com')).email}}",
+            "description": "Gets the attendee email that isn't your own email"
+          },
+          {
+            "name": "callDateTime",
+            "value": "{{formatDate(1.start.dateTime, 'dddd, MMMM D [at] h:mm A z')}}",
+            "description": "Format: Tuesday, March 15 at 2:00 PM EST"
+          },
+          {
+            "name": "meetLink",
+            "value": "{{1.conferenceData.entryPoints[0].uri}}",
+            "description": "Google Meet link from the calendar event"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Airtable - Search Records",
+      "type": "action",
+      "description": "Find the lead record by email",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "filterFormula": "{Email} = '{{2.leadEmail}}'",
+        "maxRecords": 1
+      }
+    },
+    {
+      "id": 4,
+      "name": "Router",
+      "type": "router",
+      "description": "Check if lead exists in Airtable",
+      "routes": [
+        {
+          "name": "Lead Found — Update Record",
+          "filter": "{{length(3) > 0}}",
+          "targetModule": 5
+        },
+        {
+          "name": "Lead Not Found — Create New Record",
+          "filter": "{{length(3) == 0}}",
+          "targetModule": 8
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Airtable - Update Record",
+      "type": "action",
+      "description": "Update lead status to 'Discovery Call Scheduled' and stop outreach sequence",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "recordId": "{{3[0].id}}",
+        "fields": {
+          "Lead Status": "Discovery Call Scheduled",
+          "Pipeline Stage": "Opportunity",
+          "Discovery Call Date": "{{1.start.dateTime}}",
+          "Outreach Sequence Step": 99,
+          "Follow Up Date": "{{1.start.dateTime}}"
+        },
+        "note": "Setting Outreach Sequence Step to 99 stops the automated follow-up emails"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Gmail - Send Email",
+      "type": "action",
+      "description": "Send custom booking confirmation email with call prep info",
+      "config": {
+        "to": "{{2.leadEmail}}",
+        "subject": "Your discovery call is confirmed for {{2.callDateTime}} - see you soon!",
+        "htmlBody": "Use template: gmail-templates/04-booking-confirmation.html",
+        "variables": {
+          "lead_name": "{{3[0].Full Name}}",
+          "call_date": "{{2.callDateTime}}",
+          "meet_link": "{{2.meetLink}}"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "Google Sheets - Update Row",
+      "type": "action",
+      "description": "Update lead status in Sheets",
+      "config": {
+        "spreadsheet": "Lead Tracker & Scoring Dashboard",
+        "sheet": "Lead Data",
+        "lookupColumn": "Q",
+        "lookupValue": "{{3[0].id}}",
+        "updateColumn": "P",
+        "updateValue": "Discovery Call Scheduled"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Airtable - Create Record",
+      "type": "action",
+      "description": "If lead not found, create a new record (direct booking without form submission)",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "fields": {
+          "Full Name": "{{1.summary}}",
+          "Email": "{{2.leadEmail}}",
+          "Lead Source": "Manual Entry",
+          "Lead Status": "Discovery Call Scheduled",
+          "Pipeline Stage": "Opportunity",
+          "Discovery Call Date": "{{1.start.dateTime}}",
+          "Submitted At": "{{now}}",
+          "Lead Score": 50,
+          "Outreach Sequence Step": 99
+        }
+      }
+    },
+    {
+      "id": 9,
+      "name": "Airtable - Create Record (Email Log)",
+      "type": "action",
+      "description": "Log the booking confirmation email",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Email Log",
+        "fields": {
+          "Recipient Email": "{{2.leadEmail}}",
+          "Email Type": "Booking Confirmation",
+          "Subject Line": "Your discovery call is confirmed for {{2.callDateTime}}",
+          "Sent At": "{{now}}",
+          "Status": "Sent"
+        }
+      }
+    }
+  ],
+  "post_call_workflow": {
+    "description": "After the discovery call, team member manually updates Airtable:",
+    "if_won": [
+      "Change Lead Status to 'Won'",
+      "Change Pipeline Stage to 'Client'",
+      "This triggers Scenario 05 (Client Onboarding)"
+    ],
+    "if_lost": [
+      "Change Lead Status to 'Lost'",
+      "Add reason in Notes field"
+    ],
+    "if_proposal_needed": [
+      "Change Lead Status to 'Proposal Sent'",
+      "Set Follow Up Date to 3 days later"
+    ]
+  },
+  "setup_instructions": [
+    "1. Create this scenario in Make.com",
+    "2. Connect Google Calendar and select/create a 'Discovery Calls' calendar",
+    "3. Set up Google Calendar Appointment Schedule for booking",
+    "4. Connect the same Airtable base",
+    "5. Connect Gmail for confirmation emails",
+    "6. Map all fields as shown above",
+    "7. Test by creating a test calendar event with a lead's email as attendee"
+  ]
+}

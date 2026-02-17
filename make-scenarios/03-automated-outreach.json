@@ -1,0 +1,175 @@
+{
+  "scenario": {
+    "name": "03 - Automated Outreach: Email Follow-Up Sequence",
+    "description": "Manages the multi-step email outreach sequence. Checks daily for leads that need follow-up emails (Follow-Up 1 at day 3, Follow-Up 2 at day 8). Stops sequence if lead books a call or replies.",
+    "scheduling": {
+      "type": "scheduled",
+      "interval": "daily",
+      "time": "09:00",
+      "timezone": "America/New_York",
+      "note": "Runs every morning at 9 AM to send follow-ups"
+    }
+  },
+  "modules": [
+    {
+      "id": 1,
+      "name": "Airtable - Search Records",
+      "type": "trigger",
+      "description": "Find leads due for follow-up emails",
+      "config": {
+        "base": "Podcast Business CRM",
+        "table": "Leads",
+        "filterFormula": "AND(OR({Lead Status} = 'Contacted', {Lead Status} = 'Qualified'), {Outreach Sequence Step} < 3, IS_BEFORE({Follow Up Date}, DATEADD(NOW(), 1, 'days')))",
+        "sort": [{ "field": "Follow Up Date", "direction": "asc" }],
+        "maxRecords": 50
+      }
+    },
+    {
+      "id": 2,
+      "name": "Iterator",
+      "type": "flow",
+      "description": "Process each lead that needs a follow-up"
+    },
+    {
+      "id": 3,
+      "name": "Router",
+      "type": "router",
+      "description": "Route based on current sequence step",
+      "routes": [
+        {
+          "name": "Send Follow-Up #1",
+          "filter": "{{1.Outreach Sequence Step == 1}}",
+          "description": "3 days after initial outreach, send first follow-up",
+          "targetModule": 4
+        },
+        {
+          "name": "Send Follow-Up #2 (Final)",
+          "filter": "{{1.Outreach Sequence Step == 2}}",
+          "description": "5 days after Follow-Up #1, send final follow-up",
+          "targetModule": 5
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Gmail - Send Email (Follow-Up #1)",
+      "type": "action",
+      "description": "Send first follow-up email with social proof",
+      "config": {
+        "to": "{{1.Email}}",
+        "subject": "Quick follow-up on your podcast inquiry, {{1.Full Name}}",
+        "htmlBody": "Use template: gmail-templates/02-follow-up-1.html",
+        "variables": {
+          "lead_name": "{{1.Full Name}}",
+          "booking_link": "YOUR_GOOGLE_CALENDAR_APPOINTMENT_URL"
+        }
+      },
+      "followedBy": [
+        {
+          "id": "4b",
+          "name": "Airtable - Update Record",
+          "description": "Advance sequence step and set next follow-up date",
+          "config": {
+            "fields": {
+              "Outreach Sequence Step": 2,
+              "Last Contacted": "{{now}}",
+              "Follow Up Date": "{{addDays(now, 5)}}"
+            }
+          }
+        },
+        {
+          "id": "4c",
+          "name": "Airtable - Create Record (Email Log)",
+          "description": "Log Follow-Up #1 email",
+          "config": {
+            "table": "Email Log",
+            "fields": {
+              "Email Type": "Follow-Up 1",
+              "Sent At": "{{now}}",
+              "Status": "Sent"
+            }
+          }
+        },
+        {
+          "id": "4d",
+          "name": "Google Sheets - Update Row",
+          "description": "Update email tracking in Sheets",
+          "config": {
+            "updateColumn": "R",
+            "updateValue": "Follow-Up 1 sent {{formatDate(now, 'MM/DD/YYYY')}}"
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Gmail - Send Email (Follow-Up #2)",
+      "type": "action",
+      "description": "Send final follow-up email with free resources",
+      "config": {
+        "to": "{{1.Email}}",
+        "subject": "Last check-in — still interested in podcasting, {{1.Full Name}}?",
+        "htmlBody": "Use template: gmail-templates/03-follow-up-2.html",
+        "variables": {
+          "lead_name": "{{1.Full Name}}",
+          "booking_link": "YOUR_GOOGLE_CALENDAR_APPOINTMENT_URL"
+        }
+      },
+      "followedBy": [
+        {
+          "id": "5b",
+          "name": "Airtable - Update Record",
+          "description": "Mark sequence as complete, move to nurture if no response",
+          "config": {
+            "fields": {
+              "Outreach Sequence Step": 3,
+              "Last Contacted": "{{now}}",
+              "Lead Status": "Nurture",
+              "Follow Up Date": "{{addDays(now, 30)}}"
+            }
+          }
+        },
+        {
+          "id": "5c",
+          "name": "Airtable - Create Record (Email Log)",
+          "description": "Log Follow-Up #2 email",
+          "config": {
+            "table": "Email Log",
+            "fields": {
+              "Email Type": "Follow-Up 2",
+              "Sent At": "{{now}}",
+              "Status": "Sent"
+            }
+          }
+        },
+        {
+          "id": "5d",
+          "name": "Google Sheets - Update Row",
+          "description": "Update email tracking and status in Sheets",
+          "config": {
+            "updateColumns": {
+              "P": "Nurture",
+              "R": "Follow-Up 2 (Final) sent {{formatDate(now, 'MM/DD/YYYY')}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "sequence_timeline": {
+    "day_0": "Lead submits form → Lead captured (Scenario 01)",
+    "day_0_to_1": "Lead qualified and scored (Scenario 02) → Initial outreach sent",
+    "day_3": "Follow-Up #1 sent (this scenario) — includes testimonial/social proof",
+    "day_8": "Follow-Up #2 sent (this scenario) — final email with free resources",
+    "day_8_plus": "If no response → Status changes to 'Nurture'. Monthly check-in optional.",
+    "anytime": "If lead books a call → Sequence stops, status changes to 'Discovery Call Scheduled' (Scenario 04)"
+  },
+  "setup_instructions": [
+    "1. Create this as a scheduled scenario in Make.com, running daily at 9 AM",
+    "2. Connect to the same Airtable base",
+    "3. Configure the filter formula to find leads due for follow-up",
+    "4. Paste HTML from gmail-templates/02-follow-up-1.html and 03-follow-up-2.html",
+    "5. Replace YOUR_GOOGLE_CALENDAR_APPOINTMENT_URL with your actual booking link",
+    "6. Test with a lead that has Outreach Sequence Step = 1 and a past Follow Up Date"
+  ]
+}
