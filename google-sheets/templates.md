@@ -37,9 +37,11 @@ This sheet receives raw lead data from Make.com and calculates lead scores.
       IF(K2="$1,000 - $2,500/month", 20,
         IF(K2="$500 - $1,000/month", 10, 5)))),
   IF(G2="Yes", 15, 5),
-  IF(OR(ISNUMBER(SEARCH("Full Podcast Production", I2)),
-        ISNUMBER(SEARCH("Launch Package", I2))), 20,
-    IF(ISNUMBER(SEARCH("Editing Only", I2)), 10, 5)),
+  IF(OR(ISNUMBER(SEARCH("Podcast Launching", I2)),
+        ISNUMBER(SEARCH("Custom Package", I2))), 20,
+    IF(OR(ISNUMBER(SEARCH("Podcast Editing", I2)),
+          ISNUMBER(SEARCH("Publishing", I2))), 15,
+      IF(ISNUMBER(SEARCH("Content Research", I2)), 10, 5))),
   IF(J2="8 episodes (bi-weekly)", 15,
     IF(J2="4 episodes (weekly)", 12,
       IF(J2="1-2 episodes", 8, 5))),
@@ -60,9 +62,9 @@ This sheet receives raw lead data from Make.com and calculates lead scores.
 | Budget | Under $500/mo | 5 |
 | Existing Podcast | Yes | 15 |
 | Existing Podcast | No | 5 |
-| Service Type | Full Production or Launch | 20 |
-| Service Type | Editing Only | 10 |
-| Service Type | Other | 5 |
+| Service Type | Podcast Launching or Custom Package | 20 |
+| Service Type | Podcast Editing or Publishing | 15 |
+| Service Type | Content Research | 10 |
 | Volume | 8 episodes/mo | 15 |
 | Volume | 4 episodes/mo | 12 |
 | Volume | 1-2 episodes/mo | 8 |
@@ -72,6 +74,16 @@ This sheet receives raw lead data from Make.com and calculates lead scores.
 | Referral Source | Referral | 5 |
 
 **Max Score: 100**
+
+### Service Packages Reference
+
+| Service | Description | Typical Price Range |
+|---------|-------------|-------------------|
+| **Podcast Editing** | Audio editing, mixing, mastering, noise removal, post-production | $200-$800/episode |
+| **Podcast Launching** | Full launch: branding, trailer, hosting setup, first episodes, launch strategy | $2,000-$5,000 one-time |
+| **Content Research** | Topic research, guest sourcing, outlines, talking points, show notes | $300-$1,000/mo |
+| **Publishing** | Upload, scheduling, distribution, SEO, show notes publishing | $200-$600/mo |
+| **Custom Package** | Mix and match any services above | Varies |
 
 ### Lead Grade Formula (Column O)
 

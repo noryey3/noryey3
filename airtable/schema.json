@@ -17,12 +17,11 @@
         { "name": "Podcast Name", "type": "singleLineText", "description": "Existing podcast name if applicable" },
         { "name": "Has Existing Podcast", "type": "checkbox" },
         { "name": "Service Interest", "type": "multipleSelects", "options": [
-          "Full Podcast Production",
-          "Editing Only",
-          "Show Notes & Content",
-          "Launch Package",
-          "Guest Booking",
-          "Consulting"
+          "Podcast Editing",
+          "Podcast Launching",
+          "Content Research",
+          "Publishing",
+          "Custom Package"
         ]},
         { "name": "Budget Range", "type": "singleSelect", "options": [
           "Under $500/mo",
@@ -123,14 +122,29 @@
         { "name": "Company / Brand", "type": "singleLineText" },
         { "name": "Podcast Name", "type": "singleLineText" },
         { "name": "Service Package", "type": "singleSelect", "options": [
-          "Full Production",
-          "Editing Only",
-          "Show Notes & Content",
-          "Launch Package",
-          "Custom"
+          "Podcast Editing",
+          "Podcast Launching",
+          "Content Research",
+          "Publishing",
+          "Custom Package"
         ]},
         { "name": "Monthly Rate", "type": "currency", "currencySymbol": "$" },
         { "name": "Billing Cycle", "type": "singleSelect", "options": ["Monthly", "Quarterly", "Annual"] },
+        { "name": "Payment Status", "type": "singleSelect", "description": "Manual tracking now; automated payment integration planned for future", "options": [
+          "Pending",
+          "Invoice Sent",
+          "Paid",
+          "Overdue",
+          "Refunded"
+        ]},
+        { "name": "Payment Method", "type": "singleSelect", "description": "Future: will be auto-populated by payment gateway (Stripe/PayPal)", "options": [
+          "Bank Transfer",
+          "Credit Card",
+          "PayPal",
+          "Stripe",
+          "Other"
+        ]},
+        { "name": "Next Invoice Date", "type": "date", "description": "Future: auto-calculated by payment automation" },
         { "name": "Contract Start", "type": "date" },
         { "name": "Contract End", "type": "date" },
         { "name": "Client Status", "type": "singleSelect", "options": [

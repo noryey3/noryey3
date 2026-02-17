@@ -108,7 +108,7 @@
         "variables": {
           "lead_name": "{{1.Full Name}}",
           "company": "{{1.Company / Brand}}",
-          "services": "{{1.Service Interest}}",
+          "services": "{{1.Service Interest}}  {{! Possible values: Podcast Editing, Podcast Launching, Content Research, Publishing, Custom Package }}",
           "booking_link": "YOUR_GOOGLE_CALENDAR_APPOINTMENT_URL"
         }
       }

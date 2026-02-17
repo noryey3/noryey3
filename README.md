@@ -4,6 +4,18 @@ End-to-end automation for a podcast business — from **lead generation** throug
 
 ---
 
+## Service Offerings
+
+| Service | Description |
+|---------|-------------|
+| **Podcast Editing** | Professional audio editing, mixing, mastering, noise removal, and post-production |
+| **Podcast Launching** | Full launch package — branding, trailer, hosting setup, first episodes, and launch strategy |
+| **Content Research** | Topic research, guest sourcing, episode outlines, talking points, and show notes |
+| **Publishing** | Upload, scheduling, distribution to all platforms, SEO optimization, and show notes publishing |
+| **Custom Package** | Mix and match any services above, tailored to specific client needs |
+
+---
+
 ## System Overview
 
 ```
@@ -35,6 +47,16 @@ LEAD GENERATION ──> QUALIFICATION ──> OUTREACH ──> BOOKING ──> O
 | `make-scenarios/04-booking-scheduling.json` | Calendar booking → CRM update |
 | `make-scenarios/05-client-onboarding.json` | Trello board + Drive folders + welcome email |
 | `make-scenarios/06-delivery-fulfillment.json` | Episode delivery + feedback loop |
+
+**Future Scenarios (Payment Automation):**
+
+| Scenario | Description | Status |
+|----------|-------------|--------|
+| `07 - Invoice Generation` | Auto-generate and send invoices via Stripe/PayPal | Planned |
+| `08 - Recurring Billing` | Monthly automated billing per client billing cycle | Planned |
+| `09 - Payment Failure & Dunning` | Handle failed payments, retries, account pausing | Planned |
+
+See `docs/future-payment-automation.md` for full roadmap and blueprints.
 
 ---
 
@@ -98,7 +120,8 @@ podcast-automation/
 ├── google-drive/
 │   └── folder-structure.json # Client folder templates
 └── docs/
-    ├── setup-guide.md        # Full setup instructions
+    ├── setup-guide.md              # Full setup instructions
     ├── sop-lead-management.md
-    └── sop-onboarding.md
+    ├── sop-onboarding.md
+    └── future-payment-automation.md # Payment automation roadmap
 ```

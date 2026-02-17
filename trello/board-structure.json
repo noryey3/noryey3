@@ -8,9 +8,11 @@
     { "name": "High Priority", "color": "red" },
     { "name": "New Client", "color": "green" },
     { "name": "Returning Client", "color": "blue" },
-    { "name": "Full Production", "color": "purple" },
-    { "name": "Editing Only", "color": "yellow" },
-    { "name": "Launch Package", "color": "orange" },
+    { "name": "Podcast Editing", "color": "yellow" },
+    { "name": "Podcast Launching", "color": "orange" },
+    { "name": "Content Research", "color": "purple" },
+    { "name": "Publishing", "color": "lime" },
+    { "name": "Custom Package", "color": "pink" },
     { "name": "Blocked", "color": "red" },
     { "name": "Waiting on Client", "color": "sky" }
   ],
@@ -164,7 +166,7 @@
       "name": "Custom Fields",
       "fields": [
         { "name": "Client Email", "type": "text" },
-        { "name": "Package Type", "type": "dropdown", "options": ["Full Production", "Editing Only", "Show Notes", "Launch Package"] },
+        { "name": "Package Type", "type": "dropdown", "options": ["Podcast Editing", "Podcast Launching", "Content Research", "Publishing", "Custom Package"] },
         { "name": "Monthly Rate", "type": "number" },
         { "name": "Drive Folder URL", "type": "text" },
         { "name": "Airtable Record ID", "type": "text" }

@@ -42,7 +42,7 @@
           {
             "name": "leadScore",
             "value": "{{calculateLeadScore}}",
-            "formula_explanation": "Sum of: Budget points (5-30) + Existing podcast (5-15) + Service type (5-20) + Volume (5-15) + Has website (0-10) + Has phone (0-5) + Referral bonus (0-5). See google-sheets/templates.md for full breakdown."
+            "formula_explanation": "Sum of: Budget points (5-30) + Existing podcast (5-15) + Service type (5-20: Launching/Custom=20, Editing/Publishing=15, Content Research=10) + Volume (5-15) + Has website (0-10) + Has phone (0-5) + Referral bonus (0-5). See google-sheets/templates.md for full breakdown."
           },
           {
             "name": "leadGrade",

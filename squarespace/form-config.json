@@ -56,13 +56,19 @@
       "type": "checkbox",
       "required": true,
       "options": [
-        "Full Podcast Production",
-        "Editing Only",
-        "Show Notes & Content Repurposing",
-        "Podcast Launch Package",
-        "Guest Booking",
-        "Podcast Strategy Consulting"
-      ]
+        "Podcast Editing",
+        "Podcast Launching",
+        "Content Research",
+        "Publishing",
+        "Custom Package"
+      ],
+      "descriptions": {
+        "Podcast Editing": "Professional audio editing, mixing, mastering, noise removal, and post-production",
+        "Podcast Launching": "Full launch package — branding, trailer, hosting setup, first episodes, and launch strategy",
+        "Content Research": "Topic research, guest sourcing, episode outlines, talking points, and show notes",
+        "Publishing": "Upload, scheduling, distribution to all platforms, SEO optimization, and show notes publishing",
+        "Custom Package": "Mix and match services tailored to your specific needs"
+      }
     },
     {
       "label": "How many episodes per month do you need?",
