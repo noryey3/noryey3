@@ -10,7 +10,22 @@ They already have a solution — an accountant, a bookkeeper, an editor, an agen
 
 **The core pain:** They're paying for a solution that isn't solving the problem.
 
-**Typical signals:**
+---
+
+## Also Applies To
+
+| Service | Their version of the pain | Your hook |
+|---------|--------------------------|-----------|
+| Accounting / Bookkeeping | CPA only shows up at tax season; books never updated; errors in reconciliations | "What's the main thing your current accountant isn't delivering?" |
+| Social Media Management | Agency posts generic content with no strategy; engagement is dead | "When's the last time a post from your agency actually drove a real result?" |
+| Web Development | Developer takes weeks for small updates; site is perpetually half-finished | "How responsive is your current dev when you need something changed?" |
+| Recruiting | Recruiter sends unqualified candidates; roles stay open for months | "How long have the open roles been unfilled?" |
+| Marketing / Paid Ads | Agency spends the budget, sends a report full of vanity metrics, never explains ROI | "Are you confident the ad spend is actually working, or does that report mostly confuse you?" |
+| Virtual Assistance | VA makes repeated mistakes; owner spends more time correcting than delegating | "How much of your week goes to reviewing or redoing your VA's work?" |
+
+---
+
+## Typical signals:
 - Public complaints about their current provider (slow, unresponsive, errors)
 - Mentions of switching, looking for someone new, or feeling "let down"
 - Posts asking for referrals or recommendations for the service you provide

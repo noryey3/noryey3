@@ -10,7 +10,22 @@ A business owner preparing for a significant next step — a funding round, a ne
 
 **The core pain:** They can see where they're going — and they know their current back-end can't get them there.
 
-**Typical signals:**
+---
+
+## Also Applies To
+
+| Service | Their version of the pain | Your hook |
+|---------|--------------------------|-----------|
+| Accounting / Finance | Raising funding or applying for a loan — books need to be investor-ready | "Congrats on [the milestone] — is your financial reporting ready for due diligence?" |
+| Legal | Scaling a team or raising money — needs proper IP, equity agreements, and employment contracts | "Do you have the legal infrastructure in place to support the growth you're planning?" |
+| HR / Recruiting | Hiring from 5 to 50 — needs a real onboarding and performance management system | "What's your hiring process going to look like at 10x your current team size?" |
+| IT / Cybersecurity | Going from startup to enterprise clients who will require security audits and SOC 2 | "Do you have the security posture that your enterprise clients will expect?" |
+| Marketing / Demand Gen | Revenue is product-led but they need a real acquisition engine before the next stage | "What does your top-of-funnel look like right now, and is it built to scale with the business?" |
+| Logistics / Operations | Opening second location or going national — current ops weren't built for that | "Is your current ops setup designed to run multiple locations, or is it still built for one?" |
+
+---
+
+## Typical signals:
 - Announced a new product, market expansion, or major company milestone
 - Actively raising funding or preparing for investor conversations
 - Hiring fast — team is growing from 2 to 10+

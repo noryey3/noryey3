@@ -10,7 +10,22 @@ They started small and did everything themselves — which was fine. But the bus
 
 **The core pain:** They've outgrown their current approach but haven't upgraded yet.
 
-**Typical signals:**
+---
+
+## Also Applies To
+
+| Service | Their version of the pain | Your hook |
+|---------|--------------------------|-----------|
+| Accounting / Bookkeeping | Outgrown Excel or DIY QuickBooks — books are months behind | "You've been managing your own books since you started. How's that holding up now?" |
+| Social Media Management | Posted occasionally when small; now has a real audience but no consistent content | "You've clearly built something — is your content output keeping up with the growth?" |
+| Email Marketing | Used basic Mailchimp fine at 1K subscribers; now at 20K and it's a mess | "Your list has grown — is your email setup still the same as when you started?" |
+| Logistics / Fulfillment | Was hand-packing 10 orders/day; now it's 200 and they're drowning | "How are you handling fulfillment right now — still doing it in-house?" |
+| HR / Payroll | Ran payroll manually for 3 people; now has 15 and it keeps breaking | "How are you handling payroll and HR compliance now that the team has grown?" |
+| IT Infrastructure | One server and a password spreadsheet worked fine — then the team hit 20 people | "Is your current tech setup built for the size the team is now?" |
+
+---
+
+## Typical signals:
 - Business is visibly growing (new hires, new locations, more content, more clients)
 - Mentions of "needing to get organized," "clean things up," or "finally set up a proper system"
 - They've been doing [the thing] themselves for 1–3 years — it's worked until now

@@ -10,7 +10,22 @@ A business owner who is operating in an area where the rules are complex, the co
 
 **The core pain:** They are exposed to risk they don't fully understand and it keeps them up at night.
 
-**Typical signals:**
+---
+
+## Also Applies To
+
+| Service | Their version of the pain | Your hook |
+|---------|--------------------------|-----------|
+| Accounting / Tax | Behind on estimated taxes, 1099s, or payroll filings; scared of an IRS notice | "Are your quarterly estimates and payroll taxes fully up to date?" |
+| Legal / Contracts | Operating with no contracts or free templates; one bad client dispute away from a problem | "Do you have proper contracts in place with your clients right now?" |
+| HR / Employment Law | Misclassifying contractors as employees; no proper wage/hour compliance | "Are your contractors set up correctly — 1099 vs W-2 — for how you're actually using them?" |
+| Data Privacy (GDPR/CCPA) | Collecting customer data with no privacy policy or compliant consent flows | "Do you have a privacy policy and data handling process that's actually compliant?" |
+| Food & Beverage | Health code requirements, food safety certifications, liquor licensing | "When's your next health inspection, and is everything in order?" |
+| Construction / Trades | Licensing, permits, OSHA requirements — not sure what applies to them | "Are all your licensing and permit requirements current for the work you're doing?" |
+
+---
+
+## Typical signals:
 - Posts or questions about compliance, regulations, deadlines, penalties
 - Mentions of feeling "behind" on tax filings, permits, or required processes
 - Recently had a scare — audit, penalty, a mistake they had to clean up

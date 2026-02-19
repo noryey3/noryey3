@@ -2,7 +2,9 @@
 
 > "The dream customer has the problem, can afford the solution, and is actively looking for it." — Alex Hormozi, $100M Leads
 
-Works for any service. Currently configured with accounting service examples.
+Works for **any service** — accounting, legal, social media, recruiting, IT, marketing, logistics, and beyond.
+Each persona profile has an **"Also Applies To"** table showing how the same archetype maps to different industries.
+Accounting is used as the primary worked example throughout, but the system is not limited to it.
 
 ---
 
