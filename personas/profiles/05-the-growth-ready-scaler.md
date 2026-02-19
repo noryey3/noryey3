@@ -101,7 +101,7 @@ I work with founders going through exactly this transition. Happy to do a 20-min
 
 **Your hook:** "Congrats on [the milestone] — is your financial reporting set up to support due diligence if it comes to that?"
 
-**Your offer frame:** "We set up and manage a full accounting system — monthly closes, consolidated financial statements, payroll management, BIR compliance, and investor-ready reporting. When your bank, investor, or partner asks to see your numbers, everything is ready and clean."
+**Your offer frame:** "We set up and manage a full accounting system — monthly closes, consolidated financial statements, payroll management, federal and state tax compliance, and investor-ready reporting. When your bank, investor, or partner asks to see your numbers, everything is ready and clean."
 
 **The strategic reframe:** "The cost of getting this right now is a fraction of what it costs to clean it up under pressure during due diligence. Every week of messy books before that conversation is a week of risk that could slow down or kill the deal."
 

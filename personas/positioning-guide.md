@@ -34,7 +34,7 @@ Fill this in for any service you're selling:
 ```
 
 **Accounting example:**
-> "We handle all your bookkeeping, BIR compliance, and financial reporting for small businesses like yours — so you always know your numbers and you're never caught off guard at tax time. Most clients are fully set up within 2 weeks. You send us your bank statements and receipts. We handle everything else."
+> "We handle all your bookkeeping, tax compliance, and financial reporting for small businesses like yours — so you always know your numbers and you're never caught off guard at tax time. Most clients are fully set up within 2 weeks. You send us your bank statements and receipts. We handle everything else."
 
 **Podcast example:**
 > "We take your raw recordings and turn them into fully edited, published podcast episodes — with show notes and distribution to Spotify and Apple — in 48 hours or less. You hit record. We handle everything else."
@@ -100,10 +100,10 @@ The structure is the same. The specifics change.
 **What they're buying:** Peace of mind. They want the fear to go away.
 
 **Lead with:** The specific risk they're exposed to right now.
-> "Most businesses at your stage have [X gap in their compliance setup] — and that's exactly what a BIR audit flag looks like."
+> "Most businesses at your stage have [X gap in their compliance setup] — and that's exactly what an IRS audit flag looks like."
 
 **Frame the offer as:** Total coverage. No gaps. No surprises.
-> "When we're managing your compliance, there's nothing outstanding, nothing late, nothing exposed. If the BIR sends a letter, you're covered — because we'd already have handled it."
+> "When we're managing your compliance, there's nothing outstanding, nothing late, nothing exposed. If the IRS sends a notice, you're covered — because we'd already have handled it."
 
 **Risk reversal:** Free compliance review. Show them their exposure BEFORE they commit. The review itself creates urgency.
 

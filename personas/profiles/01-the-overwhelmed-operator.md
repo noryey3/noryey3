@@ -101,7 +101,7 @@ Worth a 15-minute call to see if it makes sense?
 
 **Your hook:** "Are you still doing your own books on top of running the business?"
 
-**Your offer frame:** "We take over your bookkeeping completely — reconciled monthly reports, BIR-ready records, and a financial summary you can actually use to make decisions. You send us your bank statements and receipts. We handle everything else."
+**Your offer frame:** "We take over your bookkeeping completely — reconciled monthly reports, IRS-compliant records, and a financial summary you can actually use to make decisions. You send us your bank statements and receipts. We handle everything else."
 
 **Risk reversal:** "We'll do your first month free so you can see exactly what clean books look like before you commit."
 

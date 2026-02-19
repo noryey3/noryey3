@@ -24,13 +24,13 @@ What you do: ____________________________ (everything else)
 
 **Accounting example:**
 ```
-Service: Monthly bookkeeping + BIR compliance
+Service: Monthly bookkeeping + federal/state tax compliance
 Provider: [Accounting firm name]
-Target: Small business owners and SMEs in the Philippines
+Target: Small business owners and SMEs in the US
 Core promise: Clean books, zero missed filings, full financial visibility
 Timeframe: Full setup in 2 weeks, monthly reports by the 10th
 What they do: Send bank statements and receipts
-What you do: Everything else — reconciliations, filings, reports, payroll
+What you do: Everything else — reconciliations, quarterly estimates, filings, payroll, 1099s
 ```
 
 ---
@@ -115,21 +115,23 @@ TIMING signals for [your service]:
 **Accounting example:**
 ```
 PROBLEM AWARENESS:
-- Posted about BIR deadlines or tax stress
-- Last filed quarterly returns late or missed one
-- Mentioned doing books themselves in Excel or Google Sheets
-- Recently hired employees (new compliance burden)
+- Posted about IRS notices, tax stress, or missed estimated payments
+- Behind on quarterly estimated taxes or payroll filings
+- Mentioned doing books themselves in Excel or QuickBooks
+- Recently hired employees (new payroll tax and W-2 burden)
+- Paid contractors and unsure whether 1099s are required
 
 BUDGET:
 - Has a registered business with visible revenue
 - Sells products or services online
-- Has staff (means payroll = money is moving)
+- Has staff or contractors (means money is moving)
 
 TIMING:
-- Quarter-end is approaching (Jan, Apr, Jul, Oct in PH)
-- Just registered a new business
+- Quarterly estimated tax deadline approaching (Jan 15, Apr 15, Jun 15, Sep 15)
+- Just registered a new business or hired their first employee
+- Tax season (Jan–April) — when pain is highest
 - Announcing growth (new hire, new product, expansion)
-- Responding to a BIR notice or penalty
+- Responding to an IRS or state tax notice
 ```
 
 ---
@@ -141,7 +143,7 @@ TIMING:
 | Overwhelmed Operator | Facebook business groups, LinkedIn small business owners, Instagram small biz hashtags |
 | DIY-er Who Hit the Wall | LinkedIn (filtering by company size growth, new hires), Twitter/X (business milestone announcements) |
 | Unsatisfied Customer | Facebook groups (asking for referrals), Twitter/X (public complaints), Reddit (asking for recommendations) |
-| Compliance-Anxious | BIR-related Facebook groups, tax/accounting Q&A threads, LinkedIn compliance posts |
+| Compliance-Anxious | IRS/tax-related Reddit threads (r/smallbusiness, r/tax), Facebook business groups, LinkedIn compliance posts |
 | Growth-Ready Scaler | LinkedIn (funding announcements, expansion news), Crunchbase, local business news |
 
 ---
@@ -150,6 +152,6 @@ TIMING:
 
 | Service | Status |
 |---------|--------|
-| Accounting / Bookkeeping / BIR Compliance | Built — see `profiles/` Applied to Accounting sections |
+| Accounting / Bookkeeping / US Tax Compliance | Built — see `profiles/` Applied to Accounting sections |
 | Podcast Production | Built — see git history for previous version |
 | [Your next client's service] | Copy this guide, fill in Steps 1–4, done |

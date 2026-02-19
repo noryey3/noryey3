@@ -93,11 +93,11 @@ Is that a conversation worth having? Happy to do a quick 15-minute call.
 
 ## Applied to Accounting Services
 
-**Their exact pain:** They've been doing their books in Excel or QuickBooks themselves. The business doubled. Now the books are 3 months behind, the BIR records are a mess, and they're about to apply for a business loan and the bank wants audited financials.
+**Their exact pain:** They've been doing their books in Excel or QuickBooks themselves. The business doubled. Now the books are 3 months behind, records are a mess, and they're about to apply for a business loan and the bank wants audited financials — or they're staring down a big tax bill because no one was tracking estimated payments.
 
 **Your hook:** "You've been managing your own books since you started. How's that holding up with where the business is now?"
 
-**Your offer frame:** "We take over from where you are — no judgment on the current state — and get everything clean, reconciled, and BIR-compliant within 30 days. Then we handle it monthly going forward so you never fall behind again."
+**Your offer frame:** "We take over from where you are — no judgment on the current state — and get everything clean, reconciled, and IRS-compliant within 30 days. Then we handle it monthly going forward so you never fall behind again."
 
 **Risk reversal:** "We'll do a free financial health check first — look at what you have, tell you exactly where the gaps are, and what it would take to fix it. No obligation."
 
