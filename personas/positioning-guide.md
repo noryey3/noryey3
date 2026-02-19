@@ -1,6 +1,6 @@
-# Positioning Guide — How to Make the Offer They Can't Refuse
+# Positioning Guide — How to Frame Any Offer for Any Persona
 
-> "Make your offer so good that people feel stupid saying no." — Alex Hormozi
+> "Make people an offer so good they feel stupid saying no." — Alex Hormozi
 
 ---
 
@@ -12,30 +12,34 @@ Value = ────────────────────────
                    Time Delay × Effort & Sacrifice
 ```
 
-To increase what your service is worth, you have TWO levers to pull UP and TWO to push DOWN:
+Every element of your pitch should move at least one of these four levers:
 
-| Lever | Direction | What It Means |
-|-------|-----------|---------------|
-| Dream Outcome | UP | Make the result bigger and more specific |
-| Perceived Likelihood | UP | Make it more believable with proof and guarantees |
-| Time Delay | DOWN | Make the result happen faster |
-| Effort & Sacrifice | DOWN | Make it as hands-off as possible |
-
-**Your entire pitch should hit all four levers.**
+| Lever | Direction | How to Do It |
+|-------|-----------|--------------|
+| Dream Outcome | UP | Be specific about the result. Not "clean books" — "a P&L and balance sheet on your desk by the 10th of every month" |
+| Perceived Likelihood | UP | Case studies, testimonials, guarantees, free trial, show the process |
+| Time Delay | DOWN | How fast do they see results? Name the number. "30 days," "first report in 2 weeks," "48-hour turnaround" |
+| Effort & Sacrifice | DOWN | What do THEY have to do? Make it as small as possible. "You send us X. We handle everything else." |
 
 ---
 
-## Your Core Offer (The Grand Slam Frame)
+## The Universal Offer Frame
 
-Before you even pick a persona — this is the base offer that covers all of them:
+Fill this in for any service you're selling:
 
-> "We take your raw podcast recording and turn it into a fully edited, professionally mixed episode — with show notes, timestamps, and distribution to Spotify, Apple, and everywhere else — in 48 hours or less. You just hit record. We handle everything else."
+```
+"We [do the specific thing] for [type of business/person] so that [dream outcome].
+ Most clients are [set up / live / fully running] within [timeframe].
+ You [minimal thing they have to do]. We handle everything else."
+```
 
-Break that down against the value equation:
-- **Dream Outcome:** Professional podcast that sounds like you have a full media team
-- **Perceived Likelihood:** 48-hour guarantee removes the "what if they're slow" fear
-- **Time Delay:** 48 hours — faster than any in-house editor they'd hire
-- **Effort:** Zero — they only record. Everything else is off their plate.
+**Accounting example:**
+> "We handle all your bookkeeping, BIR compliance, and financial reporting for small businesses like yours — so you always know your numbers and you're never caught off guard at tax time. Most clients are fully set up within 2 weeks. You send us your bank statements and receipts. We handle everything else."
+
+**Podcast example:**
+> "We take your raw recordings and turn them into fully edited, published podcast episodes — with show notes and distribution to Spotify and Apple — in 48 hours or less. You hit record. We handle everything else."
+
+The structure is the same. The specifics change.
 
 ---
 
@@ -43,139 +47,121 @@ Break that down against the value equation:
 
 ---
 
-### P01 — The Busy Entrepreneur
+### P01 — The Overwhelmed Operator
 
-**What they ACTUALLY want:** Time back. Not a better podcast — TIME.
+**What they're buying:** Time. Not your service — time back.
 
-**Value Equation angle:**
-- Lead with the TIME cost: "You're trading $500/hr consulting time to do $12/hr editing work."
-- The dream outcome for them is not "a great podcast" — it's "consistent content without it consuming my week."
-- Reduce perceived effort to ZERO: "You record. You send. We do everything else."
+**Lead with:** The cost of doing it themselves.
+> "How many hours a week are you spending on [the task]? What's that hour worth to you?"
 
-**The Positioning Hook:**
-> "What would you do with 5 extra hours every week? Because right now, those hours are going to your podcast."
+**Frame the offer as:** Reclaiming high-value hours for high-value work.
+> "For [price], you get [X hours] of your week back — permanently."
 
-**Offer framing:**
-> "For less than the cost of one consulting client, your podcast runs itself every week — editing, show notes, publishing, everything. You never touch it again."
+**Risk reversal:** First month free, or first deliverable free. Remove the trial friction.
 
-**Risk reversal:** "If your first episode isn't the best-sounding episode you've ever published, we'll refund the first month."
+**What to AVOID:** Don't lead with features or process. They don't care how you do it. They care that it's off their plate.
 
 ---
 
-### P02 — The Established Podcaster
+### P02 — The DIY-er Who Hit the Wall
 
-**What they ACTUALLY want:** Quality that matches their reputation. They've built an audience — they can't afford to sound like an amateur.
+**What they're buying:** A system upgrade. They want to feel like a real, professional operation.
 
-**Value Equation angle:**
-- Lead with the QUALITY gap: "Your audio is the handshake before anyone hears your ideas."
-- Dream outcome: They become the go-to podcast in their niche — the one other hosts reference and advertisers reach out to.
-- Perceived likelihood: Show them before/after audio. Client case studies matter most here.
+**Lead with:** The growth they've achieved and the gap the old approach now creates.
+> "You've grown past what a spreadsheet/solo effort can handle. Here's what the next level looks like."
 
-**The Positioning Hook:**
-> "You've built the audience. The production quality is the last thing holding your show back from the next tier."
+**Frame the offer as:** The infrastructure that matches where they're going.
+> "We build the [bookkeeping/production/ops] system your business has earned."
 
-**Offer framing:**
-> "We work with established shows that are ready to professionalize. Our average client sees a 30% listener retention improvement after switching — because quality audio keeps people listening through to the end."
+**Risk reversal:** Free audit of their current setup — show them exactly what's broken before asking them to pay.
 
-**Risk reversal:** "We'll do your first 2 episodes as a calibration period. If you don't think it's better than what you have, you pay nothing."
+**What to AVOID:** Don't criticize how they've been doing it. They did what made sense at the time. Acknowledge the progress, then point to the gap.
 
 ---
 
-### P03 — The Content Creator
+### P03 — The Unsatisfied Customer
 
-**What they ACTUALLY want:** More content output without more work. They're already maxed out.
+**What they're buying:** Reliability. They've been burned. They need certainty this time will be different.
 
-**Value Equation angle:**
-- Lead with VOLUME: "You already have the content. You're just not getting it everywhere."
-- Dream outcome: One recording session becomes 5 pieces of content across 3 platforms, automatically.
-- Price sensitivity is real — lead with ROI math: "If this podcast brings you one new brand deal or product sale, it pays for itself 3x over."
+**Lead with:** The specific thing their current provider keeps getting wrong.
+> "The thing we hear most from clients who came from [bad provider situation]: they were always chasing for an update."
 
-**The Positioning Hook:**
-> "You record once. We put it on Spotify, Apple, YouTube, everywhere — with show notes and timestamps. Done."
+**Frame the offer as:** What your process guarantees — not what you try to do, what you GUARANTEE.
+> "Every month by the 10th. Every time. That's not a goal — it's our standard."
 
-**Offer framing:**
-> "You're already making content. You're just leaving the podcast audience on the table. We turn your existing recordings into a published podcast every week without you touching anything."
+**Risk reversal:** Do the first output for free and let them compare it to what they're getting now. Let the quality speak.
 
-**Risk reversal:** "Start with one month. If you don't think the output is worth it, no contract, no penalty."
+**What to AVOID:** Don't bad-mouth their current provider. Just describe your process and let the contrast do the work.
 
 ---
 
-### P04 — The Corporate Brand
+### P04 — The Compliance & Risk-Anxious
 
-**What they ACTUALLY want:** A podcast that makes their company look like a market leader. The show is a business card, not a hobby.
+**What they're buying:** Peace of mind. They want the fear to go away.
 
-**Value Equation angle:**
-- Lead with STATUS and POSITIONING: "Your competitors are already using branded podcasts to close enterprise deals."
-- Dream outcome: Thought leadership that generates inbound — clients, partners, press reaching out to THEM.
-- Perceived likelihood: They need case studies of other corporate-level shows you've worked with or similar-quality output.
-- Reduce effort: They have legal, brand, and stakeholder constraints. Offer a structured revision process that fits their workflow.
+**Lead with:** The specific risk they're exposed to right now.
+> "Most businesses at your stage have [X gap in their compliance setup] — and that's exactly what a BIR audit flag looks like."
 
-**The Positioning Hook:**
-> "We produce branded podcasts for companies that can't afford to sound like a side project."
+**Frame the offer as:** Total coverage. No gaps. No surprises.
+> "When we're managing your compliance, there's nothing outstanding, nothing late, nothing exposed. If the BIR sends a letter, you're covered — because we'd already have handled it."
 
-**Offer framing:**
-> "A fully managed, done-for-you branded podcast — strategy, production, editing, and distribution. Every episode goes through your approval process before it goes live. You own the show. We run it."
+**Risk reversal:** Free compliance review. Show them their exposure BEFORE they commit. The review itself creates urgency.
 
-**Risk reversal:** "We'll produce a pilot episode at no charge. If it's not ready to represent your brand, we don't charge until it is."
+**What to AVOID:** Don't use jargon that makes compliance sound more complicated. Simplify it. Make the scary thing manageable.
 
 ---
 
-### P05 — The Launch Seeker
+### P05 — The Growth-Ready Scaler
 
-**What they ACTUALLY want:** To finally get the podcast out of their head and into the world — and for it to NOT embarrass them on day one.
+**What they're buying:** Readiness. They want their back-office to be ready for the next stage before the next stage arrives.
 
-**Value Equation angle:**
-- Lead with MOMENTUM: "You've been thinking about this for 6 months. Here's what happens if you wait another 6."
-- Dream outcome: Launch day — their show is live on Spotify and Apple, it sounds incredible, and their audience actually shows up.
-- Time is a hidden pain point: Every month they delay, a competitor locks in that niche. Make waiting the dangerous choice.
-- Reduce overwhelm: Tell them they don't have to figure ANYTHING out. You have a process. They just follow it.
+**Lead with:** The upcoming milestone and what it will require.
+> "When you're in due diligence, the first thing they ask for is 2 years of clean financial statements. Are yours ready?"
 
-**The Positioning Hook:**
-> "Most people spend 6 months 'thinking about it.' We launch your podcast in 30 days, and it sounds like you've been doing it for years."
+**Frame the offer as:** The professional infrastructure that the next stage requires.
+> "We build and manage the financial system that makes your business look — and actually be — investment-ready."
 
-**Offer framing:**
-> "We handle everything — concept, name, artwork, music, intro/outro, hosting setup, episode editing, and launch strategy. You show up for the recording. We handle the rest. Your show goes live in 30 days or less."
+**Risk reversal:** Free financial readiness assessment. Tell them exactly where they stand against the standard their next milestone requires.
 
-**Risk reversal:** "If you're not proud of your launch episode, we rerecord and re-edit it for free. Your show represents your brand — we won't let it go out until it's right."
+**What to AVOID:** Don't pitch basic bookkeeping to this persona — they'll think you're too small for them. Lead with the strategic outcome, not the task.
 
 ---
 
-## Objection Kill Sheet
+## Universal Objection Kill Sheet
 
-These are the objections that will come up across ALL personas. Have these ready.
+These come up across all personas and all services. Have these ready.
 
 ---
 
 **"It's too expensive."**
 
-Wrong framing. The question isn't what it costs — it's what NOT doing it costs.
-
-> "If your podcast brings you one new client this month, what's that worth to you? What if it brought you five? The production fee is the smallest line item in that math. What's actually expensive is the time you're currently spending doing this yourself."
+Wrong question. Reframe:
+> "Completely fair. Can I ask — what does it cost you right now to handle this yourself or with your current setup? [Let them answer.] So we're comparing [their cost in time/money/risk] to [your price]. Which one is actually more expensive?"
 
 ---
 
-**"I can just do it myself."**
+**"I can do it myself / I'll handle it internally."**
 
-> "You can. But you haven't. How long have you been meaning to get consistent with your podcast? The bottleneck isn't ability — it's bandwidth. You're already at capacity. Adding podcast production to that list is why it keeps getting deprioritized."
+> "You can — and you have been. The question is: is that still the right use of your time at this stage? If [the task] is the best thing you can be doing with your week, keep doing it. But if there's higher-leverage work you could be doing instead, the math changes pretty fast."
 
 ---
 
 **"I need to think about it."**
 
-This means they're not sold on the value yet, NOT that they need more time.
+This means they're not sold on the value yet. Not that they need more time.
 
-> "Totally fair. Can I ask — what specifically would you need to see to feel confident this is worth it? I'd rather answer that now than have you go back and forth for two weeks."
-
----
-
-**"Let me try it myself first and maybe come back."**
-
-> "Here's what I've seen happen: people try it themselves, it takes 4–5 hours per episode, quality is lower than they wanted, consistency breaks down by month two, and they come back 3 months later having lost 90 days of momentum. I'm not saying that happens to everyone — but is saving the production fee worth risking 90 days of your show's growth?"
+> "Of course. Can I ask what's making you hesitate? Is it the price, the process, not being sure it'll work for your specific situation? I'd rather address that now than have you sit with an unanswered question for two weeks."
 
 ---
 
-**"Can I do a trial month?"**
+**"Let me try it myself first."**
 
-Yes — but frame it right. Don't discount.
+> "Here's what I've seen happen consistently: people try it themselves, it takes [time], the quality is lower than they wanted, and they come back 2–3 months later having lost [X weeks] of momentum. That happens to maybe 7 out of 10 people. I'm not saying it'll happen to you — but is saving [the fee] worth the risk of losing [3 months]?"
 
-> "Absolutely. We can start with a month-to-month arrangement — no long-term commitment. Most clients who start that way end up staying 6–12 months, not because of a contract, but because they see the results. Want me to send over what a first month looks like?"
+---
+
+**"Can I start with just one month / a small project?"**
+
+Yes — but price it correctly and frame it right.
+
+> "Absolutely — most clients start with a trial month. I'll say this: the clients who stay long-term almost always say they wish they'd started sooner. But yes, let's start with one month, deliver something great, and let the work make the case for itself."
