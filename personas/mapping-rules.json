@@ -1,0 +1,109 @@
+{
+  "description": "Decision tree for auto-assigning a persona to a new lead based on their Airtable record data. Rules are evaluated in priority order (lowest number first). First matching rule wins.",
+  "version": "1.0",
+  "rules": [
+    {
+      "priority": 1,
+      "persona_id": "P04",
+      "persona_name": "The Corporate Brand",
+      "description": "Company or organization running a branded podcast for thought leadership",
+      "logic": "AND",
+      "conditions": [
+        {
+          "field": "Budget Range",
+          "operator": "isAnyOf",
+          "values": ["$2,500-$5,000/mo", "$5,000+/mo"]
+        },
+        {
+          "field": "Company / Brand",
+          "operator": "isNotEmpty"
+        }
+      ],
+      "make_condition_expression": "{{lead.budget}} IN ('$2,500-$5,000/mo','$5,000+/mo') AND {{lead.company}} != ''"
+    },
+    {
+      "priority": 2,
+      "persona_id": "P05",
+      "persona_name": "The Launch Seeker",
+      "description": "Has no podcast yet and is ready to launch from scratch",
+      "logic": "AND",
+      "conditions": [
+        {
+          "field": "Has Existing Podcast",
+          "operator": "is",
+          "values": [false]
+        },
+        {
+          "field": "Service Interest",
+          "operator": "includes",
+          "values": ["Podcast Launching"]
+        }
+      ],
+      "make_condition_expression": "{{lead.has_existing_podcast}} = false AND {{lead.service_interest}} CONTAINS 'Podcast Launching'"
+    },
+    {
+      "priority": 3,
+      "persona_id": "P02",
+      "persona_name": "The Established Podcaster",
+      "description": "Has an active podcast, uploads frequently, wants to professionalize and scale",
+      "logic": "AND",
+      "conditions": [
+        {
+          "field": "Has Existing Podcast",
+          "operator": "is",
+          "values": [true]
+        },
+        {
+          "field": "Episodes Per Month",
+          "operator": "isAnyOf",
+          "values": ["4 (Weekly)", "8 (Bi-weekly)", "Custom"]
+        }
+      ],
+      "make_condition_expression": "{{lead.has_existing_podcast}} = true AND {{lead.episodes_per_month}} IN ('4 (Weekly)','8 (Bi-weekly)','Custom')"
+    },
+    {
+      "priority": 4,
+      "persona_id": "P03",
+      "persona_name": "The Content Creator",
+      "description": "Social media content creator expanding to podcasting, budget-conscious, volume-focused",
+      "logic": "OR",
+      "conditions": [
+        {
+          "field": "Budget Range",
+          "operator": "is",
+          "values": ["Under $500/mo"]
+        },
+        {
+          "field": "Budget Range",
+          "operator": "is",
+          "values": ["$500-$1,000/mo"],
+          "AND": [
+            {
+              "field": "Service Interest",
+              "operator": "includes",
+              "values": ["Publishing", "Content Research"]
+            }
+          ]
+        }
+      ],
+      "make_condition_expression": "{{lead.budget}} = 'Under $500/mo' OR ({{lead.budget}} = '$500-$1,000/mo' AND ({{lead.service_interest}} CONTAINS 'Publishing' OR {{lead.service_interest}} CONTAINS 'Content Research'))"
+    },
+    {
+      "priority": 5,
+      "persona_id": "P01",
+      "persona_name": "The Busy Entrepreneur",
+      "description": "Default persona — solo founder or small biz owner who wants a podcast without the workload",
+      "logic": "DEFAULT",
+      "conditions": [],
+      "make_condition_expression": "true"
+    }
+  ],
+  "fallback_persona_id": "P01",
+  "implementation_notes": [
+    "Evaluate rules in priority order (1 → 5). Stop at first match.",
+    "In Make.com Scenario 07, use a Router module with one filter per rule.",
+    "After persona is matched, write Persona Type and Persona ID back to the Airtable Leads record.",
+    "If no rule matches (data is incomplete), fall back to P01 — The Busy Entrepreneur.",
+    "Persona assignment runs immediately after lead scoring in Scenario 01 or as a standalone Scenario 07."
+  ]
+}
