@@ -1,0 +1,86 @@
+<!--
+  TEMPLATE: re-03-follow-up-2.html
+  SEND:     Day 7 — final follow-up if still no reply
+  SUBJECT:  Last note — {{NEIGHBORHOOD}} space (closing the loop)
+  FROM:     {{YOUR_NAME}} <{{YOUR_EMAIL}}>
+  VARIABLES: {{FIRST_NAME}}, {{BUSINESS_NAME}}, {{NEIGHBORHOOD}}, {{SPACE_SIZE}},
+             {{BOOKING_LINK}}, {{YOUR_NAME}}, {{YOUR_PHONE}}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Last Note — Closing the Loop</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f4f4; font-family: Arial, sans-serif; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border-radius: 8px; overflow: hidden; }
+    .header { background: #0f3460; padding: 28px 40px; }
+    .header h1 { color: #ffffff; font-size: 20px; margin: 0; }
+    .body { padding: 36px 40px; color: #333333; font-size: 15px; line-height: 1.7; }
+    .body p { margin: 0 0 16px; }
+    .urgency-note { background: #fff2f2; border: 1px solid #f5c6c6; padding: 14px 18px;
+                    border-radius: 4px; margin: 20px 0; font-size: 14px; color: #c0392b; }
+    .cta-btn { display: inline-block; background: #3a6ef5; color: #ffffff !important;
+               text-decoration: none; padding: 14px 32px; border-radius: 6px;
+               font-size: 15px; font-weight: bold; margin: 8px 0; }
+    .no-thanks { text-align: center; margin-top: 16px; font-size: 13px; color: #999; }
+    .footer { background: #f9f9f9; padding: 20px 40px; font-size: 12px; color: #999;
+              border-top: 1px solid #eeeeee; text-align: center; }
+    .footer a { color: #999; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Closing the loop on the {{NEIGHBORHOOD}} space</h1>
+    </div>
+
+    <div class="body">
+      <p>Hi {{FIRST_NAME}},</p>
+
+      <p>
+        I've reached out a couple of times about the {{SPACE_SIZE}} sq ft space available in
+        <strong>{{NEIGHBORHOOD}}</strong>. This is my last note — I don't want to fill up your inbox.
+      </p>
+
+      <p>
+        I'll be straightforward: we have active interest from a few other prospects and are moving
+        toward a decision this week. If {{BUSINESS_NAME}} has any interest, now is the right time to take a look.
+      </p>
+
+      <div class="urgency-note">
+        <strong>Space is still available</strong> — but we expect to have a signed lease within the next 7-10 days.
+      </div>
+
+      <p>
+        If the timing is wrong or this isn't the right fit, no hard feelings — just hit reply and let me know
+        and I'll close out your file. I'd rather know than guess.
+      </p>
+
+      <p>
+        If you <em>are</em> interested, here's a direct link to book a showing — takes 30 seconds:
+      </p>
+
+      <p style="text-align: center; margin: 28px 0;">
+        <a href="{{BOOKING_LINK}}" class="cta-btn">Yes, I'd Like to See the Space</a>
+      </p>
+
+      <div class="no-thanks">
+        Not interested? <a href="{{UNSUBSCRIBE_LINK}}">Click here</a> and we'll stop reaching out.
+      </div>
+
+      <p style="margin-top: 28px;">
+        Either way, thanks for your time {{FIRST_NAME}}.<br /><br />
+        Best,<br />
+        <strong>{{YOUR_NAME}}</strong><br />
+        {{YOUR_PHONE}}
+      </p>
+    </div>
+
+    <div class="footer">
+      <a href="{{UNSUBSCRIBE_LINK}}">Unsubscribe</a> — no more messages from us.
+    </div>
+  </div>
+</body>
+</html>

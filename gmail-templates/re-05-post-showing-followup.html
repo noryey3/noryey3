@@ -1,0 +1,115 @@
+<!--
+  TEMPLATE: re-05-post-showing-followup.html
+  SEND:     24 hours after showing is completed
+  SUBJECT:  Great meeting you — next steps for the {{NEIGHBORHOOD}} space
+  FROM:     {{YOUR_NAME}} <{{YOUR_EMAIL}}>
+  VARIABLES: {{FIRST_NAME}}, {{NEIGHBORHOOD}}, {{SPACE_ADDRESS}}, {{MONTHLY_RENT}},
+             {{LEASE_TERM}}, {{AVAILABLE_DATE}}, {{BOOKING_LINK}}, {{YOUR_NAME}},
+             {{YOUR_PHONE}}, {{VIRTUAL_TOUR_URL}}, {{LEASE_DRAFT_LINK}}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-Showing Follow-Up</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f4f4; font-family: Arial, sans-serif; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border-radius: 8px; overflow: hidden; }
+    .header { background: #37474f; padding: 28px 40px; }
+    .header h1 { color: #ffffff; font-size: 20px; margin: 0; }
+    .header p { color: #b0bec5; margin: 6px 0 0; font-size: 13px; }
+    .body { padding: 36px 40px; color: #333333; font-size: 15px; line-height: 1.7; }
+    .body p { margin: 0 0 16px; }
+    .recap { background: #f0f4ff; border-radius: 6px; padding: 18px 22px; margin: 20px 0; }
+    .recap h3 { margin: 0 0 10px; font-size: 14px; color: #3a6ef5; text-transform: uppercase; letter-spacing: 0.5px; }
+    .recap ul { margin: 0; padding-left: 18px; }
+    .recap ul li { margin-bottom: 6px; font-size: 14px; color: #444; }
+    .next-steps { margin: 24px 0; }
+    .next-steps h3 { font-size: 15px; color: #333; margin: 0 0 12px; }
+    .step { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 14px; }
+    .step-num { background: #3a6ef5; color: #fff; border-radius: 50%; width: 22px; height: 22px;
+                display: inline-flex; align-items: center; justify-content: center;
+                font-weight: bold; font-size: 12px; flex-shrink: 0; margin-right: 12px; margin-top: 1px; }
+    .cta-btn { display: inline-block; background: #3a6ef5; color: #ffffff !important;
+               text-decoration: none; padding: 14px 32px; border-radius: 6px;
+               font-size: 15px; font-weight: bold; }
+    .footer { background: #f9f9f9; padding: 20px 40px; font-size: 12px; color: #999;
+              border-top: 1px solid #eeeeee; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Thanks for coming by, {{FIRST_NAME}}</h1>
+      <p>Here's a quick recap + what comes next</p>
+    </div>
+
+    <div class="body">
+      <p>Hi {{FIRST_NAME}},</p>
+
+      <p>
+        It was really great meeting you yesterday. I hope the tour gave you a clear picture of the space
+        and what it could look like for your business.
+      </p>
+
+      <div class="recap">
+        <h3>Space Recap</h3>
+        <ul>
+          <li><strong>Address:</strong> {{SPACE_ADDRESS}}</li>
+          <li><strong>Monthly Rent:</strong> ${{MONTHLY_RENT}}</li>
+          <li><strong>Lease Term:</strong> {{LEASE_TERM}}</li>
+          <li><strong>Available:</strong> {{AVAILABLE_DATE}}</li>
+        </ul>
+      </div>
+
+      <p>
+        I wanted to follow up with a couple of quick things that may help as you think it over:
+      </p>
+
+      <div class="next-steps">
+        <h3>What happens next if you're interested:</h3>
+        <div class="step">
+          <span class="step-num">1</span>
+          <span>Reply to this email or call me — let me know you'd like to move forward</span>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <span>I'll send over the lease draft for you to review (no commitment yet, just reading)</span>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <span>We discuss any questions or adjustments to terms</span>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <span>Sign and set your move-in date</span>
+        </div>
+      </div>
+
+      <p>
+        If you have any hesitations — about the price, the space, the terms, anything at all —
+        please bring them to me. I'd rather work through them together than have you walk away
+        over something we could have resolved.
+      </p>
+
+      <p style="text-align: center; margin: 28px 0;">
+        <a href="mailto:{{YOUR_EMAIL}}?subject=Re: {{NEIGHBORHOOD}} Space — I'm Interested" class="cta-btn">
+          Reply: I'm Interested
+        </a>
+      </p>
+
+      <p>Thanks again for your time {{FIRST_NAME}} — hope to hear from you soon.</p>
+
+      <p>
+        <strong>{{YOUR_NAME}}</strong><br />
+        {{YOUR_PHONE}}
+      </p>
+    </div>
+
+    <div class="footer">
+      Need to see the space again? <a href="{{BOOKING_LINK}}">Book a second visit</a>
+    </div>
+  </div>
+</body>
+</html>

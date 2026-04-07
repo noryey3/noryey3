@@ -1,0 +1,116 @@
+{
+  "base_name": "Real Estate Outreach CRM",
+  "description": "Prospect tracking for commercial/residential lease acquisition",
+  "tables": [
+    {
+      "name": "Prospects",
+      "description": "All outreach targets — businesses or individuals who may lease the space",
+      "fields": [
+        { "name": "Prospect ID", "type": "autonumber", "primary": true },
+        { "name": "First Name", "type": "single_line_text" },
+        { "name": "Last Name", "type": "single_line_text" },
+        { "name": "Company / Business Name", "type": "single_line_text" },
+        { "name": "Email", "type": "email" },
+        { "name": "Phone", "type": "phone_number" },
+        { "name": "Business Type", "type": "single_select", "options": [
+          "Retail", "Office / Professional Services", "Food & Beverage",
+          "Health & Wellness", "Creative / Studio", "Nonprofit", "Individual / Residential", "Other"
+        ]},
+        { "name": "Status", "type": "single_select", "options": [
+          "New", "Email Sent", "Follow-Up 1 Sent", "Follow-Up 2 Sent",
+          "Replied", "Showing Scheduled", "Showing Completed",
+          "Interested", "Lease Sent", "Lease Signed", "Not Interested", "Unsubscribed"
+        ]},
+        { "name": "Source", "type": "single_select", "options": [
+          "Manual List", "Referral", "Inbound Inquiry", "Google Maps Research",
+          "LinkedIn", "Local Business Directory", "Walk-In"
+        ]},
+        { "name": "Lead Score", "type": "number", "description": "1-10 fit score based on business type and space needs" },
+        { "name": "Space Need (sq ft)", "type": "number" },
+        { "name": "Budget (monthly)", "type": "currency" },
+        { "name": "Move-In Timeline", "type": "single_select", "options": [
+          "ASAP", "1-3 months", "3-6 months", "6-12 months", "Just Browsing"
+        ]},
+        { "name": "Notes", "type": "long_text" },
+        { "name": "Outreach Email #1 Sent", "type": "date" },
+        { "name": "Outreach Email #2 Sent", "type": "date" },
+        { "name": "Outreach Email #3 Sent", "type": "date" },
+        { "name": "Showing Date", "type": "date_time" },
+        { "name": "Last Contact Date", "type": "date" },
+        { "name": "Lease Sent Date", "type": "date" },
+        { "name": "Lease Signed Date", "type": "date" },
+        { "name": "Do Not Contact", "type": "checkbox" },
+        { "name": "Created At", "type": "created_time" },
+        { "name": "Updated At", "type": "last_modified_time" }
+      ],
+      "views": [
+        {
+          "name": "Active Pipeline",
+          "type": "grid",
+          "filter": "Status is not one of [Not Interested, Unsubscribed, Lease Signed]",
+          "sort": [{ "field": "Lead Score", "direction": "desc" }]
+        },
+        {
+          "name": "Needs Follow-Up",
+          "type": "grid",
+          "filter": "Status = Email Sent AND Outreach Email #1 Sent is before 3 days ago"
+        },
+        {
+          "name": "Showings This Week",
+          "type": "calendar",
+          "date_field": "Showing Date"
+        },
+        {
+          "name": "Hot Leads",
+          "type": "grid",
+          "filter": "Lead Score >= 7 AND Status is one of [Replied, Showing Scheduled, Showing Completed, Interested]"
+        },
+        {
+          "name": "Kanban Pipeline",
+          "type": "kanban",
+          "group_by": "Status"
+        }
+      ]
+    },
+    {
+      "name": "The Space",
+      "description": "Details about the available space — referenced in outreach emails",
+      "fields": [
+        { "name": "Space Name", "type": "single_line_text", "primary": true },
+        { "name": "Address", "type": "single_line_text" },
+        { "name": "Neighborhood", "type": "single_line_text" },
+        { "name": "Square Footage", "type": "number" },
+        { "name": "Monthly Rent", "type": "currency" },
+        { "name": "Lease Term Options", "type": "single_line_text", "description": "e.g. 12 months, 24 months" },
+        { "name": "Space Type", "type": "single_select", "options": [
+          "Retail Storefront", "Office Suite", "Co-Working Space",
+          "Warehouse / Industrial", "Mixed Use", "Residential Unit"
+        ]},
+        { "name": "Available From", "type": "date" },
+        { "name": "Key Features", "type": "long_text", "description": "Bullet points of top selling features" },
+        { "name": "Virtual Tour URL", "type": "url" },
+        { "name": "Photo Gallery (Drive)", "type": "url" },
+        { "name": "Parking", "type": "single_line_text" },
+        { "name": "Zoning", "type": "single_line_text" },
+        { "name": "Contact Email", "type": "email" },
+        { "name": "Booking Link", "type": "url", "description": "Google Calendar appointment page for showings" }
+      ]
+    },
+    {
+      "name": "Activity Log",
+      "description": "Timestamped record of every touchpoint per prospect",
+      "fields": [
+        { "name": "Activity ID", "type": "autonumber", "primary": true },
+        { "name": "Prospect", "type": "link_to_record", "linked_table": "Prospects" },
+        { "name": "Activity Type", "type": "single_select", "options": [
+          "Email Sent", "Email Replied", "Call Made", "Call Received",
+          "Showing Scheduled", "Showing Completed", "Lease Sent",
+          "Lease Signed", "Note Added", "Status Changed"
+        ]},
+        { "name": "Date", "type": "date_time" },
+        { "name": "Notes", "type": "long_text" },
+        { "name": "Performed By", "type": "single_line_text" }
+      ]
+    }
+  ]
+}

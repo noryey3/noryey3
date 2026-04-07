@@ -1,0 +1,171 @@
+{
+  "name": "RE-03 — Showing Scheduler",
+  "description": "When a prospect books a showing via Google Calendar, update Airtable CRM, send confirmation email, and log the activity.",
+  "trigger": "Google Calendar — new appointment booked on the 'Property Showings' calendar",
+  "modules": [
+    {
+      "id": 1,
+      "app": "Google Calendar",
+      "module": "WatchEvents",
+      "label": "Watch for new showing bookings",
+      "config": {
+        "calendar_id": "{{SHOWINGS_CALENDAR_ID}}",
+        "event_type": "created",
+        "note": "Set up Google Calendar appointment scheduling page. Each booking creates an event with attendee email."
+      }
+    },
+    {
+      "id": 2,
+      "app": "Airtable",
+      "module": "SearchRecords",
+      "label": "Find prospect by email (attendee email from calendar event)",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "filter_formula": "{Email} = '{{1.attendee_email}}'",
+        "max_records": 1
+      }
+    },
+    {
+      "id": 3,
+      "app": "Router",
+      "module": "BasicRouter",
+      "label": "Route: known prospect vs new inbound",
+      "routes": [
+        {
+          "label": "Known prospect — update record",
+          "condition": "{{length(2.records)}} > 0"
+        },
+        {
+          "label": "New inbound — create prospect first",
+          "condition": "{{length(2.records)}} = 0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "app": "Airtable",
+      "module": "CreateRecord",
+      "label": "Create new prospect (inbound booking with no prior record)",
+      "route": "New inbound — create prospect first",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "fields": {
+          "First Name": "{{1.attendee_name | split: ' ' | first}}",
+          "Last Name": "{{1.attendee_name | split: ' ' | last}}",
+          "Email": "{{1.attendee_email}}",
+          "Status": "Showing Scheduled",
+          "Source": "Inbound Inquiry",
+          "Showing Date": "{{1.start_datetime}}",
+          "Last Contact Date": "{{now | date: 'YYYY-MM-DD'}}"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "app": "Airtable",
+      "module": "UpdateRecord",
+      "label": "Update known prospect — set Showing Scheduled",
+      "route": "Known prospect — update record",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{2.records[0].id}}",
+        "fields": {
+          "Status": "Showing Scheduled",
+          "Showing Date": "{{1.start_datetime}}",
+          "Last Contact Date": "{{now | date: 'YYYY-MM-DD'}}"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Send showing confirmation email",
+      "config": {
+        "to": "{{1.attendee_email}}",
+        "subject": "Confirmed: Your showing at {{SPACE_ADDRESS}} on {{1.start_date_formatted}}",
+        "html_body": "{{load template: re-04-showing-confirmation.html}}",
+        "variables": {
+          "FIRST_NAME": "{{1.attendee_first_name}}",
+          "SHOWING_DATE": "{{1.start_date_formatted}}",
+          "SHOWING_TIME": "{{1.start_time_formatted}}",
+          "SPACE_ADDRESS": "{{SPACE_ADDRESS}}",
+          "PARKING_INFO": "{{PARKING_INFO}}",
+          "SPACE_SIZE": "{{SPACE_SIZE}}",
+          "MONTHLY_RENT": "{{MONTHLY_RENT}}",
+          "GOOGLE_MAPS_LINK": "{{GOOGLE_MAPS_LINK}}",
+          "CANCEL_RESCHEDULE_LINK": "{{1.cancel_url}}",
+          "CALENDAR_INVITE_LINK": "{{1.html_link}}"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "app": "Airtable",
+      "module": "CreateRecord",
+      "label": "Log activity — showing scheduled",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Activity Log",
+        "fields": {
+          "Prospect": ["{{2.records[0].id | default: 4.id}}"],
+          "Activity Type": "Showing Scheduled",
+          "Date": "{{now}}",
+          "Notes": "Showing booked for {{1.start_datetime}}. Confirmation email sent."
+        }
+      }
+    },
+    {
+      "id": 8,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Notify owner — new showing booked",
+      "config": {
+        "to": "{{YOUR_EMAIL}}",
+        "subject": "New showing booked — {{1.attendee_name}} on {{1.start_date_formatted}}",
+        "text_body": "{{1.attendee_name}} ({{1.attendee_email}}) has booked a showing for {{1.start_datetime}} at {{SPACE_ADDRESS}}.\n\nView in Airtable: {{AIRTABLE_BASE_URL}}"
+      }
+    },
+    {
+      "id": 9,
+      "app": "Make",
+      "module": "ScheduleDelay",
+      "label": "Wait until 24h after showing time",
+      "config": {
+        "delay_until": "{{1.end_datetime + 24h}}",
+        "note": "Split into separate scheduled scenario: run daily, filter Status='Showing Scheduled' AND Showing Date < yesterday"
+      }
+    },
+    {
+      "id": 10,
+      "app": "Airtable",
+      "module": "UpdateRecord",
+      "label": "Mark showing as completed",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{2.records[0].id | default: 4.id}}",
+        "fields": {
+          "Status": "Showing Completed"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "app": "HTTP",
+      "module": "MakeARequest",
+      "label": "Trigger post-showing follow-up (RE-04)",
+      "config": {
+        "url": "{{RE_04_CLOSING_WEBHOOK_URL}}",
+        "method": "POST",
+        "body": {
+          "prospect_id": "{{2.records[0].id | default: 4.id}}",
+          "trigger": "post_showing"
+        }
+      }
+    }
+  ]
+}

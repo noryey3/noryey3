@@ -1,0 +1,221 @@
+{
+  "name": "RE-02 — Automated Outreach Sequence",
+  "description": "Sends the 3-step cold email sequence (Day 0, Day 3, Day 7). Stops if prospect replies, books a showing, or unsubscribes.",
+  "trigger": "Webhook (from RE-01) OR Airtable Watch Records (Status = New)",
+  "schedule": "Every 15 minutes",
+  "modules": [
+    {
+      "id": 1,
+      "app": "Airtable",
+      "module": "WatchRecords",
+      "label": "Watch for new prospects (Status = New, no email sent)",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "filter_formula": "AND({Status} = 'New', {Outreach Email #1 Sent} = BLANK(), {Do Not Contact} != TRUE())",
+        "max_records": 10,
+        "sort": [{ "field": "Created At", "direction": "asc" }]
+      }
+    },
+    {
+      "id": 2,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Send Email #1 — Initial Outreach (Day 0)",
+      "config": {
+        "to": "{{1.Email}}",
+        "subject": "Available space in {{NEIGHBORHOOD}} — thought of {{1['Company / Business Name']}}",
+        "html_body": "{{load template: re-01-initial-outreach.html with prospect fields}}",
+        "from_name": "{{YOUR_NAME}}",
+        "reply_to": "{{YOUR_EMAIL}}",
+        "thread_management": "new_thread",
+        "variables": {
+          "FIRST_NAME": "{{1['First Name']}}",
+          "BUSINESS_NAME": "{{1['Company / Business Name']}}",
+          "NEIGHBORHOOD": "{{SPACE_NEIGHBORHOOD}}",
+          "SPACE_SIZE": "{{SPACE_SIZE}}",
+          "MONTHLY_RENT": "{{MONTHLY_RENT}}",
+          "SPACE_TYPE": "{{SPACE_TYPE}}",
+          "SPACE_ADDRESS": "{{SPACE_ADDRESS}}",
+          "KEY_FEATURE_1": "{{KEY_FEATURE_1}}",
+          "KEY_FEATURE_2": "{{KEY_FEATURE_2}}",
+          "KEY_FEATURE_3": "{{KEY_FEATURE_3}}",
+          "BOOKING_LINK": "{{CALENDAR_BOOKING_LINK}}",
+          "VIRTUAL_TOUR_URL": "{{VIRTUAL_TOUR_URL}}",
+          "UNSUBSCRIBE_LINK": "{{UNSUBSCRIBE_BASE_URL}}?id={{1.id}}"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "app": "Airtable",
+      "module": "UpdateRecord",
+      "label": "Update prospect: Email #1 sent, status → Email Sent",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{1.id}}",
+        "fields": {
+          "Status": "Email Sent",
+          "Outreach Email #1 Sent": "{{now | date: 'YYYY-MM-DD'}}",
+          "Last Contact Date": "{{now | date: 'YYYY-MM-DD'}}"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "app": "Airtable",
+      "module": "CreateRecord",
+      "label": "Log activity — email #1 sent",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Activity Log",
+        "fields": {
+          "Prospect": ["{{1.id}}"],
+          "Activity Type": "Email Sent",
+          "Date": "{{now}}",
+          "Notes": "Initial cold outreach email sent (re-01-initial-outreach)."
+        }
+      }
+    },
+    {
+      "id": 5,
+      "app": "Make",
+      "module": "ScheduleDelay",
+      "label": "Wait 3 days",
+      "config": {
+        "delay_value": 3,
+        "delay_unit": "days",
+        "note": "Make.com does not natively pause — use a second scheduled scenario triggered by Airtable filter instead"
+      }
+    },
+    {
+      "id": 6,
+      "app": "Airtable",
+      "module": "GetRecord",
+      "label": "Re-check prospect status before follow-up #1",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{1.id}}"
+      }
+    },
+    {
+      "id": 7,
+      "app": "Router",
+      "module": "BasicRouter",
+      "label": "Gate: only send follow-up if status still = Email Sent",
+      "routes": [
+        {
+          "label": "Send follow-up",
+          "condition": "{{6.Status}} = 'Email Sent'"
+        },
+        {
+          "label": "Skip — already replied or unsubscribed",
+          "condition": "{{6.Status}} != 'Email Sent'"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Send Email #2 — Follow-Up 1 (Day 3)",
+      "route": "Send follow-up",
+      "config": {
+        "to": "{{6.Email}}",
+        "subject": "Re: Available space in {{NEIGHBORHOOD}} — still available",
+        "html_body": "{{load template: re-02-follow-up-1.html}}",
+        "reply_to_thread": true
+      }
+    },
+    {
+      "id": 9,
+      "app": "Airtable",
+      "module": "UpdateRecord",
+      "label": "Update: Follow-Up 1 sent, status → Follow-Up 1 Sent",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{1.id}}",
+        "fields": {
+          "Status": "Follow-Up 1 Sent",
+          "Outreach Email #2 Sent": "{{now | date: 'YYYY-MM-DD'}}",
+          "Last Contact Date": "{{now | date: 'YYYY-MM-DD'}}"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "app": "Make",
+      "module": "ScheduleDelay",
+      "label": "Wait 4 more days (Day 7 total)",
+      "config": {
+        "delay_value": 4,
+        "delay_unit": "days"
+      }
+    },
+    {
+      "id": 11,
+      "app": "Airtable",
+      "module": "GetRecord",
+      "label": "Re-check status before final follow-up",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{1.id}}"
+      }
+    },
+    {
+      "id": 12,
+      "app": "Router",
+      "module": "BasicRouter",
+      "label": "Gate: only send final follow-up if status = Follow-Up 1 Sent",
+      "routes": [
+        {
+          "label": "Send final follow-up",
+          "condition": "{{11.Status}} = 'Follow-Up 1 Sent'"
+        },
+        {
+          "label": "Skip",
+          "condition": "{{11.Status}} != 'Follow-Up 1 Sent'"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Send Email #3 — Final Follow-Up (Day 7)",
+      "route": "Send final follow-up",
+      "config": {
+        "to": "{{11.Email}}",
+        "subject": "Last note — {{NEIGHBORHOOD}} space (closing the loop)",
+        "html_body": "{{load template: re-03-follow-up-2.html}}",
+        "reply_to_thread": true
+      }
+    },
+    {
+      "id": 14,
+      "app": "Airtable",
+      "module": "UpdateRecord",
+      "label": "Update: Final follow-up sent, status → Follow-Up 2 Sent",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{1.id}}",
+        "fields": {
+          "Status": "Follow-Up 2 Sent",
+          "Outreach Email #3 Sent": "{{now | date: 'YYYY-MM-DD'}}",
+          "Last Contact Date": "{{now | date: 'YYYY-MM-DD'}}"
+        }
+      }
+    }
+  ],
+  "notes": [
+    "Make.com cannot natively pause a scenario mid-execution for days. Recommended approach: split into 3 separate scheduled scenarios, each filtered by status and date.",
+    "Scenario A: fires when Status=New (sends email #1)",
+    "Scenario B: fires daily, filters Status='Email Sent' AND Outreach Email #1 Sent <= 3 days ago (sends email #2)",
+    "Scenario C: fires daily, filters Status='Follow-Up 1 Sent' AND Outreach Email #2 Sent <= 4 days ago (sends email #3)"
+  ]
+}

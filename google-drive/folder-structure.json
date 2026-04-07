@@ -1,142 +1,56 @@
 {
-  "rootFolder": {
-    "name": "Podcast Business",
-    "description": "Top-level folder for the entire podcast business",
-    "children": [
-      {
-        "name": "01 - Clients",
-        "description": "Individual client folders created automatically during onboarding",
-        "clientFolderTemplate": {
-          "name": "{Client Name} - {Podcast Name}",
-          "children": [
-            {
-              "name": "01 - Onboarding",
-              "description": "Contracts, questionnaires, brand assets",
-              "children": [
-                { "name": "Contract & Agreement", "type": "folder" },
-                { "name": "Brand Assets (logos, colors, fonts)", "type": "folder" },
-                { "name": "Onboarding Questionnaire Responses", "type": "folder" }
-              ]
-            },
-            {
-              "name": "02 - Episode Templates",
-              "description": "Reusable templates for this client",
-              "files": [
-                "Episode Outline Template.gdoc",
-                "Show Notes Template.gdoc",
-                "Guest Prep Sheet Template.gdoc",
-                "Social Media Post Templates.gdoc"
-              ]
-            },
-            {
-              "name": "03 - Episodes",
-              "description": "Individual episode folders",
-              "episodeFolderTemplate": {
-                "name": "EP{number} - {episode_title}",
-                "children": [
-                  { "name": "Raw Audio", "type": "folder" },
-                  { "name": "Edited Audio", "type": "folder" },
-                  { "name": "Show Notes", "type": "folder" },
-                  { "name": "Artwork", "type": "folder" },
-                  { "name": "Social Media Assets", "type": "folder" }
-                ]
-              }
-            },
-            {
-              "name": "04 - Invoices & Billing",
-              "description": "Invoices and payment records"
-            },
-            {
-              "name": "05 - Communication Log",
-              "description": "Important emails and meeting notes"
-            }
-          ]
-        }
-      },
-      {
-        "name": "02 - Templates",
-        "description": "Master templates used across all clients",
-        "children": [
-          {
-            "name": "Client Templates",
-            "files": [
-              "Client Onboarding Questionnaire.gform",
-              "Service Agreement Template.gdoc",
-              "Welcome Packet.gdoc",
-              "Brand Guide Collection Sheet.gform"
-            ]
-          },
-          {
-            "name": "Episode Templates",
-            "files": [
-              "Episode Outline Template.gdoc",
-              "Show Notes Template.gdoc",
-              "Guest Prep Sheet.gdoc",
-              "Episode Checklist.gdoc"
-            ]
-          },
-          {
-            "name": "Social Media Templates",
-            "files": [
-              "Audiogram Template.gdoc",
-              "Quote Card Template.gdoc",
-              "Episode Announcement Template.gdoc"
-            ]
-          }
-        ]
-      },
-      {
-        "name": "03 - Business Operations",
-        "description": "Internal business documents",
-        "children": [
-          { "name": "SOPs", "type": "folder" },
-          { "name": "Pricing & Packages", "type": "folder" },
-          { "name": "Marketing Materials", "type": "folder" },
-          { "name": "Financial Records", "type": "folder" },
-          { "name": "Team Resources", "type": "folder" }
-        ]
-      },
-      {
-        "name": "04 - Leads & Sales",
-        "description": "Proposals, pitch decks, and sales materials",
-        "children": [
-          { "name": "Proposals", "type": "folder" },
-          { "name": "Pitch Decks", "type": "folder" },
-          { "name": "Case Studies", "type": "folder" },
-          { "name": "Testimonials", "type": "folder" }
+  "root_folder": "Real Estate Outreach — [Property Name]",
+  "subfolders": [
+    {
+      "name": "01 — Property Assets",
+      "contents": [
+        "Photos/ (high-res listing photos)",
+        "Floor Plan.pdf",
+        "Virtual Tour link or Matterport embed",
+        "Property Fact Sheet.pdf (one-pager with key details)"
+      ]
+    },
+    {
+      "name": "02 — Lease Templates",
+      "contents": [
+        "Lease Agreement Template.docx (master — do not edit directly)",
+        "Lease Agreement Template.pdf (send this for reference)",
+        "Lease Amendment Template.docx",
+        "Rules and Regulations.pdf"
+      ]
+    },
+    {
+      "name": "03 — Active Prospects",
+      "description": "One subfolder per hot prospect, auto-created by Make.com RE-04",
+      "subfolder_template": {
+        "name": "{{Business Name}} — {{Prospect Last Name}}",
+        "contents": [
+          "Lease Draft — {{Business Name}} — {{Date}}.docx",
+          "Signed Lease — {{Business Name}}.pdf (uploaded when signed)"
         ]
       }
-    ]
-  },
-  "sharingRules": [
-    {
-      "folder": "Client folder root",
-      "shareWith": "Client email (from Airtable)",
-      "permission": "Viewer",
-      "notes": "Share client folder root so they can access all subfolders"
     },
     {
-      "folder": "Raw Audio folder",
-      "shareWith": "Client email",
-      "permission": "Editor",
-      "notes": "Client needs to upload raw recordings here"
+      "name": "04 — Signed Leases",
+      "description": "Archive of completed deals",
+      "contents": [
+        "Signed leases moved here upon completion"
+      ]
     },
     {
-      "folder": "Edited Audio / Show Notes / Artwork",
-      "shareWith": "Client email",
-      "permission": "Commenter",
-      "notes": "Client can view and comment for approval"
+      "name": "05 — Outreach Resources",
+      "contents": [
+        "Prospect List Master.xlsx",
+        "Email Scripts Reference.pdf",
+        "FAQ — Common Objections.docx"
+      ]
     }
   ],
-  "makeAutomation": {
-    "trigger": "New client created in Airtable (Client Status = Onboarding)",
-    "actions": [
-      "Create client root folder from template",
-      "Create all subfolders",
-      "Copy template files into Episode Templates folder",
-      "Share folder with client email",
-      "Update Airtable Client record with Drive folder URL",
-      "Update Trello card with Drive folder link"
-    ]
+  "sharing_settings": {
+    "01_property_assets": "Anyone with link can view — share freely with prospects",
+    "02_lease_templates": "Owner only — restricted",
+    "03_active_prospects": "Owner only — generated links shared per deal",
+    "04_signed_leases": "Owner only — restricted",
+    "05_outreach_resources": "Owner only — restricted"
   }
 }

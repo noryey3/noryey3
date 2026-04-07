@@ -1,0 +1,126 @@
+{
+  "board_name": "Real Estate Lease Pipeline",
+  "description": "Visual deal pipeline for tracking prospects from cold outreach to signed lease",
+  "background_color": "#1a237e",
+  "lists": [
+    {
+      "name": "New Prospects",
+      "position": 1,
+      "description": "Imported, not yet contacted",
+      "automation": "Card auto-created when Airtable status = 'New'"
+    },
+    {
+      "name": "Outreach Sent",
+      "position": 2,
+      "description": "Email #1 sent, waiting for reply",
+      "automation": "Card moved when Airtable status = 'Email Sent'"
+    },
+    {
+      "name": "Follow-Up Sequence",
+      "position": 3,
+      "description": "In follow-up sequence (Day 3 and Day 7 emails)",
+      "automation": "Card moved when status = 'Follow-Up 1 Sent' or 'Follow-Up 2 Sent'"
+    },
+    {
+      "name": "Replied / Engaged",
+      "position": 4,
+      "description": "Prospect responded — needs personal follow-up",
+      "automation": "Card moved when status = 'Replied'"
+    },
+    {
+      "name": "Showing Scheduled",
+      "position": 5,
+      "description": "Calendar booking confirmed",
+      "automation": "Card moved when status = 'Showing Scheduled'"
+    },
+    {
+      "name": "Showing Completed",
+      "position": 6,
+      "description": "Tour done, post-showing follow-up sent",
+      "automation": "Card moved when status = 'Showing Completed'"
+    },
+    {
+      "name": "Interested — Lease Pending",
+      "position": 7,
+      "description": "Prospect ready to move forward, lease sent",
+      "automation": "Card moved when status = 'Interested' or 'Lease Sent'"
+    },
+    {
+      "name": "Signed",
+      "position": 8,
+      "description": "Lease signed — DONE",
+      "automation": "Card moved when status = 'Lease Signed'"
+    },
+    {
+      "name": "Not Interested / Archived",
+      "position": 9,
+      "description": "Said no or unsubscribed",
+      "automation": "Card moved when status = 'Not Interested' or 'Unsubscribed'"
+    }
+  ],
+  "card_template": {
+    "name": "{{First Name}} {{Last Name}} — {{Business Name}}",
+    "description_template": "**Email:** {{Email}}\n**Phone:** {{Phone}}\n**Business Type:** {{Business Type}}\n**Lead Score:** {{Lead Score}}/10\n**Timeline:** {{Move-In Timeline}}\n**Source:** {{Source}}\n\n---\n**Notes:** {{Notes}}",
+    "labels": [
+      { "name": "Hot Lead", "color": "red", "criteria": "Lead Score >= 8" },
+      { "name": "Warm Lead", "color": "orange", "criteria": "Lead Score 5-7" },
+      { "name": "Cold Lead", "color": "blue", "criteria": "Lead Score <= 4" },
+      { "name": "Inbound", "color": "green", "criteria": "Source = Inbound Inquiry" },
+      { "name": "Needs Attention", "color": "yellow", "criteria": "No activity in 5+ days" },
+      { "name": "VIP", "color": "purple", "criteria": "Manual — premium prospect" }
+    ],
+    "checklists": [
+      {
+        "name": "Outreach Checklist",
+        "items": [
+          "Email #1 sent (Day 0)",
+          "Email #2 sent (Day 3)",
+          "Email #3 sent (Day 7)",
+          "Replied or engaged",
+          "Showing scheduled"
+        ]
+      },
+      {
+        "name": "Showing Checklist",
+        "items": [
+          "Confirmation email sent",
+          "Space prepared for showing",
+          "Showing completed",
+          "Post-showing follow-up sent",
+          "Prospect marked Interested or Not Interested"
+        ]
+      },
+      {
+        "name": "Lease Closing Checklist",
+        "items": [
+          "Lease document generated",
+          "Lease email sent",
+          "Prospect reviewed lease",
+          "Terms agreed / negotiated",
+          "Lease signed",
+          "Security deposit received",
+          "Move-in date confirmed"
+        ]
+      }
+    ]
+  },
+  "automations": [
+    {
+      "trigger": "Card due date is tomorrow",
+      "action": "Add comment: 'Follow-up due tomorrow — check Airtable for status'"
+    },
+    {
+      "trigger": "Card has been in 'Outreach Sent' for 4+ days",
+      "action": "Add label 'Needs Attention' and notify board member"
+    },
+    {
+      "trigger": "Card moved to 'Signed'",
+      "action": "Move all other 'Showing Scheduled' and 'Interested' cards to 'Not Interested / Archived' and post comment: 'Space leased — pipeline closed'"
+    }
+  ],
+  "power_ups": [
+    "Calendar Power-Up — view showing dates",
+    "Google Drive Power-Up — attach lease docs to card",
+    "Airtable Power-Up — sync card status with Airtable CRM"
+  ]
+}

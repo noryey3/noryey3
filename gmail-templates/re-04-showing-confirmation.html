@@ -1,0 +1,120 @@
+<!--
+  TEMPLATE: re-04-showing-confirmation.html
+  SEND:     Immediately when a showing is booked via Google Calendar
+  SUBJECT:  Confirmed: Your showing at {{SPACE_ADDRESS}} on {{SHOWING_DATE}}
+  FROM:     {{YOUR_NAME}} <{{YOUR_EMAIL}}>
+  VARIABLES: {{FIRST_NAME}}, {{SPACE_ADDRESS}}, {{SHOWING_DATE}}, {{SHOWING_TIME}},
+             {{PARKING_INFO}}, {{SPACE_SIZE}}, {{MONTHLY_RENT}}, {{YOUR_NAME}},
+             {{YOUR_PHONE}}, {{GOOGLE_MAPS_LINK}}, {{CANCEL_RESCHEDULE_LINK}}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Showing Confirmed</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f4f4; font-family: Arial, sans-serif; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border-radius: 8px; overflow: hidden; }
+    .header { background: #1b5e20; padding: 32px 40px; text-align: center; }
+    .header h1 { color: #ffffff; font-size: 22px; margin: 0; }
+    .header p { color: #a5d6a7; font-size: 14px; margin: 8px 0 0; }
+    .confirmed-badge { text-align: center; padding: 24px 40px 0; }
+    .confirmed-badge span { display: inline-block; background: #e8f5e9; color: #2e7d32;
+                            border: 2px solid #66bb6a; border-radius: 50px;
+                            padding: 8px 24px; font-weight: bold; font-size: 14px; }
+    .body { padding: 28px 40px; color: #333333; font-size: 15px; line-height: 1.7; }
+    .body p { margin: 0 0 16px; }
+    .detail-card { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 6px;
+                   padding: 20px 24px; margin: 20px 0; }
+    .detail-card table { width: 100%; border-collapse: collapse; }
+    .detail-card td { padding: 6px 0; font-size: 14px; vertical-align: top; }
+    .detail-card td:first-child { color: #777; width: 140px; font-weight: bold; }
+    .cta-btn { display: inline-block; background: #3a6ef5; color: #ffffff !important;
+               text-decoration: none; padding: 12px 28px; border-radius: 6px;
+               font-size: 14px; font-weight: bold; }
+    .footer { background: #f9f9f9; padding: 20px 40px; font-size: 12px; color: #999;
+              border-top: 1px solid #eeeeee; text-align: center; }
+    .footer a { color: #999; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Your Showing Is Confirmed</h1>
+      <p>We're looking forward to meeting you</p>
+    </div>
+
+    <div class="confirmed-badge">
+      <span>Booking Confirmed</span>
+    </div>
+
+    <div class="body">
+      <p>Hi {{FIRST_NAME}},</p>
+
+      <p>
+        Great — your showing is booked! Here's everything you need to know before you arrive:
+      </p>
+
+      <div class="detail-card">
+        <table>
+          <tr>
+            <td>Date</td>
+            <td><strong>{{SHOWING_DATE}}</strong></td>
+          </tr>
+          <tr>
+            <td>Time</td>
+            <td><strong>{{SHOWING_TIME}}</strong></td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td><strong>{{SPACE_ADDRESS}}</strong></td>
+          </tr>
+          <tr>
+            <td>Parking</td>
+            <td>{{PARKING_INFO}}</td>
+          </tr>
+          <tr>
+            <td>Space Size</td>
+            <td>{{SPACE_SIZE}} sq ft</td>
+          </tr>
+          <tr>
+            <td>Monthly Rent</td>
+            <td>${{MONTHLY_RENT}}</td>
+          </tr>
+          <tr>
+            <td>Duration</td>
+            <td>~20-30 minutes</td>
+          </tr>
+        </table>
+      </div>
+
+      <p style="text-align: center;">
+        <a href="{{GOOGLE_MAPS_LINK}}" class="cta-btn">Get Directions</a>
+      </p>
+
+      <p style="margin-top: 24px;">
+        I'll be there to walk you through the space, answer questions, and talk through lease terms
+        if you'd like. Come with questions — the more the better.
+      </p>
+
+      <p>
+        Need to reschedule? No problem — <a href="{{CANCEL_RESCHEDULE_LINK}}">click here to reschedule</a>
+        or just reply to this email.
+      </p>
+
+      <p>See you soon!</p>
+
+      <p>
+        <strong>{{YOUR_NAME}}</strong><br />
+        {{YOUR_PHONE}}<br />
+        {{YOUR_EMAIL}}
+      </p>
+    </div>
+
+    <div class="footer">
+      Add this to your calendar: <a href="{{CALENDAR_INVITE_LINK}}">Add to Google Calendar</a>
+    </div>
+  </div>
+</body>
+</html>

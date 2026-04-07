@@ -1,208 +1,84 @@
-# Google Calendar - Appointment Scheduling Setup
+# Google Calendar — Property Showing Setup
 
 ## Overview
 
-Google Calendar is used for scheduling discovery calls with qualified leads and onboarding calls with new clients. The system integrates with Make.com to automatically create events and send confirmations.
+Set up a Google Calendar appointment scheduling page so prospects can self-book a showing with zero back-and-forth.
 
 ---
 
-## Calendar Structure
+## Step 1: Create the Showings Calendar
 
-### Calendars to Create
-
-| Calendar | Color | Purpose |
-|----------|-------|---------|
-| **Discovery Calls** | Blue | Initial calls with qualified leads |
-| **Onboarding Calls** | Green | Onboarding sessions with new clients |
-| **Recording Sessions** | Red | Episode recording sessions |
-| **Team Meetings** | Yellow | Internal team meetings |
+1. Go to [calendar.google.com](https://calendar.google.com)
+2. Click **+ Other calendars → Create new calendar**
+3. Name it: `Property Showings — [Address]`
+4. Set timezone to your local timezone
+5. Note the **Calendar ID** (used in Make.com RE-03 scenario)
 
 ---
 
-## Google Calendar Appointment Schedule Setup
+## Step 2: Create an Appointment Schedule (Google Calendar Booking Page)
 
-### Discovery Call Appointment Slots
+> Available with Google Workspace (Business Starter and above)
 
-**Settings:**
-- **Title:** "Podcast Discovery Call - [Your Company Name]"
-- **Duration:** 30 minutes
-- **Availability Window:** Monday-Friday, 9:00 AM - 5:00 PM (your timezone)
-- **Buffer Between Appointments:** 15 minutes
-- **Minimum Scheduling Notice:** 24 hours
-- **Maximum Days in Advance:** 14 days
-
-**Booking Page Details:**
-- **Description:**
-  ```
-  Thanks for your interest in our podcast services! During this 30-minute call, we'll:
-
-  - Learn about your podcast goals and vision
-  - Discuss which services best fit your needs
-  - Answer any questions you have
-  - Outline next steps if we're a good fit
-
-  Please come prepared to share:
-  - Your podcast concept or existing show details
-  - Your target audience
-  - Your ideal publishing schedule
-  - Your budget expectations
-  ```
-- **Confirmation Message:**
-  ```
-  Your discovery call is confirmed! You'll receive a calendar invite shortly.
-
-  Before our call, please have ready:
-  1. Any examples of podcasts you admire
-  2. A brief description of your target audience
-  3. Questions you'd like answered
-
-  Looking forward to speaking with you!
-  ```
-
-### Onboarding Call Appointment Slots
-
-**Settings:**
-- **Title:** "Podcast Onboarding Session - [Client Name]"
-- **Duration:** 60 minutes
-- **Availability Window:** Monday-Friday, 10:00 AM - 4:00 PM
-- **Buffer Between Appointments:** 30 minutes
-- **Minimum Scheduling Notice:** 48 hours
-- **Maximum Days in Advance:** 21 days
-
-**Booking Page Details:**
-- **Description:**
-  ```
-  Welcome to the team! This onboarding session will cover:
-
-  - Walkthrough of our production process
-  - Setting up your shared Google Drive folder
-  - Reviewing your brand guide and podcast style
-  - Establishing your episode schedule
-  - Setting communication preferences
-  - Q&A
-
-  Please complete the onboarding questionnaire before our call (sent separately).
-  ```
+1. In Google Calendar, click **+ Create → Appointment schedule**
+2. Configure:
+   - **Title:** `Tour the Space at [Address]`
+   - **Duration:** 30 minutes
+   - **Availability:** Mon–Fri, 9am–6pm (or your preferred hours)
+   - **Buffer time:** 15 minutes between appointments
+   - **Max bookings per day:** 4 (adjust as needed)
+   - **Booking window:** Up to 30 days in advance
+3. Under **Booking page settings:**
+   - Add a booking page title and description (include space highlights)
+   - Upload a photo of the space
+   - Add the space address so Google Maps shows for attendees
+4. Enable **Email confirmations and reminders**:
+   - Confirmation: immediately on booking
+   - Reminder: 24 hours before
+   - Reminder: 1 hour before
+5. Copy the **booking page link** — this is your `{{CALENDAR_BOOKING_LINK}}`
 
 ---
 
-## Make.com Integration
+## Step 3: Connect to Make.com
 
-### Scenario: Auto-Create Calendar Events
-
-**Trigger:** Lead status changed to "Discovery Call Scheduled" in Airtable
-
-**Actions:**
-1. Create Google Calendar event on "Discovery Calls" calendar
-2. Add attendee (lead's email)
-3. Set event description with lead context from Airtable
-4. Add Google Meet link automatically
-5. Update Airtable with calendar event link and date
-6. Send custom confirmation email via Gmail
-
-### Event Template - Discovery Call
-
-```json
-{
-  "summary": "Discovery Call: {lead_name} - Podcast Services",
-  "description": "Discovery call with {lead_name} from {company}.\n\nInterested in: {services}\nBudget: {budget}\nCurrent Podcast: {podcast_name}\n\nLead Score: {score} ({grade})\nNotes: {notes}\n\n---\nAirtable Record: {record_url}",
-  "start": {
-    "dateTime": "{selected_datetime}",
-    "timeZone": "America/New_York"
-  },
-  "end": {
-    "dateTime": "{selected_datetime + 30min}",
-    "timeZone": "America/New_York"
-  },
-  "attendees": [
-    { "email": "{lead_email}" },
-    { "email": "{team_member_email}" }
-  ],
-  "conferenceData": {
-    "createRequest": {
-      "requestId": "discovery-{lead_id}",
-      "conferenceSolutionKey": { "type": "hangoutsMeet" }
-    }
-  },
-  "reminders": {
-    "useDefault": false,
-    "overrides": [
-      { "method": "email", "minutes": 1440 },
-      { "method": "popup", "minutes": 30 }
-    ]
-  }
-}
-```
-
-### Event Template - Onboarding Call
-
-```json
-{
-  "summary": "Onboarding: {client_name} - {podcast_name}",
-  "description": "Onboarding session for {client_name}.\n\nPackage: {service_package}\nStart Date: {contract_start}\n\nAgenda:\n1. Welcome & introductions\n2. Process walkthrough\n3. Drive folder & tools setup\n4. Episode schedule planning\n5. Communication preferences\n6. Q&A\n\n---\nDrive Folder: {drive_folder_url}\nTrello Card: {trello_card_url}",
-  "start": {
-    "dateTime": "{selected_datetime}",
-    "timeZone": "America/New_York"
-  },
-  "end": {
-    "dateTime": "{selected_datetime + 60min}",
-    "timeZone": "America/New_York"
-  },
-  "attendees": [
-    { "email": "{client_email}" },
-    { "email": "{team_member_email}" }
-  ],
-  "conferenceData": {
-    "createRequest": {
-      "requestId": "onboarding-{client_id}",
-      "conferenceSolutionKey": { "type": "hangoutsMeet" }
-    }
-  },
-  "reminders": {
-    "useDefault": false,
-    "overrides": [
-      { "method": "email", "minutes": 1440 },
-      { "method": "email", "minutes": 60 },
-      { "method": "popup", "minutes": 15 }
-    ]
-  }
-}
-```
+1. In Make.com, add a **Google Calendar → Watch Events** module in RE-03
+2. Select the `Property Showings` calendar
+3. Trigger on `Event created`
+4. Map fields:
+   - `attendee_email` → attendee[0].email
+   - `attendee_name` → attendee[0].displayName
+   - `start_datetime` → start.dateTime
+   - `end_datetime` → end.dateTime
+   - `cancel_url` → hangoutLink (or use a custom cancel URL)
 
 ---
 
-## Appointment Booking Flow
+## Availability Windows (Recommended)
 
-```
-Lead qualifies (Grade A/B)
-    │
-    ▼
-Make.com sends email with booking link
-    │
-    ▼
-Lead clicks Google Calendar Appointment Schedule link
-    │
-    ▼
-Lead selects available time slot
-    │
-    ▼
-Google Calendar creates event + sends invite
-    │
-    ▼
-Make.com webhook detects new calendar event
-    │
-    ▼
-Airtable updated: Status → "Discovery Call Scheduled"
-    │
-    ▼
-Confirmation email sent via Gmail with call prep info
-    │
-    ▼
-24hrs before: Reminder email sent automatically
-    │
-    ▼
-After call: Team member updates status in Airtable
-    │
-    ▼
-If won → Client record created → Onboarding begins
-```
+| Day | Hours | Notes |
+|-----|-------|-------|
+| Monday | 10am – 6pm | Avoid early morning |
+| Tuesday | 10am – 6pm | |
+| Wednesday | 10am – 6pm | |
+| Thursday | 10am – 6pm | |
+| Friday | 10am – 4pm | Leave afternoon free |
+| Saturday | 10am – 2pm | Optional — for prospects who can't do weekdays |
+
+---
+
+## Manual Booking Fallback
+
+If a prospect replies to an email rather than using the booking link:
+
+1. Manually create a calendar event in the `Property Showings` calendar
+2. Add the prospect as an attendee (this triggers the Make.com webhook)
+3. Airtable and confirmation email will fire automatically
+
+---
+
+## Notes
+
+- Block off any times you're not available as "Busy" events on the Showings calendar
+- Make.com RE-03 fires on **any new event** in this calendar — only use it for showings
+- If you use Google Workspace, the appointment page link never expires

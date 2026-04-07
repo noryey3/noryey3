@@ -1,0 +1,99 @@
+<!--
+  TEMPLATE: re-01-initial-outreach.html
+  SEND:     Day 0 — first contact, cold outreach
+  SUBJECT:  Available space in {{NEIGHBORHOOD}} — thought of {{BUSINESS_NAME}}
+  FROM:     {{YOUR_NAME}} <{{YOUR_EMAIL}}>
+  VARIABLES: {{FIRST_NAME}}, {{BUSINESS_NAME}}, {{NEIGHBORHOOD}}, {{SPACE_SIZE}},
+             {{MONTHLY_RENT}}, {{SPACE_TYPE}}, {{SPACE_ADDRESS}}, {{KEY_FEATURE_1}},
+             {{KEY_FEATURE_2}}, {{KEY_FEATURE_3}}, {{BOOKING_LINK}}, {{YOUR_NAME}},
+             {{YOUR_PHONE}}, {{VIRTUAL_TOUR_URL}}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Space in {{NEIGHBORHOOD}}</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f4f4; font-family: Arial, sans-serif; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border-radius: 8px; overflow: hidden; }
+    .header { background: #1a1a2e; padding: 32px 40px; text-align: center; }
+    .header h1 { color: #ffffff; font-size: 22px; margin: 0; letter-spacing: 0.5px; }
+    .header p { color: #aab4c8; font-size: 13px; margin: 8px 0 0; }
+    .body { padding: 36px 40px; color: #333333; font-size: 15px; line-height: 1.7; }
+    .body p { margin: 0 0 16px; }
+    .highlight-box { background: #f0f4ff; border-left: 4px solid #3a6ef5; padding: 16px 20px;
+                     border-radius: 4px; margin: 24px 0; }
+    .highlight-box ul { margin: 8px 0 0; padding-left: 18px; }
+    .highlight-box ul li { margin-bottom: 6px; font-size: 14px; color: #444; }
+    .cta-btn { display: inline-block; background: #3a6ef5; color: #ffffff !important;
+               text-decoration: none; padding: 14px 32px; border-radius: 6px;
+               font-size: 15px; font-weight: bold; margin: 8px 0; }
+    .footer { background: #f9f9f9; padding: 20px 40px; font-size: 12px; color: #999;
+              border-top: 1px solid #eeeeee; text-align: center; }
+    .footer a { color: #999; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>A Space Worth Seeing in {{NEIGHBORHOOD}}</h1>
+      <p>{{SPACE_SIZE}} sq ft — Available Now</p>
+    </div>
+
+    <div class="body">
+      <p>Hi {{FIRST_NAME}},</p>
+
+      <p>
+        I came across {{BUSINESS_NAME}} and thought this space might be a great fit for where you're headed.
+        We have a <strong>{{SPACE_TYPE}}</strong> available in <strong>{{NEIGHBORHOOD}}</strong> and I wanted
+        to reach out directly before we open it up more broadly.
+      </p>
+
+      <div class="highlight-box">
+        <strong>Quick snapshot:</strong>
+        <ul>
+          <li>📍 {{SPACE_ADDRESS}}</li>
+          <li>📐 {{SPACE_SIZE}} sq ft</li>
+          <li>💰 ${{MONTHLY_RENT}}/month</li>
+          <li>✅ {{KEY_FEATURE_1}}</li>
+          <li>✅ {{KEY_FEATURE_2}}</li>
+          <li>✅ {{KEY_FEATURE_3}}</li>
+        </ul>
+      </div>
+
+      <p>
+        The space is available <strong>now</strong> and we're looking for the right long-term tenant — not just the first one through the door.
+        If {{BUSINESS_NAME}} is looking to grow or relocate, I'd love to show you around in person.
+      </p>
+
+      <p>
+        You can book a 20-minute walkthrough at whatever time works best for you:
+      </p>
+
+      <p style="text-align: center; margin: 28px 0;">
+        <a href="{{BOOKING_LINK}}" class="cta-btn">Schedule a Showing</a>
+      </p>
+
+      <p>
+        Or if you'd like to preview the space first, here's a quick virtual tour: <a href="{{VIRTUAL_TOUR_URL}}">{{VIRTUAL_TOUR_URL}}</a>
+      </p>
+
+      <p>Either way, feel free to reply here with any questions — I'm happy to share more details.</p>
+
+      <p>
+        Best,<br />
+        <strong>{{YOUR_NAME}}</strong><br />
+        {{YOUR_PHONE}}<br />
+        {{YOUR_EMAIL}}
+      </p>
+    </div>
+
+    <div class="footer">
+      You're receiving this because we thought this space might be relevant to {{BUSINESS_NAME}}.
+      <br />
+      Not interested? <a href="{{UNSUBSCRIBE_LINK}}">Unsubscribe here</a> and we won't reach out again.
+    </div>
+  </div>
+</body>
+</html>

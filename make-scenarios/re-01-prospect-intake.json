@@ -1,0 +1,103 @@
+{
+  "name": "RE-01 — Prospect Intake",
+  "description": "Receives new prospects from Google Sheets import or Squarespace form, deduplicates, creates Airtable record, and triggers outreach sequence.",
+  "trigger": "Webhook (Squarespace form submission) OR Scheduled (Google Sheets poll every 15 min)",
+  "modules": [
+    {
+      "id": 1,
+      "app": "Webhooks",
+      "module": "CustomWebhook",
+      "label": "Receive prospect from Squarespace form or manual trigger",
+      "config": {
+        "webhook_name": "RE Prospect Intake",
+        "method": "POST",
+        "note": "Copy this webhook URL into Squarespace form settings AND/OR use as manual trigger"
+      }
+    },
+    {
+      "id": 2,
+      "app": "Airtable",
+      "module": "SearchRecords",
+      "label": "Check for duplicate by email",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "filter_formula": "AND({Email} = '{{1.email}}', {Do Not Contact} != TRUE())",
+        "max_records": 1
+      }
+    },
+    {
+      "id": 3,
+      "app": "Router",
+      "module": "BasicRouter",
+      "label": "Route: new vs duplicate",
+      "routes": [
+        {
+          "label": "New prospect",
+          "condition": "{{length(2.records)}} = 0"
+        },
+        {
+          "label": "Duplicate — skip",
+          "condition": "{{length(2.records)}} > 0"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "app": "Airtable",
+      "module": "CreateRecord",
+      "label": "Create Airtable prospect record",
+      "route": "New prospect",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "fields": {
+          "First Name": "{{1.first_name}}",
+          "Last Name": "{{1.last_name}}",
+          "Company / Business Name": "{{1.business_name}}",
+          "Email": "{{1.email}}",
+          "Phone": "{{1.phone}}",
+          "Business Type": "{{1.business_type}}",
+          "Move-In Timeline": "{{1.move_in_timeline}}",
+          "Source": "{{1.source | default: 'Inbound Inquiry'}}",
+          "Status": "New",
+          "Lead Score": "{{1.lead_score | default: 5}}",
+          "Notes": "{{1.message}}"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "app": "Airtable",
+      "module": "CreateRecord",
+      "label": "Log activity — prospect created",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Activity Log",
+        "fields": {
+          "Prospect": ["{{4.id}}"],
+          "Activity Type": "Note Added",
+          "Date": "{{now}}",
+          "Notes": "Prospect created via {{1.source}}. Business type: {{1.business_type}}. Timeline: {{1.move_in_timeline}}."
+        }
+      }
+    },
+    {
+      "id": 6,
+      "app": "HTTP",
+      "module": "MakeARequest",
+      "label": "Trigger outreach sequence webhook",
+      "config": {
+        "url": "{{RE_02_OUTREACH_WEBHOOK_URL}}",
+        "method": "POST",
+        "body": {
+          "prospect_id": "{{4.id}}",
+          "email": "{{1.email}}",
+          "first_name": "{{1.first_name}}",
+          "business_name": "{{1.business_name}}",
+          "sequence_step": "1"
+        }
+      }
+    }
+  ]
+}

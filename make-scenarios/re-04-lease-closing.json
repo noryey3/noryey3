@@ -1,0 +1,189 @@
+{
+  "name": "RE-04 — Lease Closing",
+  "description": "Handles post-showing follow-up and lease offer delivery. Triggered after showing completion or manual status change to 'Interested'.",
+  "trigger": "Webhook (from RE-03) OR Airtable Watch Records (Status = Showing Completed OR Interested)",
+  "modules": [
+    {
+      "id": 1,
+      "app": "Webhooks",
+      "module": "CustomWebhook",
+      "label": "Receive trigger from RE-03 or Airtable",
+      "config": {
+        "webhook_name": "RE Lease Closing Trigger"
+      }
+    },
+    {
+      "id": 2,
+      "app": "Airtable",
+      "module": "GetRecord",
+      "label": "Get full prospect record",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{1.prospect_id}}"
+      }
+    },
+    {
+      "id": 3,
+      "app": "Router",
+      "module": "BasicRouter",
+      "label": "Route by trigger type",
+      "routes": [
+        {
+          "label": "Post-showing follow-up",
+          "condition": "{{1.trigger}} = 'post_showing' OR {{2.Status}} = 'Showing Completed'"
+        },
+        {
+          "label": "Lease offer",
+          "condition": "{{2.Status}} = 'Interested'"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Send post-showing follow-up email",
+      "route": "Post-showing follow-up",
+      "config": {
+        "to": "{{2.Email}}",
+        "subject": "Great meeting you — next steps for the {{NEIGHBORHOOD}} space",
+        "html_body": "{{load template: re-05-post-showing-followup.html}}",
+        "variables": {
+          "FIRST_NAME": "{{2['First Name']}}",
+          "NEIGHBORHOOD": "{{SPACE_NEIGHBORHOOD}}",
+          "SPACE_ADDRESS": "{{SPACE_ADDRESS}}",
+          "MONTHLY_RENT": "{{MONTHLY_RENT}}",
+          "LEASE_TERM": "{{LEASE_TERM}}",
+          "AVAILABLE_DATE": "{{AVAILABLE_DATE}}",
+          "BOOKING_LINK": "{{CALENDAR_BOOKING_LINK}}"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "app": "Airtable",
+      "module": "CreateRecord",
+      "label": "Log activity — post-showing email sent",
+      "route": "Post-showing follow-up",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Activity Log",
+        "fields": {
+          "Prospect": ["{{1.prospect_id}}"],
+          "Activity Type": "Email Sent",
+          "Date": "{{now}}",
+          "Notes": "Post-showing follow-up email sent (re-05-post-showing-followup)."
+        }
+      }
+    },
+    {
+      "id": 6,
+      "app": "Google Drive",
+      "module": "CreateFileFromTemplate",
+      "label": "Generate personalized lease document from template",
+      "route": "Lease offer",
+      "config": {
+        "template_file_id": "{{LEASE_TEMPLATE_DRIVE_ID}}",
+        "new_file_name": "Lease — {{2['Company / Business Name']}} — {{now | date: 'YYYY-MM-DD'}}",
+        "destination_folder_id": "{{LEASES_FOLDER_ID}}",
+        "replacements": {
+          "{{TENANT_NAME}}": "{{2['First Name']}} {{2['Last Name']}}",
+          "{{BUSINESS_NAME}}": "{{2['Company / Business Name']}}",
+          "{{TENANT_EMAIL}}": "{{2.Email}}",
+          "{{SPACE_ADDRESS}}": "{{SPACE_ADDRESS}}",
+          "{{SPACE_SIZE}}": "{{SPACE_SIZE}}",
+          "{{MONTHLY_RENT}}": "{{MONTHLY_RENT}}",
+          "{{LEASE_START_DATE}}": "{{AVAILABLE_DATE}}",
+          "{{LEASE_TERM}}": "{{LEASE_TERM}}",
+          "{{SECURITY_DEPOSIT}}": "{{SECURITY_DEPOSIT}}",
+          "{{DATE_GENERATED}}": "{{now | date: 'MMMM D, YYYY'}}"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "app": "Google Drive",
+      "module": "ShareFile",
+      "label": "Share lease document — get shareable link",
+      "route": "Lease offer",
+      "config": {
+        "file_id": "{{6.file_id}}",
+        "permission": "reader",
+        "type": "anyone",
+        "note": "Returns shareable URL for the lease draft"
+      }
+    },
+    {
+      "id": 8,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Send lease offer email",
+      "route": "Lease offer",
+      "config": {
+        "to": "{{2.Email}}",
+        "subject": "Your lease proposal for {{SPACE_ADDRESS}} — review inside",
+        "html_body": "{{load template: re-06-lease-offer.html}}",
+        "variables": {
+          "FIRST_NAME": "{{2['First Name']}}",
+          "BUSINESS_NAME": "{{2['Company / Business Name']}}",
+          "SPACE_ADDRESS": "{{SPACE_ADDRESS}}",
+          "SPACE_SIZE": "{{SPACE_SIZE}}",
+          "MONTHLY_RENT": "{{MONTHLY_RENT}}",
+          "SECURITY_DEPOSIT": "{{SECURITY_DEPOSIT}}",
+          "LEASE_TERM": "{{LEASE_TERM}}",
+          "AVAILABLE_DATE": "{{AVAILABLE_DATE}}",
+          "UTILITIES_DETAIL": "{{UTILITIES_DETAIL}}",
+          "LEASE_DRAFT_LINK": "{{7.web_view_link}}",
+          "LEASE_PDF_LINK": "{{7.web_view_link}}&export=pdf",
+          "SIGNING_DEADLINE": "{{now + 7 days | date: 'MMMM D, YYYY'}}"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "app": "Airtable",
+      "module": "UpdateRecord",
+      "label": "Update: Lease Sent status + date",
+      "route": "Lease offer",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Prospects",
+        "record_id": "{{1.prospect_id}}",
+        "fields": {
+          "Status": "Lease Sent",
+          "Lease Sent Date": "{{now | date: 'YYYY-MM-DD'}}"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "app": "Airtable",
+      "module": "CreateRecord",
+      "label": "Log activity — lease sent",
+      "route": "Lease offer",
+      "config": {
+        "base_id": "{{AIRTABLE_BASE_ID}}",
+        "table": "Activity Log",
+        "fields": {
+          "Prospect": ["{{1.prospect_id}}"],
+          "Activity Type": "Email Sent",
+          "Date": "{{now}}",
+          "Notes": "Lease offer email sent. Lease doc: {{7.web_view_link}}"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "app": "Gmail",
+      "module": "SendEmail",
+      "label": "Notify owner — lease sent",
+      "route": "Lease offer",
+      "config": {
+        "to": "{{YOUR_EMAIL}}",
+        "subject": "Lease sent to {{2['First Name']}} {{2['Last Name']}} ({{2['Company / Business Name']}})",
+        "text_body": "Lease proposal sent to {{2.Email}}.\n\nDeal doc: {{7.web_view_link}}\nAirtable: {{AIRTABLE_BASE_URL}}"
+      }
+    }
+  ]
+}

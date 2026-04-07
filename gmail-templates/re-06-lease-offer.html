@@ -1,0 +1,128 @@
+<!--
+  TEMPLATE: re-06-lease-offer.html
+  SEND:     When prospect status = "Interested" — triggered manually or by Airtable automation
+  SUBJECT:  Your lease proposal for {{SPACE_ADDRESS}} — review inside
+  FROM:     {{YOUR_NAME}} <{{YOUR_EMAIL}}>
+  VARIABLES: {{FIRST_NAME}}, {{BUSINESS_NAME}}, {{SPACE_ADDRESS}}, {{SPACE_SIZE}},
+             {{MONTHLY_RENT}}, {{SECURITY_DEPOSIT}}, {{LEASE_TERM}}, {{AVAILABLE_DATE}},
+             {{LEASE_DRAFT_LINK}}, {{YOUR_NAME}}, {{YOUR_PHONE}}, {{SIGNING_DEADLINE}}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Lease Proposal</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f4f4; font-family: Arial, sans-serif; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border-radius: 8px; overflow: hidden; }
+    .header { background: #1a237e; padding: 32px 40px; text-align: center; }
+    .header h1 { color: #ffffff; font-size: 22px; margin: 0; }
+    .header p { color: #9fa8da; font-size: 13px; margin: 8px 0 0; }
+    .body { padding: 36px 40px; color: #333333; font-size: 15px; line-height: 1.7; }
+    .body p { margin: 0 0 16px; }
+    .terms-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+    .terms-table th { background: #1a237e; color: #ffffff; padding: 10px 14px; text-align: left; font-size: 13px; }
+    .terms-table td { padding: 10px 14px; border-bottom: 1px solid #eeeeee; }
+    .terms-table tr:last-child td { border-bottom: none; }
+    .terms-table tr:nth-child(even) td { background: #f8f9fa; }
+    .deadline-box { background: #fff3e0; border: 1px solid #ffcc80; border-radius: 6px;
+                    padding: 14px 18px; margin: 20px 0; font-size: 14px; color: #e65100; }
+    .cta-btn { display: inline-block; background: #1a237e; color: #ffffff !important;
+               text-decoration: none; padding: 14px 36px; border-radius: 6px;
+               font-size: 16px; font-weight: bold; margin: 8px 0; }
+    .secondary-link { text-align: center; margin-top: 12px; font-size: 13px; color: #666; }
+    .footer { background: #f9f9f9; padding: 20px 40px; font-size: 12px; color: #999;
+              border-top: 1px solid #eeeeee; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Your Lease Proposal Is Ready</h1>
+      <p>{{SPACE_ADDRESS}} — Review and Sign</p>
+    </div>
+
+    <div class="body">
+      <p>Hi {{FIRST_NAME}},</p>
+
+      <p>
+        Based on our conversation, I've put together the lease terms for
+        <strong>{{BUSINESS_NAME}}</strong> at <strong>{{SPACE_ADDRESS}}</strong>.
+        Please review everything carefully and let me know if you have any questions or
+        want to discuss any of the terms before signing.
+      </p>
+
+      <h3 style="margin: 24px 0 8px; font-size: 15px; color: #1a237e;">Lease Summary</h3>
+      <table class="terms-table">
+        <tr>
+          <th>Term</th>
+          <th>Detail</th>
+        </tr>
+        <tr>
+          <td><strong>Property</strong></td>
+          <td>{{SPACE_ADDRESS}}</td>
+        </tr>
+        <tr>
+          <td><strong>Size</strong></td>
+          <td>{{SPACE_SIZE}} sq ft</td>
+        </tr>
+        <tr>
+          <td><strong>Monthly Rent</strong></td>
+          <td>${{MONTHLY_RENT}}</td>
+        </tr>
+        <tr>
+          <td><strong>Security Deposit</strong></td>
+          <td>${{SECURITY_DEPOSIT}}</td>
+        </tr>
+        <tr>
+          <td><strong>Lease Term</strong></td>
+          <td>{{LEASE_TERM}}</td>
+        </tr>
+        <tr>
+          <td><strong>Move-In Date</strong></td>
+          <td>{{AVAILABLE_DATE}}</td>
+        </tr>
+        <tr>
+          <td><strong>Utilities</strong></td>
+          <td>{{UTILITIES_DETAIL}}</td>
+        </tr>
+      </table>
+
+      <div class="deadline-box">
+        <strong>Proposal Deadline:</strong> This offer is held until <strong>{{SIGNING_DEADLINE}}</strong>.
+        After that, we may need to re-evaluate based on other interest.
+      </div>
+
+      <p>
+        The full lease document is ready for your review. You can read it in your browser — no account required:
+      </p>
+
+      <p style="text-align: center; margin: 28px 0;">
+        <a href="{{LEASE_DRAFT_LINK}}" class="cta-btn">Review & Sign the Lease</a>
+      </p>
+
+      <div class="secondary-link">
+        Prefer to review a PDF first? <a href="{{LEASE_PDF_LINK}}">Download the PDF here</a>
+      </div>
+
+      <p style="margin-top: 28px;">
+        I'm available any time this week to walk through the document together over a quick call
+        if that helps. Just say the word.
+      </p>
+
+      <p>Looking forward to welcoming {{BUSINESS_NAME}} to the space, {{FIRST_NAME}}.</p>
+
+      <p>
+        <strong>{{YOUR_NAME}}</strong><br />
+        {{YOUR_PHONE}}<br />
+        {{YOUR_EMAIL}}
+      </p>
+    </div>
+
+    <div class="footer">
+      Questions? Reply to this email or call {{YOUR_PHONE}} directly.
+    </div>
+  </div>
+</body>
+</html>
