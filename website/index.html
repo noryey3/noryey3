@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ════════════════════════════════════════
+       SEO — Edit these for every update
+  ════════════════════════════════════════ -->
+  <title>Lee Brady — Luxury Real Estate, Washington DC Metro | Century 21 New Millennium</title>
+  <meta name="description" content="Lee Brady is a luxury real estate agent with 20+ years serving McLean, Great Falls, Tysons Corner, and Washington DC. $340M+ in lifetime sales. Contact Lee for expert representation." />
+  <meta name="author" content="Lee Brady" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.leebrady.com/" />
+
+  <!-- Open Graph (Facebook / LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Lee Brady — Luxury Real Estate, Washington DC Metro" />
+  <meta property="og:description" content="Twenty years of representing buyers, sellers, and investors across McLean, Great Falls, Tysons Corner, and the Washington DC metro." />
+  <meta property="og:url" content="https://www.leebrady.com/" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Lee Brady Real Estate" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lee Brady — Luxury Real Estate, Washington DC Metro" />
+  <meta name="twitter:description" content="Twenty years of representing buyers, sellers, and investors across McLean, Great Falls, Tysons Corner, and the Washington DC metro." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ════════════════════════════════════════
+       JSON-LD Structured Data (SEO)
+       Edit phone, address, and social URLs
+  ════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "Lee Brady",
+    "url": "https://www.leebrady.com",
+    "logo": "https://www.leebrady.com/logo.png",
+    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80",
+    "description": "Luxury real estate representation across McLean, Great Falls, Tysons Corner, and the Washington DC metro. Twenty years. One philosophy.",
+    "telephone": "+15715551234",
+    "email": "lee@leebrady.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Century 21 New Millennium",
+      "addressLocality": "McLean",
+      "addressRegion": "VA",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "McLean", "containedIn": "Virginia" },
+      { "@type": "City", "name": "Great Falls", "containedIn": "Virginia" },
+      { "@type": "City", "name": "Tysons Corner", "containedIn": "Virginia" },
+      { "@type": "City", "name": "Washington", "containedIn": "District of Columbia" },
+      { "@type": "City", "name": "Arlington", "containedIn": "Virginia" },
+      { "@type": "City", "name": "Vienna", "containedIn": "Virginia" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/leebrady",
+      "https://www.linkedin.com/in/leebrady"
+    ],
+    "knowsAbout": ["Luxury Real Estate", "Residential Real Estate", "Northern Virginia", "Washington DC Metro"],
+    "memberOf": {
+      "@type": "Organization",
+      "name": "Century 21 New Millennium"
+    }
+  }
+  </script>
+
+  <style>
+    /* ════════════════════════════════════════
+       DESIGN TOKENS — Edit colors/fonts here
+    ════════════════════════════════════════ */
+    :root {
+      --ink:        #0e0d0b;
+      --ink-soft:   #1a1814;
+      --paper:      #f5f1ea;
+      --paper-warm: #ebe5d9;
+      --gold:       #b8924a;
+      --gold-light: #d4b072;
+      --muted:      #6b665d;
+      --line:       rgba(245, 241, 234, 0.12);
+      --line-dark:  rgba(14, 13, 11, 0.12);
+      --display:    'Fraunces', 'Times New Roman', serif;
+      --body:       'Inter Tight', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--gold); color: var(--ink); }
+
+    /* ── NAV ─────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+      mix-blend-mode: difference;
+    }
+    .nav.scrolled {
+      mix-blend-mode: normal;
+      background: rgba(14, 13, 11, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 3rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      color: white;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      font-style: italic;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold-light); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 400;
+      transition: opacity 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 1px;
+      background: var(--gold-light);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      color: white;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.4);
+      transition: all 0.3s;
+    }
+    .nav-cta:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+
+    /* ── HERO ────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+      background: var(--ink);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(14,13,11,0.3) 0%, rgba(14,13,11,0.5) 50%, rgba(14,13,11,0.85) 100%),
+        url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2000&q=80') center/cover;
+      transform: scale(1.05);
+      animation: slowZoom 20s ease-out infinite alternate;
+    }
+    @keyframes slowZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.15); }
+    }
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--gold-light);
+    }
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      line-height: 0.95;
+      color: var(--paper);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      max-width: 1000px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1.2s 0.5s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-light); font-weight: 300; }
+    .hero-sub {
+      color: rgba(245, 241, 234, 0.75);
+      font-size: 1.05rem;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.8s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s 1s forwards;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1.1rem 2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(.25,.8,.3,1);
+      border: none;
+      font-family: var(--body);
+      font-weight: 500;
+    }
+    .btn-primary { background: var(--gold); color: var(--ink); }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(184, 146, 74, 0.3);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--paper);
+      border: 1px solid rgba(245, 241, 234, 0.3);
+    }
+    .btn-ghost:hover {
+      border-color: var(--paper);
+      background: rgba(245, 241, 234, 0.05);
+    }
+    .btn-arrow { transition: transform 0.3s; }
+    .btn:hover .btn-arrow { transform: translateX(4px); }
+
+    .hero-meta {
+      position: absolute;
+      bottom: 2rem; right: 3rem;
+      z-index: 2;
+      text-align: right;
+      color: rgba(245, 241, 234, 0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem; left: 3rem;
+      z-index: 2;
+      color: rgba(245, 241, 234, 0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px; height: 60px;
+      background: linear-gradient(to top, transparent, var(--gold-light));
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+      50%       { opacity: 1;   transform: scaleY(1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MARQUEE ─────────────────────────── */
+    .marquee {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.5rem 0;
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 4rem;
+      white-space: nowrap;
+      animation: marquee 40s linear infinite;
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+    }
+    .marquee-track span { color: var(--gold-light); margin: 0 1rem; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION BASE ────────────────────── */
+    section { padding: 8rem 3rem; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* ── FEATURED LISTINGS ───────────────── */
+    .listings { background: var(--paper); }
+    .listings-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 5rem;
+    }
+    .listings-intro p {
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+      font-size: 1rem;
+      margin-left: auto;
+    }
+
+    /* RealScout placeholder — replace div contents with your embed code */
+    .realscout-slot {
+      border: 2px dashed rgba(184, 146, 74, 0.4);
+      background: rgba(184, 146, 74, 0.05);
+      padding: 2rem;
+      margin-bottom: 4rem;
+      text-align: center;
+      border-radius: 2px;
+    }
+    .realscout-slot-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .realscout-slot-text {
+      font-family: var(--display);
+      font-style: italic;
+      color: var(--ink-soft);
+      font-size: 1.1rem;
+    }
+
+    .listings-grid {
+      display: grid;
+      grid-template-columns: 5fr 4fr 5fr;
+      gap: 2rem;
+    }
+    .listing-card {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.5s cubic-bezier(.25,.8,.3,1);
+    }
+    .listing-card:nth-child(2) { margin-top: 4rem; }
+    .listing-card:nth-child(3) { margin-top: 1.5rem; }
+    .listing-card:hover { transform: translateY(-8px); }
+    .listing-image {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      background: var(--ink);
+    }
+    .listing-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(.25,.8,.3,1);
+      filter: brightness(0.95);
+    }
+    .listing-card:hover .listing-image img {
+      transform: scale(1.06);
+      filter: brightness(1);
+    }
+    .listing-tag {
+      position: absolute;
+      top: 1.2rem; left: 1.2rem;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .listing-tag.sold { background: var(--ink); color: var(--paper); }
+    .listing-tag.new  { background: var(--gold); }
+    .listing-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+    .listing-price {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+    .listing-specs {
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .listing-address {
+      color: var(--ink);
+      font-size: 0.95rem;
+      line-height: 1.4;
+      border-top: 1px solid var(--line-dark);
+      padding-top: 0.8rem;
+    }
+    .listing-area {
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 0.3rem;
+    }
+    .listings-cta {
+      text-align: center;
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--line-dark);
+    }
+    .listings-cta a {
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 1.5rem;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 4px;
+      transition: color 0.3s;
+    }
+    .listings-cta a:hover { color: var(--gold); }
+
+    /* ── ABOUT ───────────────────────────── */
+    .about {
+      background: var(--paper-warm);
+      position: relative;
+      overflow: hidden;
+    }
+    .about::before {
+      content: '01';
+      position: absolute;
+      top: 4rem; right: 3rem;
+      font-family: var(--display);
+      font-size: 8rem;
+      color: rgba(14, 13, 11, 0.04);
+      font-weight: 300;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .about-image {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .about-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.15) contrast(1.05);
+    }
+    .about-image-tag {
+      position: absolute;
+      bottom: 1.5rem; left: 1.5rem;
+      background: var(--paper);
+      padding: 0.6rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .about-text h2 {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1.05;
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      margin-bottom: 2rem;
+    }
+    .about-text h2 em { font-style: italic; color: var(--gold); }
+    .about-text p {
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+    .about-text p:first-of-type::first-letter {
+      font-family: var(--display);
+      font-size: 4rem;
+      float: left;
+      line-height: 0.85;
+      margin: 0.3rem 0.7rem 0 0;
+      color: var(--gold);
+      font-style: italic;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--line-dark);
+    }
+    .stat-num {
+      font-family: var(--display);
+      font-size: 2.8rem;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .stat-num em { font-style: italic; color: var(--gold); }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── NEIGHBORHOODS ───────────────────── */
+    .neighborhoods {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .neighborhoods .section-label { color: rgba(245, 241, 234, 0.6); }
+    .neighborhoods-header {
+      text-align: center;
+      margin-bottom: 5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .neighborhoods-header .section-label { justify-content: center; }
+    .neighborhoods-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .neighborhood-card {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .neighborhood-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14,13,11,0.1) 0%, rgba(14,13,11,0.85) 100%);
+      z-index: 1;
+      transition: opacity 0.5s;
+    }
+    .neighborhood-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.5s cubic-bezier(.25,.8,.3,1);
+    }
+    .neighborhood-card:hover img { transform: scale(1.08); }
+    .neighborhood-content {
+      position: absolute;
+      inset: 0; z-index: 2;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .neighborhood-num {
+      font-family: var(--display);
+      font-style: italic;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+    }
+    .neighborhood-info h3 {
+      font-family: var(--display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      color: var(--paper);
+    }
+    .neighborhood-state {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+    }
+    .neighborhood-desc {
+      color: rgba(245, 241, 234, 0.7);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 380px;
+      margin-bottom: 1.5rem;
+    }
+    .neighborhood-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(245, 241, 234, 0.15);
+    }
+    .neighborhood-price {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--paper);
+    }
+    .neighborhood-link {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.3s;
+    }
+    .neighborhood-card:hover .neighborhood-link { gap: 1rem; }
+
+    /* ── HOME VALUATION (RealScout slot 2) ── */
+    .valuation {
+      background: var(--paper-warm);
+      text-align: center;
+    }
+    .valuation-title {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.05;
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+    }
+    .valuation-title em { font-style: italic; color: var(--gold); }
+    .valuation-sub {
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+
+    /* ── TESTIMONIAL ─────────────────────── */
+    .testimonial {
+      background: var(--paper);
+      padding: 10rem 3rem;
+      position: relative;
+    }
+    .testimonial-mark {
+      font-family: var(--display);
+      font-size: 18rem;
+      line-height: 0.5;
+      color: var(--gold);
+      opacity: 0.18;
+      position: absolute;
+      top: 8rem; left: 50%;
+      transform: translateX(-50%);
+      font-style: italic;
+      pointer-events: none;
+      user-select: none;
+    }
+    .testimonial-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+    .testimonial-item { display: none; }
+    .testimonial-item.active { display: block; }
+    .testimonial-quote {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.4;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 3rem;
+      letter-spacing: -0.01em;
+    }
+    .testimonial-author {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .testimonial-author img {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .testimonial-name { text-align: left; }
+    .testimonial-name strong {
+      display: block;
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+    .testimonial-name span {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .testimonial-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 4rem;
+    }
+    .testimonial-dot {
+      width: 30px; height: 1px;
+      background: var(--line-dark);
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      padding: 4px 0;
+      background-clip: content-box;
+    }
+    .testimonial-dot.active { background: var(--gold); background-clip: content-box; }
+
+    /* ── CONTACT ─────────────────────────── */
+    .contact {
+      background: var(--ink);
+      color: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at top right, rgba(184, 146, 74, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom left, rgba(184, 146, 74, 0.08) 0%, transparent 50%);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 6rem;
+      position: relative;
+      z-index: 1;
+    }
+    .contact h2 {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      margin-bottom: 2rem;
+      color: var(--paper);
+    }
+    .contact h2 em { font-style: italic; color: var(--gold-light); }
+    .contact > .container > .contact-grid > div > p {
+      color: rgba(245, 241, 234, 0.7);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 3rem;
+      font-size: 1.05rem;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .contact-item {
+      border-top: 1px solid rgba(245, 241, 234, 0.12);
+      padding-top: 1.2rem;
+    }
+    .contact-item-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .contact-item-value {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      color: var(--paper);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: block;
+    }
+    .contact-item a.contact-item-value:hover { color: var(--gold-light); }
+    .contact-form {
+      background: rgba(245, 241, 234, 0.04);
+      border: 1px solid rgba(245, 241, 234, 0.1);
+      padding: 3rem;
+      backdrop-filter: blur(10px);
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(245, 241, 234, 0.6);
+      margin-bottom: 0.6rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(245, 241, 234, 0.2);
+      padding: 0.7rem 0;
+      color: var(--paper);
+      font-family: var(--body);
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-bottom-color: var(--gold-light);
+    }
+    .form-group select option { background: var(--ink); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .contact-form .btn-primary {
+      width: 100%;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .form-success {
+      display: none;
+      color: var(--gold-light);
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* ── FOOTER ──────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(245, 241, 234, 0.6);
+      padding: 4rem 3rem 2rem;
+      border-top: 1px solid var(--line);
+    }
+    .footer-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand .footer-logo {
+      font-family: var(--display);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-style: italic;
+      letter-spacing: -0.02em;
+    }
+    .footer-brand .footer-logo span { color: var(--gold-light); }
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 360px;
+    }
+    .footer-col h4 {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.7rem; }
+    .footer-col a {
+      color: rgba(245, 241, 234, 0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+    .footer-bottom p { color: rgba(245, 241, 234, 0.4); }
+
+    /* ── SCROLL REVEAL ───────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────── */
+    @media (max-width: 968px) {
+      .nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      .hero-content { padding: 0 1.5rem 4rem; }
+      .hero-meta,
+      .hero-scroll { display: none; }
+      .listings-header { grid-template-columns: 1fr; gap: 2rem; }
+      .listings-intro p { margin-left: 0; }
+      .listings-grid { grid-template-columns: 1fr; }
+      .listing-card:nth-child(2),
+      .listing-card:nth-child(3) { margin-top: 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .neighborhoods-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-form { padding: 2rem; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .testimonial-mark { font-size: 10rem; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAV
+     Edit: logo text, phone number, links
+════════════════════════════════════════ -->
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#" class="nav-logo" aria-label="Lee Brady Real Estate homepage">Brady<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#listings">Properties</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#neighborhoods">Neighborhoods</a></li>
+    <li><a href="#valuation">Home Value</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- ↓ Edit phone number here AND in the contact section below -->
+  <a href="tel:5715551234" class="nav-cta" aria-label="Call Lee Brady">571.555.1234</a>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+     Edit: headline, subtext, button links,
+     and the background image URL in CSS (.hero-bg)
+════════════════════════════════════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg" role="img" aria-label="Luxury home exterior"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Lee Brady · Century 21 New Millennium</p>
+    <h1 class="hero-title">
+      A quieter way to buy <em>extraordinary</em> homes in Northern Virginia.
+    </h1>
+    <p class="hero-sub">
+      Twenty years of representing buyers, sellers, and investors across McLean,
+      Great Falls, Tysons Corner, and the Washington DC metro.
+    </p>
+    <div class="hero-actions">
+      <a href="#listings" class="btn btn-primary">
+        View Properties
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a href="#contact" class="btn btn-ghost">Schedule Consultation</a>
+    </div>
+  </div>
+  <p class="hero-scroll" aria-hidden="true">Scroll to explore</p>
+  <p class="hero-meta" aria-hidden="true">© MMXXVI<br/>Established 2005</p>
+</section>
+
+<!-- ═══════════════════════════════════════
+     MARQUEE — Edit the area names
+════════════════════════════════════════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>✦</span> McLean <span>✦</span> Great Falls <span>✦</span> Tysons Corner
+    <span>✦</span> Washington DC <span>✦</span> Arlington <span>✦</span> Vienna
+    <span>✦</span> Falls Church <span>✦</span> Ashburn
+    <span>✦</span> McLean <span>✦</span> Great Falls <span>✦</span> Tysons Corner
+    <span>✦</span> Washington DC <span>✦</span> Arlington <span>✦</span> Vienna
+    <span>✦</span> Falls Church <span>✦</span> Ashburn
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     FEATURED LISTINGS
+     ① Replace the .realscout-slot div with
+       your RealScout embed code when ready.
+     ② Edit each listing card: image, price,
+       beds/baths, address, area, tag status
+════════════════════════════════════════ -->
+<section class="listings" id="listings">
+  <div class="container">
+
+    <div class="listings-header reveal">
+      <div>
+        <p class="section-label">Currently Representing</p>
+        <h2 class="section-title">Featured <em>properties</em></h2>
+      </div>
+      <div class="listings-intro">
+        <p>A curated selection of homes currently on the market. For the complete portfolio of active and upcoming listings, browse the full search below.</p>
+      </div>
+    </div>
+
+    <!-- ★ REALSCOUT SLOT 1 — Replace this div with your embed code -->
+    <div class="realscout-slot reveal">
+      <p class="realscout-slot-label">◆ RealScout Widget ◆</p>
+      <p class="realscout-slot-text">"Office Listings" or "Featured Listings" embed code goes here</p>
+    </div>
+    <!-- ★ END REALSCOUT SLOT 1 -->
+
+    <div class="listings-grid">
+
+      <!-- Listing 1 — Edit: href, image src/alt, tag class, price, specs, address, area -->
+      <a href="#" class="listing-card reveal">
+        <div class="listing-image">
+          <img
+            src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80"
+            alt="Luxury home at 9024 Old Dominion Drive, McLean Virginia"
+            width="800"
+            loading="lazy"
+          />
+          <span class="listing-tag new">New</span>
+        </div>
+        <div class="listing-meta">
+          <span class="listing-price">$3,495,000</span>
+          <span class="listing-specs">5 BD · 6 BA · 7,200 SF</span>
+        </div>
+        <p class="listing-address">9024 Old Dominion Drive</p>
+        <p class="listing-area">McLean, Virginia</p>
+      </a>
+
+      <!-- Listing 2 -->
+      <a href="#" class="listing-card reveal">
+        <div class="listing-image">
+          <img
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+            alt="Luxury home at 1247 Riverbend Road, Great Falls Virginia"
+            width="800"
+            loading="lazy"
+          />
+          <span class="listing-tag">Active</span>
+        </div>
+        <div class="listing-meta">
+          <span class="listing-price">$2,150,000</span>
+          <span class="listing-specs">4 BD · 4.5 BA · 4,850 SF</span>
+        </div>
+        <p class="listing-address">1247 Riverbend Road</p>
+        <p class="listing-area">Great Falls, Virginia</p>
+      </a>
+
+      <!-- Listing 3 -->
+      <a href="#" class="listing-card reveal">
+        <div class="listing-image">
+          <img
+            src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80"
+            alt="Luxury estate at 812 Chain Bridge Road, McLean Virginia"
+            width="800"
+            loading="lazy"
+          />
+          <span class="listing-tag sold">Sold</span>
+        </div>
+        <div class="listing-meta">
+          <span class="listing-price">$4,800,000</span>
+          <span class="listing-specs">6 BD · 7 BA · 9,100 SF</span>
+        </div>
+        <p class="listing-address">812 Chain Bridge Road</p>
+        <p class="listing-area">McLean, Virginia</p>
+      </a>
+
+    </div>
+
+    <div class="listings-cta reveal">
+      <a href="#">Browse the complete portfolio →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ABOUT
+     Edit: photo (src/alt), headline, body
+     text, and the 3 stats
+════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-image reveal">
+        <!-- ↓ Replace with Lee's actual photo -->
+        <img
+          src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80"
+          alt="Lee Brady, Realtor — Century 21 New Millennium, McLean Virginia"
+          width="800"
+          loading="lazy"
+        />
+        <span class="about-image-tag">Lee Brady · Realtor®</span>
+      </div>
+
+      <div class="about-text reveal">
+        <p class="section-label">About</p>
+        <h2>Twenty years. <em>One philosophy.</em></h2>
+        <p>
+          Real estate, at its best, is quiet work. It is the unhurried walkthrough at dusk.
+          The third draft of an offer letter. The phone call that lasts an hour because the
+          right answer was never simple.
+        </p>
+        <p>
+          Based in Northern Virginia and licensed across the DC metro, I represent a small,
+          intentional roster of clients each year — buyers seeking a forever home in McLean,
+          sellers preparing a Great Falls estate, families relocating into Tysons. The work
+          is bespoke. The standard is uncompromising.
+        </p>
+
+        <!-- ↓ Edit the 3 stats -->
+        <div class="about-stats">
+          <div>
+            <p class="stat-num">$<em>340</em>M+</p>
+            <p class="stat-label">Lifetime Sales</p>
+          </div>
+          <div>
+            <p class="stat-num"><em>20</em>yr</p>
+            <p class="stat-label">In Practice</p>
+          </div>
+          <div>
+            <p class="stat-num"><em>500</em>+</p>
+            <p class="stat-label">Families Served</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     NEIGHBORHOODS
+     Edit: each card's image, name, state/zip,
+     description, price range, active count
+════════════════════════════════════════ -->
+<section class="neighborhoods" id="neighborhoods">
+  <div class="container">
+
+    <header class="neighborhoods-header reveal">
+      <p class="section-label">Areas of Expertise</p>
+      <h2 class="section-title">The <em>neighborhoods</em><br/>I know by heart.</h2>
+    </header>
+
+    <div class="neighborhoods-grid">
+
+      <a href="#" class="neighborhood-card reveal">
+        <img
+          src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80"
+          alt="Luxury home in McLean, Virginia"
+          width="1200"
+          loading="lazy"
+        />
+        <div class="neighborhood-content">
+          <span class="neighborhood-num" aria-hidden="true">— I.</span>
+          <div class="neighborhood-info">
+            <h3>McLean</h3>
+            <p class="neighborhood-state">Virginia · 22101 / 22102</p>
+            <p class="neighborhood-desc">Historic estates, modern luxury homes, and the quiet prestige of one of the region's most established communities.</p>
+            <div class="neighborhood-stats">
+              <span class="neighborhood-price">$2.5M – $8M</span>
+              <span class="neighborhood-link">45 Active <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="neighborhood-card reveal">
+        <img
+          src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80"
+          alt="Estate home in Great Falls, Virginia"
+          width="1200"
+          loading="lazy"
+        />
+        <div class="neighborhood-content">
+          <span class="neighborhood-num" aria-hidden="true">— II.</span>
+          <div class="neighborhood-info">
+            <h3>Great Falls</h3>
+            <p class="neighborhood-state">Virginia · 22066</p>
+            <p class="neighborhood-desc">Sprawling acreage and natural beauty just minutes from the city — a rare combination of privacy and access.</p>
+            <div class="neighborhood-stats">
+              <span class="neighborhood-price">$3M – $12M</span>
+              <span class="neighborhood-link">32 Active <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="neighborhood-card reveal">
+        <img
+          src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1200&q=80"
+          alt="Modern home in Tysons Corner, Virginia"
+          width="1200"
+          loading="lazy"
+        />
+        <div class="neighborhood-content">
+          <span class="neighborhood-num" aria-hidden="true">— III.</span>
+          <div class="neighborhood-info">
+            <h3>Tysons Corner</h3>
+            <p class="neighborhood-state">Virginia · 22102 / 22182</p>
+            <p class="neighborhood-desc">Urban sophistication with suburban comfort. The DC metro's thriving business core, with residential character.</p>
+            <div class="neighborhood-stats">
+              <span class="neighborhood-price">$1.8M – $5M</span>
+              <span class="neighborhood-link">68 Active <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="neighborhood-card reveal">
+        <img
+          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80"
+          alt="Historic townhome in Washington DC"
+          width="1200"
+          loading="lazy"
+        />
+        <div class="neighborhood-content">
+          <span class="neighborhood-num" aria-hidden="true">— IV.</span>
+          <div class="neighborhood-info">
+            <h3>Washington DC</h3>
+            <p class="neighborhood-state">District of Columbia</p>
+            <p class="neighborhood-desc">Historic brownstones and luxury condominiums in the heart of the nation's capital — Georgetown, Kalorama, Logan Circle.</p>
+            <div class="neighborhood-stats">
+              <span class="neighborhood-price">$2M – $15M</span>
+              <span class="neighborhood-link">124 Active <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     HOME VALUATION
+     ★ REALSCOUT SLOT 2 — Replace the
+       .realscout-slot div with your
+       "Home Value" embed code
+════════════════════════════════════════ -->
+<section class="valuation" id="valuation">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label" style="justify-content: center;">Home Valuation</p>
+      <h2 class="valuation-title">What is your home <em>worth</em> today?</h2>
+      <p class="valuation-sub">
+        A complimentary, data-driven valuation based on current market activity,
+        comparable sales, and 20 years of local insight.
+      </p>
+      <!-- ★ REALSCOUT SLOT 2 — Replace this div with your embed code -->
+      <div class="realscout-slot" style="max-width: 700px; margin: 0 auto;">
+        <p class="realscout-slot-label">◆ RealScout Widget ◆</p>
+        <p class="realscout-slot-text">"Home Value" embed code goes here</p>
+      </div>
+      <!-- ★ END REALSCOUT SLOT 2 -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     TESTIMONIALS
+     Edit: each testimonial's quote, name,
+     location, and photo (src/alt).
+     Add more .testimonial-item blocks to
+     add more testimonials.
+════════════════════════════════════════ -->
+<section class="testimonial" aria-label="Client testimonials">
+  <p class="testimonial-mark" aria-hidden="true">"</p>
+  <div class="testimonial-content reveal">
+
+    <!-- Testimonial 1 -->
+    <div class="testimonial-item active" id="testimonial-0">
+      <blockquote class="testimonial-quote">
+        Lee handled the sale of our Great Falls home with a calm authority I haven't
+        seen in twenty years of buying and selling. He didn't sell us — he advised us.
+        There's a meaningful difference.
+      </blockquote>
+      <div class="testimonial-author">
+        <img
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80"
+          alt="Margaret Chen"
+          width="50"
+          loading="lazy"
+        />
+        <div class="testimonial-name">
+          <strong>Margaret Chen</strong>
+          <span>Great Falls, VA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial 2 — duplicate and edit to add more -->
+    <div class="testimonial-item" id="testimonial-1">
+      <blockquote class="testimonial-quote">
+        Working with Lee to find our home in McLean was unlike any real estate
+        experience we'd had before. Methodical, patient, and genuinely on our side
+        at every step.
+      </blockquote>
+      <div class="testimonial-author">
+        <img
+          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80"
+          alt="James Whitfield"
+          width="50"
+          loading="lazy"
+        />
+        <div class="testimonial-name">
+          <strong>James Whitfield</strong>
+          <span>McLean, VA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial 3 -->
+    <div class="testimonial-item" id="testimonial-2">
+      <blockquote class="testimonial-quote">
+        Lee sold our Tysons property in eleven days — well above asking. But what
+        I remember most is that he was reachable every single time I called.
+      </blockquote>
+      <div class="testimonial-author">
+        <img
+          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80"
+          alt="Priya Nair"
+          width="50"
+          loading="lazy"
+        />
+        <div class="testimonial-name">
+          <strong>Priya Nair</strong>
+          <span>Tysons Corner, VA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial 4 -->
+    <div class="testimonial-item" id="testimonial-3">
+      <blockquote class="testimonial-quote">
+        In a market this competitive, having Lee in your corner is the difference
+        between a bidding war and a signed contract. He knows every neighborhood,
+        every nuance.
+      </blockquote>
+      <div class="testimonial-author">
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
+          alt="Robert Dolan"
+          width="50"
+          loading="lazy"
+        />
+        <div class="testimonial-name">
+          <strong>Robert Dolan</strong>
+          <span>Washington, DC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation dots — auto-generated by JS, but manually editable too -->
+    <div class="testimonial-nav" role="tablist" aria-label="Testimonial navigation">
+      <button class="testimonial-dot active" data-index="0" aria-label="Testimonial 1" role="tab" aria-selected="true"></button>
+      <button class="testimonial-dot" data-index="1" aria-label="Testimonial 2" role="tab" aria-selected="false"></button>
+      <button class="testimonial-dot" data-index="2" aria-label="Testimonial 3" role="tab" aria-selected="false"></button>
+      <button class="testimonial-dot" data-index="3" aria-label="Testimonial 4" role="tab" aria-selected="false"></button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CONTACT
+     Edit: phone, email, office name.
+     The form submits to Formspree —
+     replace YOUR_FORM_ID with your
+     Formspree form ID (free at formspree.io)
+     OR wire up to your CRM/Make.com webhook.
+════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="reveal">
+        <p class="section-label" style="color: rgba(245, 241, 234, 0.6);">Get in touch</p>
+        <h2>Let's begin a <em>conversation</em>.</h2>
+        <p>
+          Whether you're considering a move, planning a sale, or simply curious about
+          the market — I'd welcome the chance to talk. Most relationships begin with a
+          single, unhurried phone call.
+        </p>
+
+        <div class="contact-info">
+          <!-- ↓ Edit phone, email, office -->
+          <div class="contact-item">
+            <p class="contact-item-label">Direct</p>
+            <a href="tel:5715551234" class="contact-item-value">571 · 555 · 1234</a>
+          </div>
+          <div class="contact-item">
+            <p class="contact-item-label">Email</p>
+            <a href="mailto:lee@leebrady.com" class="contact-item-value">lee@leebrady.com</a>
+          </div>
+          <div class="contact-item">
+            <p class="contact-item-label">Office</p>
+            <span class="contact-item-value">
+              Century 21 New Millennium<br/>McLean, Virginia
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form
+           Option A (simple): Use Formspree — sign up at formspree.io, get a form ID,
+             replace YOUR_FORM_ID in the action URL below.
+           Option B (CRM): Change the action to your Make.com webhook URL.
+      -->
+      <div class="contact-form reveal">
+        <form
+          id="contact-form"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          novalidate
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input id="first-name" type="text" name="first_name" required autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input id="last-name" type="text" name="last_name" required autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" name="phone" autocomplete="tel" />
+          </div>
+          <div class="form-group">
+            <label for="interest">I'm interested in</label>
+            <select id="interest" name="interest">
+              <option>Buying a home</option>
+              <option>Selling my home</option>
+              <option>A market consultation</option>
+              <option>Just exploring</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Send Message
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </form>
+        <p class="form-success" id="form-success" role="status">
+          Thank you — Lee will be in touch shortly.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+     Edit: links, social URLs, office info
+════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo" aria-label="Lee Brady Real Estate">Brady<span>.</span></a>
+      <p>Luxury real estate representation across McLean, Great Falls, Tysons Corner, and the Washington DC metro. Twenty years. One philosophy.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#listings">Properties</a></li>
+        <li><a href="#neighborhoods">Neighborhoods</a></li>
+        <li><a href="#valuation">Home Value</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <!-- ↓ Replace # with actual social profile URLs -->
+        <li><a href="#" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="#" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:lee@leebrady.com">Email</a></li>
+        <li><a href="tel:5715551234">Phone</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Office</h4>
+      <ul>
+        <li>Century 21 New Millennium</li>
+        <li>McLean, Virginia</li>
+        <li>Licensed in VA, DC, MD</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Lee Brady · All rights reserved</p>
+    <p>Equal Housing Opportunity · Bright MLS</p>
+  </div>
+</footer>
+
+<script>
+  // ── NAV scroll behavior ─────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 100);
+  }, { passive: true });
+
+  // ── Reveal on scroll ────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Testimonial slider ──────────────────
+  const items = document.querySelectorAll('.testimonial-item');
+  const dots  = document.querySelectorAll('.testimonial-dot');
+  let current = 0;
+  let autoplay;
+
+  function goTo(index) {
+    items[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    dots[current].setAttribute('aria-selected', 'false');
+    current = index;
+    items[current].classList.add('active');
+    dots[current].classList.add('active');
+    dots[current].setAttribute('aria-selected', 'true');
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(autoplay);
+      goTo(i);
+      autoplay = setInterval(() => goTo((current + 1) % items.length), 6000);
+    });
+  });
+
+  autoplay = setInterval(() => goTo((current + 1) % items.length), 6000);
+
+  // ── Contact form (Formspree AJAX) ───────
+  const form    = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          // Fallback: let the browser submit normally
+          form.submit();
+        }
+      } catch {
+        form.submit();
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
